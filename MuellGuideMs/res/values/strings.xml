@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Müll Guide MS</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="testeingabeaufforderung">Bitte was eingeben....</string>
+    <string name="speichern">Speichern</string>
+    <string name="testausgabe">Liste der gespeicherten Einträge</string>
+    <string name="testaktualisieren">Liste aktualisieren</string>
+    <string name="title_activity_parse_test">ParseTestActivity</string>
+    <string name="testparse">PARSE Test</string>
+
+</resources>
