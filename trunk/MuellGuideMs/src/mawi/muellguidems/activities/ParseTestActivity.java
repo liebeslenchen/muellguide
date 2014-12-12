@@ -3,6 +3,7 @@ package mawi.muellguidems.activities;
 import java.util.ArrayList;
 import java.util.List;
 
+import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,8 +13,8 @@ import android.widget.ListView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
 public class ParseTestActivity extends Activity {
 
@@ -28,11 +29,15 @@ public class ParseTestActivity extends Activity {
 	public void onClickBtnSave(View view) {
 		EditText input = (EditText) findViewById(R.id.etInput);
 
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("Test", input.getText().toString());
-		testObject.saveInBackground();
+		TestObject testObject = new TestObject();
+
+		testObject.setTest(input.getText().toString());
+		testObject.saveInBackground(new SaveCallback() {
+			public void done(ParseException e) {
+				fillListView();
+			}
+		});
 		input.setText("");
-		fillListView();
 	}
 
 	public void onClickBtnUpdate(View view) {
@@ -47,15 +52,15 @@ public class ParseTestActivity extends Activity {
 
 	private void fillListView() {
 		// Parse TestObject auslesen
-		ParseQuery<ParseObject> query = ParseQuery.getQuery("TestObject");
-		query.findInBackground(new FindCallback<ParseObject>() {
+		ParseQuery<TestObject> query = TestObject.getQuery();
+		query.findInBackground(new FindCallback<TestObject>() {
 
 			@Override
-			public void done(List<ParseObject> objects, ParseException e) {
+			public void done(List<TestObject> objects, ParseException e) {
 				if (e == null) {
 					ArrayList<String> outputTest = new ArrayList<String>();
-					for (ParseObject testObject : objects) {
-						String test = testObject.getString("Test");
+					for (TestObject testObject : objects) {
+						String test = testObject.getTest();
 						outputTest.add(test);
 					}
 					ListView listView = (ListView) findViewById(R.id.lvOutput);

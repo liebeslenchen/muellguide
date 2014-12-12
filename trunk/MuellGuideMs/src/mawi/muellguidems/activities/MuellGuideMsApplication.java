@@ -1,10 +1,12 @@
 package mawi.muellguidems.activities;
 
+import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class MuellGuideMsApplication extends Application {
@@ -28,5 +30,8 @@ public class MuellGuideMsApplication extends Application {
 		defaultACL.setPublicReadAccess(true);
 
 		ParseACL.setDefaultACL(defaultACL, true);
+
+		// Parse-Objekte registrieren
+		ParseObject.registerSubclass(TestObject.class);
 	}
 }
