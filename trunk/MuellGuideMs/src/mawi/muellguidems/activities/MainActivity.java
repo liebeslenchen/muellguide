@@ -18,4 +18,9 @@ public class MainActivity extends Activity {
 		Intent intentParseTest = new Intent(this, ParseTestActivity.class);
 		startActivity(intentParseTest);
 	}
+
+	public void onClickBtnMaps(View view) {
+		Intent mapsIntent = new Intent(this, MapsActivity.class);
+		startActivity(mapsIntent);
+	}
 }
