@@ -9,5 +9,8 @@
     <string name="testaktualisieren">Liste aktualisieren</string>
     <string name="title_activity_parse_test">ParseTestActivity</string>
     <string name="testparse">PARSE Test</string>
+    <string name="testmaps">Maps Test</string>
+    <string name="title_activity_maps_">Maps Activity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
