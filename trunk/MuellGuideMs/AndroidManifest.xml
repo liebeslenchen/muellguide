@@ -47,11 +47,18 @@
             android:name=".ParseTestActivity"
             android:label="@string/title_activity_parse_test" >
         </activity>
-
-        <meta-data
+ 
+        <!-- Andriod Key Lena -->
+        <!-- 
+        <meta-data  
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
-        <meta-data
+         --> 
+        <!-- Andriod Key Marlen -->
+        <meta-data  
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDCAnvvqIj4gt2m-lmIuiAxJkta6_vbdg8" />
+        <meta-data 
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
