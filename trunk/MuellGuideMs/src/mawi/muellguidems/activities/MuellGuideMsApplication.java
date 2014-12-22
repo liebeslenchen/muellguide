@@ -1,5 +1,6 @@
 package mawi.muellguidems.activities;
 
+import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Application;
 
@@ -33,5 +34,6 @@ public class MuellGuideMsApplication extends Application {
 
 		// Parse-Objekte registrieren
 		ParseObject.registerSubclass(TestObject.class);
+		ParseObject.registerSubclass(Standort.class);
 	}
 }
