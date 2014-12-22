@@ -21,11 +21,13 @@ public class Gegenstand extends ParseObject {
 		return getString("bezeichnung");
 	}
 
-	public String getFkEntsorgungsart() {
-		return getString("fkEntsorgungsart");
+	public ParseObject getEntsorgungsart() {
+		return getParseObject("fkEntsorgungsart");
 	}
 
 	public static ParseQuery<Gegenstand> getQuery() {
-		return ParseQuery.getQuery(Gegenstand.class);
+		ParseQuery<Gegenstand> query = ParseQuery.getQuery(Gegenstand.class);
+		query.include("Entsorgungsart");
+		return query;
 	}
 }

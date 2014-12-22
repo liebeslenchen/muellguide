@@ -22,12 +22,12 @@ public class Standort extends ParseObject {
 		return getString("bezeichnung");
 	}
 
-	public String getFkBezirk() {
-		return getString("fkBezirk");
+	public ParseObject getBezirk() {
+		return getParseObject("fkBezirk");
 	}
 
-	public String getFkEntsorgungsart() {
-		return getString("fkEntsorgungsart");
+	public ParseObject getFkEntsorgungsart() {
+		return getParseObject("fkEntsorgungsart");
 	}
 
 	public ParseGeoPoint getGpsStandort() {
@@ -51,6 +51,9 @@ public class Standort extends ParseObject {
 	}
 
 	public static ParseQuery<Standort> getQuery() {
-		return ParseQuery.getQuery(Standort.class);
+		ParseQuery<Standort> query = ParseQuery.getQuery(Standort.class);
+		query.include("Bezirk");
+		query.include("Entsorgungsart");
+		return query;
 	}
 }

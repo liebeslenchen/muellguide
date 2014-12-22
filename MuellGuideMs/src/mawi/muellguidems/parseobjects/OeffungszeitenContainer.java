@@ -25,8 +25,8 @@ public class OeffungszeitenContainer extends ParseObject {
 		return getString("ende");
 	}
 
-	public String getFkEntsorgungsart() {
-		return getString("fkEntsorgungsart");
+	public ParseObject getEntsorgungsart() {
+		return getParseObject("fkEntsorgungsart");
 	}
 
 	public String getStart() {
@@ -34,6 +34,9 @@ public class OeffungszeitenContainer extends ParseObject {
 	}
 
 	public static ParseQuery<OeffungszeitenContainer> getQuery() {
-		return ParseQuery.getQuery(OeffungszeitenContainer.class);
+		ParseQuery<OeffungszeitenContainer> query = ParseQuery
+				.getQuery(OeffungszeitenContainer.class);
+		query.include("Entsorgungsart");
+		return query;
 	}
 }
