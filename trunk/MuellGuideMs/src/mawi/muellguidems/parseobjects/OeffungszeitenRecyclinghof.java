@@ -13,7 +13,7 @@ public class OeffungszeitenRecyclinghof extends ParseObject {
 	public OeffungszeitenRecyclinghof() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 

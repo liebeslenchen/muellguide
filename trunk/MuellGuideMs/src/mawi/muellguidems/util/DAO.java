@@ -45,7 +45,7 @@ public class DAO {
 						.getEntsorgungsart();
 				entsorgungsart.fetchIfNeeded();
 
-				gegenstandHashMap.put("id", gegenstand.getObjectId());
+				gegenstandHashMap.put("id", gegenstand.getId());
 				gegenstandHashMap.put("bezeichnung",
 						gegenstand.getBezeichnung());
 				gegenstandHashMap.put("entsorgungsart",
