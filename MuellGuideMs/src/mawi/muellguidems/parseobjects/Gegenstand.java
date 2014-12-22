@@ -25,6 +25,10 @@ public class Gegenstand extends ParseObject {
 		return getParseObject("fkEntsorgungsart");
 	}
 
+	public String getEntsorgungsartId() {
+		return getParseObject("fkEntsorgungsart").getObjectId();
+	}
+
 	public static ParseQuery<Gegenstand> getQuery() {
 		ParseQuery<Gegenstand> query = ParseQuery.getQuery(Gegenstand.class);
 		query.include("Entsorgungsart");

@@ -36,21 +36,25 @@ public class DAO {
 		// }
 		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
 		ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
-
+		HashMap<String, Entsorgungsart> entsorgungsartMap = loadAllEntsorgungsartenMap();
 		try {
 			List<Gegenstand> gegenstandList = query.find();
+
 			for (Gegenstand gegenstand : gegenstandList) {
 				HashMap<String, String> gegenstandHashMap = new HashMap<String, String>();
-				Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
-						.getEntsorgungsart();
-				entsorgungsart.fetchIfNeeded();
+				// Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
+				// .getEntsorgungsart();
+				// entsorgungsart.fetchIfNeeded();
 
 				gegenstandHashMap.put("id", gegenstand.getId());
 				gegenstandHashMap.put("bezeichnung",
 						gegenstand.getBezeichnung());
 				gegenstandHashMap.put("entsorgungsart",
-						entsorgungsart.getBezeichnung());
-				gegenstandHashMap.put("hinweis", entsorgungsart.getHinweis());
+						entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
+								.getBezeichnung());
+				gegenstandHashMap.put("hinweis",
+						entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
+								.getHinweis());
 				result.add(gegenstandHashMap);
 			}
 		} catch (ParseException e) {
@@ -58,6 +62,22 @@ public class DAO {
 		}
 
 		return result;
+	}
+
+	public static HashMap<String, Entsorgungsart> loadAllEntsorgungsartenMap() {
+		HashMap<String, Entsorgungsart> entsorgungsartMap = new HashMap<String, Entsorgungsart>();
+		ParseQuery<Entsorgungsart> queryEntsorgung = Entsorgungsart.getQuery();
+
+		List<Entsorgungsart> entsorgungList;
+		try {
+			entsorgungList = queryEntsorgung.find();
+			for (Entsorgungsart entsorgungsart : entsorgungList) {
+				entsorgungsartMap.put(entsorgungsart.getId(), entsorgungsart);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return entsorgungsartMap;
 	}
 
 	/**
