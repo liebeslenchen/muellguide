@@ -12,5 +12,9 @@
     <string name="testmaps">Maps Test</string>
     <string name="title_activity_maps_">Maps Activity</string>
     <string name="action_settings">Settings</string>
-
+    <string name="title_activity_test">TestActivity</string>
+    <string name="muelltrennung">Mülltrennung</string>
+    <string name="entsorgung">Entsorgung</string>
+    <string name="feedback">Feedback</string>
+    <string name="einstellungen">Einstellungen</string>
 </resources>

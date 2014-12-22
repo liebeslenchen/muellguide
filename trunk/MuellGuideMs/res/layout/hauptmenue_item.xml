@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+ 
+    <!--  ListRow Left sied Thumbnail image -->
+    <!-- <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip">
+    </LinearLayout> -->
+ 
+    <!-- Item -->
+    <TextView
+        android:id="@+id/tvHauptmenueItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#040404"
+        android:typeface="sans"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+ 
+    <!-- SubItem -->
+    <TextView
+        android:id="@+id/tvHauptmenueSubItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHauptmenueItem"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:layout_marginTop="1dip" />
+ 
+  
+     <!-- Pfeil -->
+     <ImageView android:layout_width="wrap_content"
+		android:contentDescription="pfeil"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pfeil_rechts"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+ 
+</RelativeLayout>
+
