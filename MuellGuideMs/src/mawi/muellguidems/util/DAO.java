@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mawi.muellguidems.activities.R;
+import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Standort;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -32,6 +33,13 @@ public class DAO {
 		}
 	}
 
+	/**
+	 * Gibt einen {@link MarkerOptions} für einen gegebenen {@link Standort}
+	 * zurück
+	 * 
+	 * @param id
+	 * @return {@link ArrayList} von {@link MarkerOptions}
+	 */
 	public static ArrayList<MarkerOptions> getAllMarkersForStandortById(
 			String id) {
 		ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
@@ -55,5 +63,29 @@ public class DAO {
 		}
 
 		return markers;
+	}
+
+	/**
+	 * Gibt eine Liste von {@link MarkerOptions} für alle {@link Entsorgungsart}
+	 * en und {@link Standort}e zurück
+	 * 
+	 * @return {@link ArrayList} von {@link MarkerOptions}
+	 */
+	public static ArrayList<MarkerOptions> getAllMarkersForAllEntsorgungsarten() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Gibt eine Liste aller {@link MarkerOptions} von {@link Standort}en für
+	 * eine gegebene {@link Entsorgungsart} zurück
+	 * 
+	 * @param muellType
+	 * @return {@link ArrayList} von {@link MarkerOptions}
+	 */
+	public static ArrayList<MarkerOptions> getAllMarkersForGivenEntsorgungsart(
+			String muellType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
