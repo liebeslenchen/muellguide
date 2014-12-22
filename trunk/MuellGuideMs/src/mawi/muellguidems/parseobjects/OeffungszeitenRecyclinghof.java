@@ -21,8 +21,8 @@ public class OeffungszeitenRecyclinghof extends ParseObject {
 		return getString("ende");
 	}
 
-	public String getFkStandort() {
-		return getString("fkStandort");
+	public ParseObject getStandort() {
+		return getParseObject("fkStandort");
 	}
 
 	public String getStart() {
@@ -34,6 +34,9 @@ public class OeffungszeitenRecyclinghof extends ParseObject {
 	}
 
 	public static ParseQuery<OeffungszeitenRecyclinghof> getQuery() {
-		return ParseQuery.getQuery(OeffungszeitenRecyclinghof.class);
+		ParseQuery<OeffungszeitenRecyclinghof> query = ParseQuery
+				.getQuery(OeffungszeitenRecyclinghof.class);
+		query.include("Standort");
+		return query;
 	}
 }

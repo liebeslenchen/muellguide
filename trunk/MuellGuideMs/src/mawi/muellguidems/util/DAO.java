@@ -2,9 +2,11 @@ package mawi.muellguidems.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import mawi.muellguidems.activities.R;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
+import mawi.muellguidems.parseobjects.Gegenstand;
 import mawi.muellguidems.parseobjects.Standort;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -16,21 +18,46 @@ import com.parse.ParseQuery;
 public class DAO {
 
 	public static ArrayList<HashMap<String, String>> getAlleGegenstaendeFuerExpandableAdapter() {
+		// try {
+		// ArrayList<HashMap<String, String>> result = new
+		// ArrayList<HashMap<String, String>>();
+		//
+		// HashMap<String, String> gegenstand = new HashMap<String, String>();
+		// gegenstand.put("id", "1234");
+		// gegenstand.put("bezeichnung", "Flasche");
+		// gegenstand.put("entsorgungsart", "Altglas");
+		// gegenstand.put("hinweis",
+		// "Bitte auf Braun-/Weinglas-Trennung achten!");
+		// result.add(gegenstand);
+		//
+		// return result;
+		// } catch (Exception ex) {
+		// return null;
+		// }
+		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
+		ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+
 		try {
-			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+			List<Gegenstand> gegenstandList = query.find();
+			for (Gegenstand gegenstand : gegenstandList) {
+				HashMap<String, String> gegenstandHashMap = new HashMap<String, String>();
+				Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
+						.getEntsorgungsart();
+				entsorgungsart.fetchIfNeeded();
 
-			HashMap<String, String> gegenstand = new HashMap<String, String>();
-			gegenstand.put("id", "1234");
-			gegenstand.put("bezeichnung", "Flasche");
-			gegenstand.put("entsorgungsart", "Altglas");
-			gegenstand.put("hinweis",
-					"Bitte auf Braun-/Weinglas-Trennung achten!");
-			result.add(gegenstand);
-
-			return result;
-		} catch (Exception ex) {
-			return null;
+				gegenstandHashMap.put("id", gegenstand.getObjectId());
+				gegenstandHashMap.put("bezeichnung",
+						gegenstand.getBezeichnung());
+				gegenstandHashMap.put("entsorgungsart",
+						entsorgungsart.getBezeichnung());
+				gegenstandHashMap.put("hinweis", entsorgungsart.getHinweis());
+				result.add(gegenstandHashMap);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
+
+		return result;
 	}
 
 	/**
