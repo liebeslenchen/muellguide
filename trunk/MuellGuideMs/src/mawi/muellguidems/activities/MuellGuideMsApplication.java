@@ -1,5 +1,10 @@
 package mawi.muellguidems.activities;
 
+import mawi.muellguidems.parseobjects.Bezirk;
+import mawi.muellguidems.parseobjects.Entsorgungsart;
+import mawi.muellguidems.parseobjects.Gegenstand;
+import mawi.muellguidems.parseobjects.OeffungszeitenContainer;
+import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Application;
@@ -35,5 +40,10 @@ public class MuellGuideMsApplication extends Application {
 		// Parse-Objekte registrieren
 		ParseObject.registerSubclass(TestObject.class);
 		ParseObject.registerSubclass(Standort.class);
+		ParseObject.registerSubclass(Bezirk.class);
+		ParseObject.registerSubclass(Entsorgungsart.class);
+		ParseObject.registerSubclass(Gegenstand.class);
+		ParseObject.registerSubclass(OeffungszeitenRecyclinghof.class);
+		ParseObject.registerSubclass(OeffungszeitenContainer.class);
 	}
 }
