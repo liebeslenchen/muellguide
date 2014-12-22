@@ -15,7 +15,7 @@ import com.parse.ParseQuery;
 
 public class DAO {
 
-	public static ArrayList<HashMap<String, String>> getAlleGegenstaende() {
+	public static ArrayList<HashMap<String, String>> getAlleGegenstaendeFuerExpandableAdapter() {
 		try {
 			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
 
