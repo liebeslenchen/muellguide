@@ -24,6 +24,15 @@ public class MuellGuideMsApplication extends Application {
 		// Initialize Crash Reporting.
 		ParseCrashReporting.enable(this);
 
+		// Parse-Objekte registrieren
+		ParseObject.registerSubclass(TestObject.class);
+		ParseObject.registerSubclass(Standort.class);
+		ParseObject.registerSubclass(Bezirk.class);
+		ParseObject.registerSubclass(Entsorgungsart.class);
+		ParseObject.registerSubclass(Gegenstand.class);
+		ParseObject.registerSubclass(OeffungszeitenRecyclinghof.class);
+		ParseObject.registerSubclass(OeffungszeitenContainer.class);
+
 		// Add your initialization code here
 		Parse.initialize(this, "bRJ7kGmcbXI36Ft0kHL3u2G3KGKV5aVK8kwjjZPM",
 				"ZLY3xn8IXUVSBUP25DN1cgtwMlUWnPlvPovYkmCP");
@@ -37,13 +46,5 @@ public class MuellGuideMsApplication extends Application {
 
 		ParseACL.setDefaultACL(defaultACL, true);
 
-		// Parse-Objekte registrieren
-		ParseObject.registerSubclass(TestObject.class);
-		ParseObject.registerSubclass(Standort.class);
-		ParseObject.registerSubclass(Bezirk.class);
-		ParseObject.registerSubclass(Entsorgungsart.class);
-		ParseObject.registerSubclass(Gegenstand.class);
-		ParseObject.registerSubclass(OeffungszeitenRecyclinghof.class);
-		ParseObject.registerSubclass(OeffungszeitenContainer.class);
 	}
 }
