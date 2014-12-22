@@ -1,6 +1,10 @@
 package mawi.muellguidems.activities;
 
+import java.util.ArrayList;
+
+import mawi.muellguidems.util.MapUtils;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -23,19 +27,23 @@ public class MapsActivity extends Activity {
 			// Loading map
 			initializeMap();
 
-			// Beliebiges Target setzen
-			double latitude = 51.968135;
-			double longitude = 7.595453;
-			LatLng target = new LatLng(latitude, longitude);
+			Intent myIntent = getIntent();
+			String muellType = myIntent.getStringExtra("muelltype");
+			String id = myIntent.getStringExtra("objectId");
 
-			// Landmarke erstellen
-			MarkerOptions marker = new MarkerOptions().position(target).title(
-					"FHZ");
-			googleMap.addMarker(marker);
+			ArrayList<MarkerOptions> allMarkers = MapUtils.getAllMakers(
+					muellType, id);
 
+			for (MarkerOptions markerOptions : allMarkers) {
+				googleMap.addMarker(markerOptions);
+			}
+
+			// Münster Zentrum als Zoom
+			// TODO aktuelle Position
+			LatLng cityCenter = new LatLng(51.961749, 7.625591);
 			// Sorgt für den Zoom auf Muenster
 			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(target).zoom(12).build();
+					.target(cityCenter).zoom(12).build();
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
 
