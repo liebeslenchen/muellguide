@@ -13,7 +13,7 @@ public class Bezirk extends ParseObject {
 	public Bezirk() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 

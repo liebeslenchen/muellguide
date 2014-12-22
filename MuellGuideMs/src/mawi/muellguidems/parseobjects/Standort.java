@@ -14,7 +14,7 @@ public class Standort extends ParseObject {
 	public Standort() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 

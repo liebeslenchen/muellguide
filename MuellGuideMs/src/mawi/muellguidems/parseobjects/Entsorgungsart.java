@@ -15,7 +15,7 @@ public class Entsorgungsart extends ParseObject {
 	public Entsorgungsart() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 

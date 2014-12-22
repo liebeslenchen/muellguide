@@ -13,7 +13,7 @@ public class Gegenstand extends ParseObject {
 	public Gegenstand() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 

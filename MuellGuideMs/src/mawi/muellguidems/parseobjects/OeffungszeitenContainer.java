@@ -13,7 +13,7 @@ public class OeffungszeitenContainer extends ParseObject {
 	public OeffungszeitenContainer() {
 	}
 
-	public String getObjectId() {
+	public String getId() {
 		return getObjectId();
 	}
 
