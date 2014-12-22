@@ -13,8 +13,10 @@ public class MapUtils {
 
 		if (muellType == null && id == null) {
 			// SHOW ALL!
+			// TODO
 		} else if (muellType != null && id == null) {
 			// SHOW ALL ENTRIES FOR muellType
+			// TODO
 		} else if (muellType == null && id != null) {
 			// SHOW SPECIFIC STANDORT
 			markerOptions = DAO.getAllMarkersForStandortById(id);
