@@ -1,28 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <Button
-        android:id="@+id/btnParseTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="32dp"
-        android:onClick="onClickBtnParseTest"
-        android:text="@string/testparse" />
+    <ListView
+        android:id="@+id/lvMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
 
-    <Button
-        android:id="@+id/btnMaps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnParseTest"
-        android:layout_below="@+id/btnParseTest"
-        android:layout_marginTop="24dp"
-        android:onClick="onClickBtnMaps"
-        android:text="@string/testmaps" />
+    
 
-</RelativeLayout>
+</LinearLayout>
