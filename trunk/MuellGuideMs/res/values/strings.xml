@@ -17,4 +17,6 @@
     <string name="entsorgung">Entsorgung</string>
     <string name="feedback">Feedback</string>
     <string name="einstellungen">Einstellungen</string>
+    <string name="title_activity_muelltrennung">MuelltrennungActivity</string>
+
 </resources>
