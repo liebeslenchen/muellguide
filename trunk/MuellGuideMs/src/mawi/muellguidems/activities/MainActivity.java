@@ -44,6 +44,9 @@ public class MainActivity extends Activity {
 								MuelltrennungActivity.class);
 						break;
 					case 1:
+						// Entsorgung-Activity aufrufen:
+						intent = new Intent(getBaseContext(),
+								EntsorgungActivity.class);
 						break;
 					case 2:
 						break;

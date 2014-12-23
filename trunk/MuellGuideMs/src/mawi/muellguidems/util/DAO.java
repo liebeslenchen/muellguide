@@ -45,6 +45,7 @@ public class DAO {
 				// Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
 				// .getEntsorgungsart();
 				// entsorgungsart.fetchIfNeeded();
+
 				gegenstandHashMap.put("id", gegenstand.getId());
 				gegenstandHashMap.put("bezeichnung",
 						gegenstand.getBezeichnung());
@@ -61,6 +62,26 @@ public class DAO {
 		}
 
 		return result;
+	}
+
+	public static ArrayList<HashMap<String, String>> getEntsorgungsartenMitStandortFuerAdapter() {
+		try {
+			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+			HashMap<String, Entsorgungsart> entsorgungsarten = loadAllEntsorgungsartenHashMap();
+
+			for (Entsorgungsart entsorgungsart : entsorgungsarten.values()) {
+				if (entsorgungsart.getHatStandort()) {
+					HashMap<String, String> hm = new HashMap<String, String>();
+					hm.put("id", entsorgungsart.getId());
+					hm.put("bezeichnung", entsorgungsart.getBezeichnung());
+					result.add(hm);
+				}
+			}
+
+			return result;
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 	public static HashMap<String, Entsorgungsart> loadAllEntsorgungsartenHashMap() {
