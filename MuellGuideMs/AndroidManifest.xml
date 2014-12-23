@@ -52,7 +52,7 @@
         <!--
         <meta-data  
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
+            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
         -->
         <!-- Andriod Key Marlen -->
         <meta-data
@@ -73,6 +73,10 @@
         <activity
             android:name=".MuelltrennungActivity"
             android:label="@string/title_activity_muelltrennung" >
+        </activity>
+        <activity
+            android:name=".EntsorgungActivity"
+            android:label="@string/title_activity_entsorgung" >
         </activity>
     </application>
 
