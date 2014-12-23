@@ -8,6 +8,7 @@ import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Application;
+import android.content.Context;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -17,9 +18,13 @@ import com.parse.ParseUser;
 
 public class MuellGuideMsApplication extends Application {
 
+	private static Context context;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		context = this;
 
 		// Initialize Crash Reporting.
 		ParseCrashReporting.enable(this);
@@ -46,5 +51,9 @@ public class MuellGuideMsApplication extends Application {
 
 		ParseACL.setDefaultACL(defaultACL, true);
 
+	}
+
+	public static Context getContext() {
+		return context;
 	}
 }

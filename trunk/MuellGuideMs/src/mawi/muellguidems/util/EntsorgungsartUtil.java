@@ -3,8 +3,13 @@ package mawi.muellguidems.util;
 import java.util.HashMap;
 import java.util.List;
 
+import mawi.muellguidems.activities.MuellGuideMsApplication;
+import mawi.muellguidems.activities.R;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
+import android.content.Context;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
@@ -32,4 +37,54 @@ public class EntsorgungsartUtil {
 		return entsorgungsartMap;
 	}
 
+	/**
+	 * Gibt ein Drawable in Form eines {@link BitmapDescriptor}s zurück, in
+	 * Abhängigkeit von einer gegebenen {@link Entsorgungsart}. Zugriff erfolgt
+	 * über die {@link Context}-Variable in {@link MuellGuideMsApplication}
+	 * 
+	 * @param entsorgungsart
+	 * @return {@link BitmapDescriptor}
+	 */
+	public static BitmapDescriptor getDrawableForEntsorgungsart(
+			Entsorgungsart entsorgungsart) {
+
+		BitmapDescriptor drawable = null;
+
+		if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				MuellGuideMsApplication.getContext().getResources()
+						.getString(R.string.db_entsorgungsart_value_altglas))) {
+			drawable = BitmapDescriptorFactory.fromResource(R.drawable.altglas);
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_altkleider))) {
+			drawable = BitmapDescriptorFactory
+					.fromResource(R.drawable.altkleider);
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+			drawable = BitmapDescriptorFactory
+					.fromResource(R.drawable.elektrokleingeraet);
+		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				MuellGuideMsApplication
+						.getContext()
+						.getResources()
+						.getString(
+								R.string.db_entsorgungsart_value_recyclinghof))) {
+			drawable = BitmapDescriptorFactory
+					.fromResource(R.drawable.recyclinghof);
+		}
+
+		return drawable;
+
+	}
 }

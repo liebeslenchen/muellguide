@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mawi.muellguidems.activities.MapsActivity;
-import mawi.muellguidems.activities.R;
+import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Standort;
 import android.content.Intent;
 
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -64,13 +64,25 @@ public class MapUtils {
 						.getLongitude());
 				MarkerOptions marker = new MarkerOptions().position(latLng)
 						.title(standort.getBezeichnung());
-				// TODO icon abhängig von Typ setzen
-				marker.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.recyclinghof));
+
+				BitmapDescriptor icon = getIconsFromEntsorgungsartUtilForStandort(standort);
+				if (icon != null) {
+					marker.icon(icon);
+				}
 				markers.add(marker);
 			}
 		}
 		return markers;
 	}
 
+	private static BitmapDescriptor getIconsFromEntsorgungsartUtilForStandort(
+			Standort standort) {
+		Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+				.get(standort.getEntsorgungsartId());
+
+		BitmapDescriptor icon = EntsorgungsartUtil
+				.getDrawableForEntsorgungsart(entsorgungsart);
+
+		return icon;
+	}
 }
