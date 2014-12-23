@@ -34,10 +34,6 @@ public class Standort extends ParseObject {
 		return getParseGeoPoint("gpsStandort");
 	}
 
-	public String getHausnummer() {
-		return getString("hausnummer");
-	}
-
 	public String getHinweis() {
 		return getString("hinweis");
 	}
