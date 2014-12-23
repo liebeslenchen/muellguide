@@ -19,5 +19,7 @@
     <string name="einstellungen">Einstellungen</string>
     <string name="title_activity_muelltrennung">MuelltrennungActivity</string>
     <string name="title_activity_entsorgung">EntsorgungActivity</string>
+    <string name="title_activity_entsorgung_standorte">EntsorgungStandorteActivity</string>
+    <string name="aufKarteAnzeigen">Auf Karte anzeigen</string>
 
 </resources>
