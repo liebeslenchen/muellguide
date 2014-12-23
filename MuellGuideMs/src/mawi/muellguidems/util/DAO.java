@@ -126,8 +126,14 @@ public class DAO {
 		ArrayList<MarkerOptions> result = new ArrayList<MarkerOptions>();
 
 		try {
+			Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
+					.createWithoutDataByObjectId(entsorgungsartId);
+
+			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+			// ist.
 			List<Standort> standortList = query.whereEqualTo(
-					"fkEntsorgungsart", entsorgungsartId).find();
+					"fkEntsorgungsart", entsorgungsartWithoutData).find();
 
 			for (Standort standort : standortList) {
 				if (standort.getGpsStandort() != null) {
@@ -156,29 +162,6 @@ public class DAO {
 	 */
 	public static ArrayList<MarkerOptions> getAllGPSMarkersForAllEntsorgungsarten(
 			String entsorgungsartId) {
-		ParseQuery<Standort> query = Standort.getQuery();
-		ArrayList<MarkerOptions> result = new ArrayList<MarkerOptions>();
-
-		try {
-			List<Standort> standortList = query.whereEqualTo(
-					"fkEntsorgungsart", entsorgungsartId).find();
-
-			for (Standort standort : standortList) {
-				if (standort.getGpsStandort() != null) {
-					LatLng latLng = new LatLng(standort.getGpsStandort()
-							.getLatitude(), standort.getGpsStandort()
-							.getLongitude());
-					MarkerOptions marker = new MarkerOptions().position(latLng)
-							.title(standort.getBezeichnung());
-					// TODO icon abhängig von Typ setzen
-					marker.icon(BitmapDescriptorFactory
-							.fromResource(R.drawable.recyclinghof));
-					result.add(marker);
-				}
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return result;
+		return null;
 	}
 }
