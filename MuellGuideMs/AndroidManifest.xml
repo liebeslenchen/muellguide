@@ -52,22 +52,26 @@
         <!--
         <meta-data  
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />        -->
+            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
+        -->
         <!-- Andriod Key Marlen -->
-        <!-- <meta-data
+        <!--
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDCAnvvqIj4gt2m-lmIuiAxJkta6_vbdg8" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />-->
-            
+            android:value="@integer/google_play_services_version" />
+        -->
+
+
         <!-- Android Key Ruslan -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDVL5iL81j6ypZnoKfIJkZNQM9qyXZQRIE" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />    
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".MapsActivity"
@@ -88,6 +92,14 @@
         <activity
             android:name=".EntsorgungStandorteActivity"
             android:label="@string/title_activity_entsorgung_standorte" >
+        </activity>
+        <activity
+            android:name=".StandortDetailsActivity"
+            android:label="@string/title_activity_standort_details" >
+        </activity>
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback" >
         </activity>
     </application>
 

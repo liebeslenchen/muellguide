@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 public class EntsorgungStandorteActivity extends Activity {
 
@@ -45,8 +44,10 @@ public class EntsorgungStandorteActivity extends Activity {
 				String selectedStandortBezeichnung = data.get(position).get(
 						"bezeichnung");
 
-				Toast.makeText(getBaseContext(), selectedStandortBezeichnung,
-						Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getBaseContext(),
+						StandortDetailsActivity.class);
+				intent.putExtra("id", selectedStandortId);
+				startActivity(intent);
 			}
 		});
 	}

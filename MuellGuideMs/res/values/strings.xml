@@ -21,5 +21,16 @@
     <string name="title_activity_entsorgung">EntsorgungActivity</string>
     <string name="title_activity_entsorgung_standorte">EntsorgungStandorteActivity</string>
     <string name="aufKarteAnzeigen">Auf Karte anzeigen</string>
-
+    <string name="title_activity_standort_details">StandortDetailsActivity</string>
+    <string name="tvAdresseLabel">Adresse:</string>
+    <string name="tvStandortStrasse">-</string>
+    <string name="tvOeffnungszeitenLabel">Öffnungszeiten:</string>
+    <string name="tvStandortOeffnungszeiten">-</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="FeedbackSubjectLabel">Betreff wählen:</string>
+    <string name="senden">Senden</string>
+	<string-array name="feedback_betreffoptionen">
+	    <item>Container defekt</item>
+	    <item>Sonstiges</item>
+	</string-array>
 </resources>
