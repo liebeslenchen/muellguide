@@ -36,7 +36,7 @@ public class DAO {
 		// }
 		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
 		ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
-		HashMap<String, Entsorgungsart> entsorgungsartMap = loadAllEntsorgungsartenMap();
+		HashMap<String, Entsorgungsart> entsorgungsartMap = loadAllEntsorgungsartenHashMap();
 		try {
 			List<Gegenstand> gegenstandList = query.find();
 
@@ -45,9 +45,6 @@ public class DAO {
 				// Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
 				// .getEntsorgungsart();
 				// entsorgungsart.fetchIfNeeded();
-
-				
-				
 				gegenstandHashMap.put("id", gegenstand.getId());
 				gegenstandHashMap.put("bezeichnung",
 						gegenstand.getBezeichnung());
@@ -66,13 +63,7 @@ public class DAO {
 		return result;
 	}
 
-	/**
-	 * TODO Ich würde das hier gerne in ...artenHashMap umbenennen. So denke
-	 * ich, ich brauche die Methode für GPS-Sachen
-	 * 
-	 * @return
-	 */
-	public static HashMap<String, Entsorgungsart> loadAllEntsorgungsartenMap() {
+	public static HashMap<String, Entsorgungsart> loadAllEntsorgungsartenHashMap() {
 		HashMap<String, Entsorgungsart> entsorgungsartMap = new HashMap<String, Entsorgungsart>();
 		ParseQuery<Entsorgungsart> queryEntsorgung = Entsorgungsart.getQuery();
 
@@ -124,16 +115,37 @@ public class DAO {
 	 * Gibt eine Liste aller {@link MarkerOptions} von {@link Standort}en für
 	 * eine gegebene {@link Entsorgungsart} zurück
 	 * 
-	 * @param muellType
+	 * @param entsorgungsartId
 	 *            als id der Entität {@link Entsorgungsart}
 	 * @return {@link ArrayList} von {@link MarkerOptions}
 	 */
 	public static ArrayList<MarkerOptions> getAllGPSMarkersForGivenEntsorgungsart(
-			String muellType) {
+			String entsorgungsartId) {
 
 		ParseQuery<Standort> query = Standort.getQuery();
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MarkerOptions> result = new ArrayList<MarkerOptions>();
+
+		try {
+			List<Standort> standortList = query.whereEqualTo(
+					"fkEntsorgungsart", entsorgungsartId).find();
+
+			for (Standort standort : standortList) {
+				if (standort.getGpsStandort() != null) {
+					LatLng latLng = new LatLng(standort.getGpsStandort()
+							.getLatitude(), standort.getGpsStandort()
+							.getLongitude());
+					MarkerOptions marker = new MarkerOptions().position(latLng)
+							.title(standort.getBezeichnung());
+					// TODO icon abhängig von Typ setzen
+					marker.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.recyclinghof));
+					result.add(marker);
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**
@@ -142,9 +154,31 @@ public class DAO {
 	 * 
 	 * @return {@link ArrayList} von {@link MarkerOptions}
 	 */
-	public static ArrayList<MarkerOptions> getAllGPSMarkersForAllEntsorgungsarten() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public static ArrayList<MarkerOptions> getAllGPSMarkersForAllEntsorgungsarten(
+			String entsorgungsartId) {
+		ParseQuery<Standort> query = Standort.getQuery();
+		ArrayList<MarkerOptions> result = new ArrayList<MarkerOptions>();
 
+		try {
+			List<Standort> standortList = query.whereEqualTo(
+					"fkEntsorgungsart", entsorgungsartId).find();
+
+			for (Standort standort : standortList) {
+				if (standort.getGpsStandort() != null) {
+					LatLng latLng = new LatLng(standort.getGpsStandort()
+							.getLatitude(), standort.getGpsStandort()
+							.getLongitude());
+					MarkerOptions marker = new MarkerOptions().position(latLng)
+							.title(standort.getBezeichnung());
+					// TODO icon abhängig von Typ setzen
+					marker.icon(BitmapDescriptorFactory
+							.fromResource(R.drawable.recyclinghof));
+					result.add(marker);
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
