@@ -32,6 +32,18 @@ public class Entsorgungsart extends ParseObject {
 	}
 
 	/**
+	 * Entsorgungsartobjekt mit gegebener Id erzeugen. Wird für ParseQuery
+	 * benötigt, wenn man z.B. mit where... Pointer prüft. Der id-String kann
+	 * dort nicht direkt übergeben werden.
+	 * 
+	 * @param objectId
+	 * @return Entsorgungsart
+	 */
+	public static Entsorgungsart createWithoutDataByObjectId(String objectId) {
+		return (Entsorgungsart) createWithoutData("Entsorgungsart", objectId);
+	}
+
+	/**
 	 * Mapping zwischen Parse und EntsorgungsartEnum
 	 * 
 	 * @return EntsorgungsartEnum
