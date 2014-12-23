@@ -28,11 +28,12 @@ public class MapsActivity extends Activity {
 			initializeMap();
 
 			Intent myIntent = getIntent();
-			String muellType = myIntent.getStringExtra("muelltype");
+			String entsorgungsartId = myIntent
+					.getStringExtra("entsorgungsartId");
 			String id = myIntent.getStringExtra("objectId");
 
 			ArrayList<MarkerOptions> allMarkers = MapUtils.getAllMakers(
-					muellType, id);
+					entsorgungsartId, id);
 
 			for (MarkerOptions markerOptions : allMarkers) {
 				googleMap.addMarker(markerOptions);

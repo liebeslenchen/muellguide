@@ -66,6 +66,12 @@ public class DAO {
 		return result;
 	}
 
+	/**
+	 * TODO Ich würde das hier gerne in ...artenHashMap umbenennen. So denke
+	 * ich, ich brauche die Methode für GPS-Sachen
+	 * 
+	 * @return
+	 */
 	public static HashMap<String, Entsorgungsart> loadAllEntsorgungsartenMap() {
 		HashMap<String, Entsorgungsart> entsorgungsartMap = new HashMap<String, Entsorgungsart>();
 		ParseQuery<Entsorgungsart> queryEntsorgung = Entsorgungsart.getQuery();
@@ -89,7 +95,7 @@ public class DAO {
 	 * @param id
 	 * @return {@link ArrayList} von {@link MarkerOptions}
 	 */
-	public static ArrayList<MarkerOptions> getAllMarkersForStandortById(
+	public static ArrayList<MarkerOptions> getAllGPSMarkersForStandortById(
 			String id) {
 		ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
 		ParseQuery<Standort> stParseQuery = Standort.getQuery();
@@ -115,26 +121,30 @@ public class DAO {
 	}
 
 	/**
-	 * Gibt eine Liste von {@link MarkerOptions} für alle {@link Entsorgungsart}
-	 * en und {@link Standort}e zurück
+	 * Gibt eine Liste aller {@link MarkerOptions} von {@link Standort}en für
+	 * eine gegebene {@link Entsorgungsart} zurück
 	 * 
+	 * @param muellType
+	 *            als id der Entität {@link Entsorgungsart}
 	 * @return {@link ArrayList} von {@link MarkerOptions}
 	 */
-	public static ArrayList<MarkerOptions> getAllMarkersForAllEntsorgungsarten() {
+	public static ArrayList<MarkerOptions> getAllGPSMarkersForGivenEntsorgungsart(
+			String muellType) {
+
+		ParseQuery<Standort> query = Standort.getQuery();
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/**
-	 * Gibt eine Liste aller {@link MarkerOptions} von {@link Standort}en für
-	 * eine gegebene {@link Entsorgungsart} zurück
+	 * Gibt eine Liste von {@link MarkerOptions} für alle {@link Entsorgungsart}
+	 * en und {@link Standort}e zurück
 	 * 
-	 * @param muellType
 	 * @return {@link ArrayList} von {@link MarkerOptions}
 	 */
-	public static ArrayList<MarkerOptions> getAllMarkersForGivenEntsorgungsart(
-			String muellType) {
+	public static ArrayList<MarkerOptions> getAllGPSMarkersForAllEntsorgungsarten() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }
