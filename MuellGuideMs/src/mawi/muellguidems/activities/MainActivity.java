@@ -39,6 +39,9 @@ public class MainActivity extends Activity {
 
 					switch (position) {
 					case 0:
+						// Mülltrennung aufrufen:
+						intent = new Intent(getBaseContext(),
+								MuelltrennungActivity.class);
 						break;
 					case 1:
 						break;
