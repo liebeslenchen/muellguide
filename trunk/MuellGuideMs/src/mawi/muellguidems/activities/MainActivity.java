@@ -49,6 +49,9 @@ public class MainActivity extends Activity {
 								EntsorgungActivity.class);
 						break;
 					case 2:
+						// Feedback-Activity aufrufen:
+						intent = new Intent(getBaseContext(),
+								FeedbackActivity.class);
 						break;
 					case 3:
 						break;
