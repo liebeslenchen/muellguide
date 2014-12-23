@@ -21,6 +21,11 @@
     <string name="title_activity_entsorgung">EntsorgungActivity</string>
     <string name="title_activity_entsorgung_standorte">EntsorgungStandorteActivity</string>
     <string name="aufKarteAnzeigen">Auf Karte anzeigen</string>
+    <!-- Strings, die mit db_[tabelle]_value_ beginnen stehen für Strings, die Werten einer Datenbanktabelle entsprechen -->
+    <string name="db_entsorgungsart_value_altglas">Altglas</string>
+    <string name="db_entsorgungsart_value_altkleider">Altkleider</string>
+    <string name="db_entsorgungsart_value_recyclinghof">Recyclinghof</string>
+    <string name="db_entsorgungsart_value_elektrokleingeraete">Elektrokleingeräte</string>
     <string name="title_activity_standort_details">StandortDetailsActivity</string>
     <string name="tvAdresseLabel">Adresse:</string>
     <string name="tvStandortStrasse">-</string>

@@ -26,8 +26,8 @@ public class Standort extends ParseObject {
 		return getParseObject("fkBezirk");
 	}
 
-	public ParseObject getFkEntsorgungsart() {
-		return getParseObject("fkEntsorgungsart");
+	public String getEntsorgungsartId() {
+		return getParseObject("fkEntsorgungsart").getObjectId();
 	}
 
 	public ParseGeoPoint getGpsStandort() {

@@ -48,8 +48,8 @@ public class MapsActivity extends Activity {
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
 
-			// googleMap.setMyLocationEnabled(true);
-			// googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+			googleMap.setMyLocationEnabled(true);
+			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
