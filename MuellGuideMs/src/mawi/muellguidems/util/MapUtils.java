@@ -18,7 +18,8 @@ public class MapUtils {
 
 		if (entsorgungsartId == null && id == null) {
 			// zeige alles
-			markerOptions = DAO.getAllGPSMarkersForAllEntsorgungsarten();
+			markerOptions = DAO
+					.getAllGPSMarkersForAllEntsorgungsarten(entsorgungsartId);
 		} else if (entsorgungsartId != null && id == null) {
 			// zeige alles für eine gegebene Entsorgungsart
 			markerOptions = DAO
