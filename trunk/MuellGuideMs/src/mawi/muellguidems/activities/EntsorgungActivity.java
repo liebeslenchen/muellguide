@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import mawi.muellguidems.util.DAO;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 public class EntsorgungActivity extends Activity {
 
@@ -33,13 +33,15 @@ public class EntsorgungActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				String selectedItemId = data.get(position).get("id");
-				String selectedItemValue = data.get(position)
+				String selectedEntsorgungsartId = data.get(position).get("id");
+				String selectedEntsorgungsartBezeichnung = data.get(position)
 						.get("bezeichnung");
-				Toast.makeText(
-						getBaseContext(),
-						"Id: " + selectedItemId + "\r\n" + "Bezeichnung: "
-								+ selectedItemValue, Toast.LENGTH_SHORT).show();
+
+				Intent intent = new Intent(getBaseContext(),
+						EntsorgungStandorteActivity.class);
+				intent.putExtra("id", selectedEntsorgungsartId);
+				intent.putExtra("bezeichnung", selectedEntsorgungsartBezeichnung);
+				startActivity(intent);
 				;
 			}
 		});

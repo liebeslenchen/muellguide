@@ -64,6 +64,27 @@ public class DAO {
 		}
 	}
 
+	public static ArrayList<HashMap<String, String>> getStandortListByIdFuerAdapter(
+			String entsorgungsartId) {
+		try {
+			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+
+			List<Standort> data = getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
+
+			for (Standort standort : data) {
+				HashMap<String, String> standortMap = new HashMap<String, String>();
+				standortMap.put("id", standort.getId());
+				standortMap.put("bezeichnung", standort.getBezeichnung());
+				result.add(standortMap);
+			}
+
+			return result;
+
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
 	/**
 	 * Liest für eine gegebene {@link Standort}-ID das entsprechende Objekt aus
 	 * Für den weiteren Gebrauch wird hier direkt eine {@link ArrayList}
