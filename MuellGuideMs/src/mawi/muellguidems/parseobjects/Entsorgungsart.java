@@ -1,7 +1,5 @@
 package mawi.muellguidems.parseobjects;
 
-import mawi.muellguidems.util.EntsorgungsartEnum;
-
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -41,15 +39,6 @@ public class Entsorgungsart extends ParseObject {
 	 */
 	public static Entsorgungsart createWithoutDataByObjectId(String objectId) {
 		return (Entsorgungsart) createWithoutData("Entsorgungsart", objectId);
-	}
-
-	/**
-	 * Mapping zwischen Parse und EntsorgungsartEnum
-	 * 
-	 * @return EntsorgungsartEnum
-	 */
-	public EntsorgungsartEnum getEnumEntsorgungsart() {
-		return EntsorgungsartEnum.getEnumEntsorgungsart(getBezeichnung());
 	}
 
 	public static ParseQuery<Entsorgungsart> getQuery() {
