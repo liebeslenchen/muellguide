@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 
 					switch (position) {
 					case 0:
-						// Mülltrennung aufrufen:
+						// MÃ¼lltrennung aufrufen:
 						intent = new Intent(getBaseContext(),
 								MuelltrennungActivity.class);
 						break;
@@ -72,26 +72,26 @@ public class MainActivity extends Activity {
 
 		dataSource = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> item = new HashMap<String, String>();
-		item.put("hauptmenue_item", "Mülltrennung");
-		item.put("hauptmenue_subitem", "Was gehört in welche Tonne?");
+		item.put("hauptmenue_item", "MÃ¼lltrennung");
+		item.put("hauptmenue_subitem", "Was gehÃ¶rt in welche Tonne?");
 
 		dataSource.add(item);
 
 		item = new HashMap<String, String>();
 		item.put("hauptmenue_item", "Entsorgung");
-		item.put("hauptmenue_subitem", "Wo werde ich meinen Müll los?");
+		item.put("hauptmenue_subitem", "Wo werde ich meinen MÃ¼ll los?");
 
 		dataSource.add(item);
 
 		item = new HashMap<String, String>();
 		item.put("hauptmenue_item", "Feedback");
-		item.put("hauptmenue_subitem", "Änderungen melden, Wünsche äußern...");
+		item.put("hauptmenue_subitem", "Ã„nderungen melden, WÃ¼nsche Ã¤uÃŸern...");
 
 		dataSource.add(item);
 
 		item = new HashMap<String, String>();
 		item.put("hauptmenue_item", "Hilfe");
-		item.put("hauptmenue_subitem", "Symbolerklärung usw.");
+		item.put("hauptmenue_subitem", "SymbolerkÃ¤rung usw.");
 
 		dataSource.add(item);
 
