@@ -41,7 +41,8 @@ public class TestActivity extends Activity {
 
 	public void onClickBtnMaps(View view) {
 		Intent mapsIntent = new Intent(this, MapsActivity.class);
-		mapsIntent.putExtra("objectId", "QZY4KqAckH");
+		// mapsIntent.putExtra("objectId", "QZY4KqAckH");
+		mapsIntent.putExtra("entsorgungsartId", "QPFaiU38rg");
 		startActivity(mapsIntent);
 	}
 }
