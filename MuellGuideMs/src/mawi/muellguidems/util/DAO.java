@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mawi.muellguidems.activities.MuellGuideMsApplication;
+import mawi.muellguidems.activities.R;
+import mawi.muellguidems.adapter.AdapterChildItem;
+import mawi.muellguidems.adapter.AdapterGroupItem;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Gegenstand;
 import mawi.muellguidems.parseobjects.Standort;
@@ -13,32 +17,122 @@ import com.parse.ParseQuery;
 
 public class DAO {
 
-	public static ArrayList<HashMap<String, String>> getAlleGegenstaendeFuerExpandableAdapter() {
+	public static ArrayList<AdapterGroupItem> getAlleGegenstaendeFuerExpandableAdapter() {
 		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
-		ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+		ArrayList<AdapterGroupItem> result = new ArrayList<AdapterGroupItem>();
 		HashMap<String, Entsorgungsart> entsorgungsartMap = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
 		try {
 			List<Gegenstand> gegenstandList = query.find();
 
 			for (Gegenstand gegenstand : gegenstandList) {
-				HashMap<String, String> gegenstandHashMap = new HashMap<String, String>();
-				// Entsorgungsart entsorgungsart = (Entsorgungsart) gegenstand
-				// .getEntsorgungsart();
-				// entsorgungsart.fetchIfNeeded();
+				AdapterGroupItem groupItem = new AdapterGroupItem();
+				groupItem.setId(gegenstand.getId());
+				groupItem.setBezeichnung(gegenstand.getBezeichnung());
 
-				gegenstandHashMap.put("id", gegenstand.getId());
-				gegenstandHashMap.put("bezeichnung",
-						gegenstand.getBezeichnung());
-				gegenstandHashMap.put("entsorgungsart",
-						entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
-								.getBezeichnung());
-				gegenstandHashMap.put("hinweis",
-						entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
-								.getHinweis());
-				result.add(gegenstandHashMap);
+				// An dieser Stelle wird das jeweilige Entsorungsart-Image
+				// gesetzt !
+				Entsorgungsart entsorgungsArtdesGegenstands = entsorgungsartMap
+						.get(gegenstand.getEntsorgungsartId());
+
+				String test = entsorgungsArtdesGegenstands.getBezeichnung();
+
+				if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_altglas))) {
+					// Altglas
+					groupItem.setImage(R.drawable.altglas);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_altkleider))) {
+
+					// Altkleider-Image setzen
+					groupItem.setImage(R.drawable.altkleider);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+
+					// Elektrokleingeräte-Image setzen
+					groupItem.setImage(R.drawable.elektrokleingeraet);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_papiermuell))) {
+
+					// Papiermüll-Image setzen
+					groupItem.setImage(R.drawable.papiermuell);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_gelber_sack))) {
+
+					// Gelber Sack-Image setzen
+					groupItem.setImage(R.drawable.gelbersack);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_biotonne))) {
+
+					// Biotonne-Image setzen
+					groupItem.setImage(R.drawable.biotonne);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_restmuell))) {
+
+					// Restmüll-Image setzen
+					groupItem.setImage(R.drawable.restmuell);
+				}
+
+				ArrayList<AdapterChildItem> childList = new ArrayList<AdapterChildItem>();
+				AdapterChildItem child = new AdapterChildItem();
+				child.setId(entsorgungsartMap.get(
+						gegenstand.getEntsorgungsartId()).getBezeichnung());
+
+				// An dieser Stelle wird der jeweilige Hinweis-Text im Sub-Item
+				// gesetzt !
+				child.setBezeichnung(entsorgungsartMap.get(
+						gegenstand.getEntsorgungsartId()).getBezeichnung());
+
+				childList.add(child);
+
+				groupItem.setChildren(childList);
+				result.add(groupItem);
+
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		return result;
