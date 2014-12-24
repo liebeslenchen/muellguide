@@ -26,6 +26,10 @@
     <string name="db_entsorgungsart_value_altkleider">Altkleider</string>
     <string name="db_entsorgungsart_value_recyclinghof">Recyclinghof</string>
     <string name="db_entsorgungsart_value_elektrokleingeraete">Elektrokleingeräte</string>
+    <string name="db_entsorgungsart_value_biotonne">Biotonne</string>
+    <string name="db_entsorgungsart_value_restmuell">Restmüll</string>
+    <string name="db_entsorgungsart_value_gelber_sack">Gelber Sack</string>
+    <string name="db_entsorgungsart_value_papiermuell">Papiermüll</string>
     <string name="title_activity_standort_details">StandortDetailsActivity</string>
     <string name="tvAdresseLabel">Adresse:</string>
     <string name="tvStandortStrasse">-</string>

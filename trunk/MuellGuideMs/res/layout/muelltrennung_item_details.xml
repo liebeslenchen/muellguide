@@ -19,11 +19,8 @@
         android:textStyle="bold" >
     </TextView>
 
-    <!-- android:drawableLeft="@drawable/ic_launcher"-->
     
-    <!-- <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black" />-->
+    
+    
 
 </LinearLayout> 
