@@ -5,25 +5,26 @@
     android:orientation="horizontal"
     android:padding="5dip" >
  
-    <!--  ListRow Left sied Thumbnail image -->
-    <!-- <LinearLayout android:id="@+id/thumbnail"
+    <!-- Eintrag-spezifisches Icon (wird zur Laufzeit vom Adapter gesetzt) -->
+     <ImageView 
+        android:id="@+id/ivHauptmenueItemIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="3dip"
-        android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dip">
-    </LinearLayout> -->
+        android:layout_centerVertical="true"/>
+    
  
     <!-- Item -->
     <TextView
         android:id="@+id/tvHauptmenueItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="60dp"
         android:textColor="#040404"
         android:typeface="sans"
         android:textSize="15sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+         />
  
     <!-- SubItem -->
     <TextView
@@ -33,14 +34,15 @@
         android:layout_below="@id/tvHauptmenueItem"
         android:textColor="#343434"
         android:textSize="12sp"
-        android:layout_marginTop="1dip" />
+        android:paddingLeft="60dp"
+        android:layout_marginTop="1dip"
+         />
  
   
      <!-- Pfeil -->
      <ImageView 
         android:id="@+id/ivNaviPfeilInHauptmenueActivity"
         android:layout_width="wrap_content"
-		android:contentDescription="pfeil"
         android:layout_height="wrap_content"
         android:src="@drawable/pfeil_rechts"
         android:layout_alignParentRight="true"
