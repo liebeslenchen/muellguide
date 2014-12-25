@@ -11,12 +11,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomExpandableAdapter extends BaseExpandableListAdapter {
+public class CustomMuelltrennungExpandableAdapter extends BaseExpandableListAdapter {
 
 	private Context context;
 	private ArrayList<AdapterGroupItem> groups;
 
-	public CustomExpandableAdapter(Context context,
+	public CustomMuelltrennungExpandableAdapter(Context context,
 			ArrayList<AdapterGroupItem> groups) {
 
 		this.context = context;
@@ -25,13 +25,11 @@ public class CustomExpandableAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return groups.get(groupPosition).getChildren().get(childPosition);
 	}
 
 	@Override
 	public long getChildId(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
 		return childPosition;
 	}
 

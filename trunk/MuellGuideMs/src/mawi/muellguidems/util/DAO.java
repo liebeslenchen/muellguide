@@ -8,6 +8,7 @@ import mawi.muellguidems.activities.MuellGuideMsApplication;
 import mawi.muellguidems.activities.R;
 import mawi.muellguidems.adapter.AdapterChildItem;
 import mawi.muellguidems.adapter.AdapterGroupItem;
+import mawi.muellguidems.adapter.AdapterSingleItem;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Gegenstand;
 import mawi.muellguidems.parseobjects.Standort;
@@ -16,6 +17,46 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 
 public class DAO {
+
+	public static ArrayList<AdapterSingleItem> getHauptmenueEintraege() {
+
+		try {
+			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
+
+			// Menüpunkt 1: Mülltrennung
+			result.add(new AdapterSingleItem("muelltrennung", "Mülltrennung",
+					"Was gehört in welche Tonne?", R.drawable.ic_launcher));
+
+			// Menüpunkt 2: Müllentsorgung
+			result.add(new AdapterSingleItem("entsorgung", "Entsorgung",
+					"Wo werde ich meinen Müll los?", R.drawable.ic_launcher));
+
+			// Menüpunkt 3: Hilfe
+			result.add(new AdapterSingleItem("hilfe", "Hilfe",
+					"Symbolerklärung, Hinweise zur Bedienung usw.",
+					R.drawable.ic_launcher));
+
+			// Menüpunkt 4: Feedback
+			result.add(new AdapterSingleItem("feedback", "Feedback",
+					"Vorschläge machen, Änderungswünsche äußern...",
+					R.drawable.ic_launcher));
+
+			// Menüpunkt 5: Über uns
+			result.add(new AdapterSingleItem(
+					"about",
+					"Über uns",
+					"Allgemeine Informationen zur App und dem Entwickler-Team...",
+					R.drawable.ic_launcher));
+
+			// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
+			result.add(new AdapterSingleItem("test", "Testwiese",
+					"Testen und so...", R.drawable.ic_launcher));
+
+			return result;
+		} catch (Exception ex) {
+			return null;
+		}
+	}
 
 	public static ArrayList<AdapterGroupItem> getAlleGegenstaendeFuerExpandableAdapter() {
 		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
