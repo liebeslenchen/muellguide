@@ -179,17 +179,63 @@ public class DAO {
 		return result;
 	}
 
-	public static ArrayList<HashMap<String, String>> getEntsorgungsartenMitStandortFuerAdapter() {
+	public static ArrayList<AdapterSingleItem> getEntsorgungsartenMitStandortFuerAdapter() {
 		try {
-			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
 			HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
 
 			for (Entsorgungsart entsorgungsart : entsorgungsarten.values()) {
 				if (entsorgungsart.getHatStandort()) {
-					HashMap<String, String> hm = new HashMap<String, String>();
-					hm.put("id", entsorgungsart.getId());
-					hm.put("bezeichnung", entsorgungsart.getBezeichnung());
-					result.add(hm);
+					AdapterSingleItem item = new AdapterSingleItem(
+							entsorgungsart.getId(),
+							entsorgungsart.getBezeichnung(), null, 0);
+
+					if (item.getBezeichnung()
+							.equalsIgnoreCase(
+									MuellGuideMsApplication
+											.getContext()
+											.getResources()
+											.getString(
+													R.string.db_entsorgungsart_value_altglas))) {
+						item.setImage(R.drawable.altglas);
+
+					} else if (item
+							.getBezeichnung()
+							.equalsIgnoreCase(
+									MuellGuideMsApplication
+											.getContext()
+											.getResources()
+											.getString(
+													R.string.db_entsorgungsart_value_recyclinghof))) {
+
+						item.setImage(R.drawable.recyclinghof);
+					} else if (item
+							.getBezeichnung()
+							.equalsIgnoreCase(
+									MuellGuideMsApplication
+											.getContext()
+											.getResources()
+											.getString(
+													R.string.db_entsorgungsart_value_altkleider))) {
+
+						item.setImage(R.drawable.altkleider);
+
+					} else if (item
+							.getBezeichnung()
+							.equalsIgnoreCase(
+									MuellGuideMsApplication
+											.getContext()
+											.getResources()
+											.getString(
+													R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+
+						item.setImage(R.drawable.elektrokleingeraet);
+
+					} else {
+
+					}
+
+					result.add(item);
 				}
 			}
 
