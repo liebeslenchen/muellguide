@@ -232,7 +232,7 @@ public class DAO {
 						item.setImage(R.drawable.elektrokleingeraet);
 
 					} else {
-
+						item.setImage(R.drawable.ic_launcher);
 					}
 
 					result.add(item);
@@ -245,18 +245,59 @@ public class DAO {
 		}
 	}
 
-	public static ArrayList<HashMap<String, String>> getStandortListByIdFuerAdapter(
+	public static ArrayList<AdapterSingleItem> getStandortListByIdFuerAdapter(
 			String entsorgungsartId) {
 		try {
-			ArrayList<HashMap<String, String>> result = new ArrayList<HashMap<String, String>>();
+			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
+			HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
+			String entsorgungsartbezeichnung = entsorgungsarten.get(
+					entsorgungsartId).getBezeichnung();
 
 			List<Standort> data = getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
 
 			for (Standort standort : data) {
-				HashMap<String, String> standortMap = new HashMap<String, String>();
-				standortMap.put("id", standort.getId());
-				standortMap.put("bezeichnung", standort.getBezeichnung());
-				result.add(standortMap);
+				AdapterSingleItem item = new AdapterSingleItem(
+						standort.getId(), standort.getBezeichnung(), null, 0);
+
+				if (entsorgungsartbezeichnung
+						.equalsIgnoreCase(MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_altglas))) {
+					item.setImage(R.drawable.altglas);
+
+				} else if (entsorgungsartbezeichnung
+						.equalsIgnoreCase(MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_recyclinghof))) {
+
+					item.setImage(R.drawable.recyclinghof);
+				} else if (entsorgungsartbezeichnung
+						.equalsIgnoreCase(MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_altkleider))) {
+
+					item.setImage(R.drawable.altkleider);
+
+				} else if (entsorgungsartbezeichnung
+						.equalsIgnoreCase(MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+
+					item.setImage(R.drawable.elektrokleingeraet);
+
+				} else {
+					item.setImage(R.drawable.ic_launcher);
+				}
+
+				result.add(item);
 			}
 
 			return result;
