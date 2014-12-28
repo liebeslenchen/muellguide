@@ -25,32 +25,32 @@ public class DAO {
 
 			// Menüpunkt 1: Mülltrennung
 			result.add(new AdapterSingleItem("muelltrennung", "Mülltrennung",
-					"Was gehört in welche Tonne?", R.drawable.ic_launcher));
+					"Was gehört in welche Tonne?", R.drawable.muelltrennung));
 
 			// Menüpunkt 2: Müllentsorgung
 			result.add(new AdapterSingleItem("entsorgung", "Entsorgung",
-					"Wo werde ich meinen Müll los?", R.drawable.ic_launcher));
+					"Wo werde ich meinen Müll los?", R.drawable.entsorgung));
 
 			// Menüpunkt 3: Hilfe
 			result.add(new AdapterSingleItem("hilfe", "Hilfe",
 					"Symbolerklärung, Hinweise zur Bedienung usw.",
-					R.drawable.ic_launcher));
+					R.drawable.hilfe));
 
 			// Menüpunkt 4: Feedback
 			result.add(new AdapterSingleItem("feedback", "Feedback",
 					"Vorschläge machen, Änderungswünsche äußern...",
-					R.drawable.ic_launcher));
+					R.drawable.feedback));
 
 			// Menüpunkt 5: Über uns
 			result.add(new AdapterSingleItem(
 					"about",
 					"Über uns",
 					"Allgemeine Informationen zur App und dem Entwickler-Team...",
-					R.drawable.ic_launcher));
+					R.drawable.ueber_uns));
 
 			// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
 			result.add(new AdapterSingleItem("test", "Testwiese",
-					"Testen und so...", R.drawable.ic_launcher));
+					"Testen und so...", R.drawable.testwiese));
 
 			return result;
 		} catch (Exception ex) {
