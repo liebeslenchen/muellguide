@@ -45,6 +45,15 @@ public class MapsActivity extends Activity {
 			// Sorgt für den Zoom auf Muenster
 			CameraPosition cameraPosition = new CameraPosition.Builder()
 					.target(cityCenter).zoom(12).build();
+
+			// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
+			// diese Position gezoomt werden (z.B. bei Recyclinghöfen)
+			if (allMarkers.size() == 1) {
+				cameraPosition = new CameraPosition.Builder()
+						.target(allMarkers.get(0).getPosition()).zoom(12)
+						.build();
+			}
+
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));
 
