@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"/>
-     
+      
      <!-- Item -->
     <TextView
         android:id="@+id/tvEntsorgungStandort"
@@ -22,7 +22,7 @@
         android:typeface="sans"
         android:textSize="15sp"
         android:paddingLeft="60sp"
-        android:textStyle="bold"/>
+        android:layout_centerVertical="true"/>
  
   
      <!-- Pfeil -->
