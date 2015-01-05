@@ -156,6 +156,17 @@ public class DAO {
 
 					// Restmüll-Image setzen
 					groupItem.setImage(R.drawable.restmuell);
+				} else if (entsorgungsArtdesGegenstands
+						.getBezeichnung()
+						.equalsIgnoreCase(
+								MuellGuideMsApplication
+										.getContext()
+										.getResources()
+										.getString(
+												R.string.db_entsorgungsart_value_recyclinghof))) {
+
+					// Recyclinghof-Image setzen
+					groupItem.setImage(R.drawable.recyclinghof);
 				}
 
 				ArrayList<AdapterChildItem> childList = new ArrayList<AdapterChildItem>();
