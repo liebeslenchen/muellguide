@@ -63,8 +63,10 @@ public class DAO {
 		ArrayList<AdapterGroupItem> result = new ArrayList<AdapterGroupItem>();
 		HashMap<String, Entsorgungsart> entsorgungsartMap = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
 		try {
-			List<Gegenstand> gegenstandList = query.orderByAscending(
-					"bezeichnung").find();
+			// Das Limit wird gesetzt, da sonst nur die ersten 100 Gegenstände
+			// geladen werden.
+			List<Gegenstand> gegenstandList = query
+					.orderByAscending("bezeichnung").setLimit(200).find();
 
 			for (Gegenstand gegenstand : gegenstandList) {
 				AdapterGroupItem groupItem = new AdapterGroupItem();
