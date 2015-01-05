@@ -63,7 +63,8 @@ public class DAO {
 		ArrayList<AdapterGroupItem> result = new ArrayList<AdapterGroupItem>();
 		HashMap<String, Entsorgungsart> entsorgungsartMap = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
 		try {
-			List<Gegenstand> gegenstandList = query.find();
+			List<Gegenstand> gegenstandList = query.orderByAscending(
+					"bezeichnung").find();
 
 			for (Gegenstand gegenstand : gegenstandList) {
 				AdapterGroupItem groupItem = new AdapterGroupItem();
@@ -365,8 +366,12 @@ public class DAO {
 			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
 			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
 			// ist.
-			standortList = query.whereEqualTo("fkEntsorgungsart",
-					entsorgungsartWithoutData).find();
+			// Das Limit wird gesetzt damit man alle Standorte bekommt.
+			// Ansonsten werden nur die ersten 100 zurückgegeben. Relevant
+			// für Altglas, da 290 Standort eingetragen sind.
+			standortList = query
+					.whereEqualTo("fkEntsorgungsart", entsorgungsartWithoutData)
+					.orderByAscending("bezeichnung").setLimit(350).find();
 
 		} catch (ParseException e) {
 			e.printStackTrace();

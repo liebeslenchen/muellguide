@@ -43,36 +43,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+        <activity 
             android:name=".ParseTestActivity"
-            android:label="@string/title_activity_parse_test" >
+            android:label="@string/title_activity_parse_test">
         </activity>
 
         <!-- Andriod Key Lena -->
         <!--
         <meta-data  
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
-        -->
+            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />        -->
+        
         <!-- Andriod Key Marlen -->
-        <!--
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDCAnvvqIj4gt2m-lmIuiAxJkta6_vbdg8" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        -->
-
 
         <!-- Android Key Ruslan -->
-        <meta-data
+		<!--         
+		<meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDVL5iL81j6ypZnoKfIJkZNQM9qyXZQRIE" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
+ 		-->
+ 		
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps_" >
@@ -81,13 +80,15 @@
             android:name=".TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
-        <activity
+        <activity 
             android:name=".MuelltrennungActivity"
-            android:label="@string/title_activity_muelltrennung" >
+            android:label="@string/muelltrennung" 
+            android:icon="@drawable/muelltrennung_white">
         </activity>
         <activity
             android:name=".EntsorgungActivity"
-            android:label="@string/title_activity_entsorgung" >
+            android:label="@string/entsorgung"
+            android:icon="@drawable/entsorgung_white" >
         </activity>
         <activity
             android:name=".EntsorgungStandorteActivity"
@@ -99,7 +100,8 @@
         </activity>
         <activity
             android:name=".FeedbackActivity"
-            android:label="@string/title_activity_feedback" >
+            android:label="@string/feedback" 
+            android:icon="@drawable/feedback_white" >
         </activity>
     </application>
 
