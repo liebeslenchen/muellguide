@@ -331,15 +331,27 @@ public class DAO {
 	 */
 	public static ArrayList<Standort> getStandortListById(String standortId) {
 		ArrayList<Standort> standorte = new ArrayList<Standort>();
+		standorte.add(getStandortById(standortId));
+		return standorte;
+	}
+
+	/**
+	 * Liest für eine gegebene {@link Standort}-ID das entsprechende
+	 * Standort-Objekt aus.
+	 * 
+	 * @param standortId
+	 * @return {@link Standort} oder null, falls ID nicht vorhanden ist
+	 */
+	public static Standort getStandortById(String standortId) {
+		Standort standort = null;
 		ParseQuery<Standort> stParseQuery = Standort.getQuery();
 
 		try {
-			standorte.add(stParseQuery.get(standortId));
+			standort = stParseQuery.get(standortId);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		return standorte;
+		return standort;
 	}
 
 	/**

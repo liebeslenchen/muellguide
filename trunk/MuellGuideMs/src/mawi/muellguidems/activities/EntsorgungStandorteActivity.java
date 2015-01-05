@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import mawi.muellguidems.adapter.AdapterSingleItem;
 import mawi.muellguidems.adapter.CustomEntsorgungStandortAdapter;
+import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.util.DAO;
+import mawi.muellguidems.util.EntsorgungsartUtil;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +45,12 @@ public class EntsorgungStandorteActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
+		// Titeltext und Icon setzten, je nach Entsorgungsart
+		Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+				.get(entsorgungsArtId);
+		setTitle(entsorgungsart.getBezeichnung() + " Standorte");
+		getActionBar().setIcon(R.drawable.entsorgung_white);
 	}
 
 	private void setList() {

@@ -1,7 +1,5 @@
 package mawi.muellguidems.activities;
 
-import java.util.ArrayList;
-
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.util.DAO;
 import android.app.Activity;
@@ -28,10 +26,9 @@ public class StandortDetailsActivity extends Activity {
 
 		standortId = getIntent().getStringExtra("id");
 
-		ArrayList<Standort> data = DAO.getStandortListById(standortId);
+		Standort standort = DAO.getStandortById(standortId);
 
-		try {
-			Standort standort = data.get(0);
+		if (standort != null) {
 
 			String strasse = standort.getStrasse();
 			String plz = standort.getPlz();
@@ -44,10 +41,17 @@ public class StandortDetailsActivity extends Activity {
 
 			/* TODO: Öffnungszeiten fehlen noch! */
 
-		} catch (Exception ex) {
+			// Titeltext setzten, je nach Entsorgungsart
+			setTitle(standort.getBezeichnung());
+		} else {
+			setTitle("Standort");
 			// TODO: Fehlerbehandlung fehlt noch !
+			// Kann eigentlich nur auftreten bei Parse Fehler (kein Netzwerk
+			// etc.), dann ist standort null
 
 		}
+		// Titelicon setzen
+		getActionBar().setIcon(R.drawable.entsorgung_white);
 	}
 
 	@Override

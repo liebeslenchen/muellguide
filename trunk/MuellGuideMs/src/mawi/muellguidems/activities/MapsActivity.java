@@ -2,6 +2,10 @@ package mawi.muellguidems.activities;
 
 import java.util.ArrayList;
 
+import mawi.muellguidems.parseobjects.Entsorgungsart;
+import mawi.muellguidems.parseobjects.Standort;
+import mawi.muellguidems.util.DAO;
+import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.MapUtils;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,14 +27,13 @@ public class MapsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_maps);
 
+		Intent myIntent = getIntent();
+		String entsorgungsartId = myIntent.getStringExtra("entsorgungsartId");
+		String id = myIntent.getStringExtra("objectId");
+
 		try {
 			// Loading map
 			initializeMap();
-
-			Intent myIntent = getIntent();
-			String entsorgungsartId = myIntent
-					.getStringExtra("entsorgungsartId");
-			String id = myIntent.getStringExtra("objectId");
 
 			ArrayList<MarkerOptions> allMarkers = MapUtils.getAllMakers(
 					entsorgungsartId, id);
@@ -64,6 +67,16 @@ public class MapsActivity extends Activity {
 			e.printStackTrace();
 		}
 
+		// Titeltext und Icon setzten, je nach Entsorgungsart oder Standort
+		getActionBar().setIcon(R.drawable.entsorgung_white);
+		if (entsorgungsartId != null) {
+			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+					.get(entsorgungsartId);
+			setTitle(entsorgungsart.getBezeichnung() + " Standorte");
+		} else if (id != null) {
+			Standort standort = DAO.getStandortById(id);
+			setTitle(standort.getBezeichnung());
+		}
 	}
 
 	private void initializeMap() {

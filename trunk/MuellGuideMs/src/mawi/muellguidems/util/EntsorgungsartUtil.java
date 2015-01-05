@@ -47,13 +47,27 @@ public class EntsorgungsartUtil {
 	 */
 	public static BitmapDescriptor getDrawableForEntsorgungsart(
 			Entsorgungsart entsorgungsart) {
-
 		BitmapDescriptor drawable = null;
+		drawable = BitmapDescriptorFactory
+				.fromResource(getDrawableIdForEntsorgungsart(entsorgungsart));
+		return drawable;
+	}
+
+	/**
+	 * Gibt die R.Drawable ID in Form eines {@link Integer}s zurück, in
+	 * Abhängigkeit von einer gegebenen {@link Entsorgungsart}.
+	 * 
+	 * @param entsorgungsart
+	 * @return {@link Integer}
+	 */
+	public static Integer getDrawableIdForEntsorgungsart(
+			Entsorgungsart entsorgungsart) {
+		Integer drawableId = null;
 
 		if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 				MuellGuideMsApplication.getContext().getResources()
 						.getString(R.string.db_entsorgungsart_value_altglas))) {
-			drawable = BitmapDescriptorFactory.fromResource(R.drawable.altglas);
+			drawableId = R.drawable.altglas;
 		} else if (entsorgungsart
 				.getBezeichnung()
 				.equalsIgnoreCase(
@@ -62,8 +76,7 @@ public class EntsorgungsartUtil {
 								.getResources()
 								.getString(
 										R.string.db_entsorgungsart_value_altkleider))) {
-			drawable = BitmapDescriptorFactory
-					.fromResource(R.drawable.altkleider);
+			drawableId = R.drawable.altkleider;
 		} else if (entsorgungsart
 				.getBezeichnung()
 				.equalsIgnoreCase(
@@ -72,19 +85,16 @@ public class EntsorgungsartUtil {
 								.getResources()
 								.getString(
 										R.string.db_entsorgungsart_value_elektrokleingeraete))) {
-			drawable = BitmapDescriptorFactory
-					.fromResource(R.drawable.elektrokleingeraet);
+			drawableId = R.drawable.elektrokleingeraet;
 		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 				MuellGuideMsApplication
 						.getContext()
 						.getResources()
 						.getString(
 								R.string.db_entsorgungsart_value_recyclinghof))) {
-			drawable = BitmapDescriptorFactory
-					.fromResource(R.drawable.recyclinghof);
+			drawableId = R.drawable.recyclinghof;
 		}
 
-		return drawable;
-
+		return drawableId;
 	}
 }
