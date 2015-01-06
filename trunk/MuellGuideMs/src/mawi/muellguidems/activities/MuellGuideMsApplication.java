@@ -9,6 +9,7 @@ import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import android.app.Application;
 import android.content.Context;
+import android.view.animation.AlphaAnimation;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -19,6 +20,10 @@ import com.parse.ParseUser;
 public class MuellGuideMsApplication extends Application {
 
 	private static Context context;
+
+	// Animation mit der Klick-Effekte bei Buttons realisiert werden können
+	public final static AlphaAnimation BUTTON_CLICK_ANIMATION = new AlphaAnimation(
+			1F, 0.7F);
 
 	@Override
 	public void onCreate() {
@@ -56,4 +61,5 @@ public class MuellGuideMsApplication extends Application {
 	public static Context getContext() {
 		return context;
 	}
+
 }

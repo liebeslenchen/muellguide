@@ -7,7 +7,7 @@ import com.parse.ParseQuery;
 /**
  * Mappingobjekt für die Parse Klasse "OeffungszeitenContainer".
  */
-@ParseClassName("OeffungszeitenContainer")
+@ParseClassName("OeffnungszeitenContainer")
 public class OeffungszeitenContainer extends ParseObject {
 
 	public OeffungszeitenContainer() {
@@ -18,7 +18,7 @@ public class OeffungszeitenContainer extends ParseObject {
 	}
 
 	public String getWochentag() {
-		return getString("wochentag");
+		return getString("Wochentag");
 	}
 
 	public String getEnde() {

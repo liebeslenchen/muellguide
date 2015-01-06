@@ -7,7 +7,7 @@ import com.parse.ParseQuery;
 /**
  * Mappingobjekt für die Parse Klasse "OeffungszeitenRecyclinghof".
  */
-@ParseClassName("OeffungszeitenRecyclinghof")
+@ParseClassName("OeffnungszeitenRecyclinghof")
 public class OeffungszeitenRecyclinghof extends ParseObject {
 
 	public OeffungszeitenRecyclinghof() {
