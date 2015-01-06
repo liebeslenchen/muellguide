@@ -9,12 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StandortDetailsActivity extends Activity {
 
 	private TextView tvAdresse;
 	private TextView tvOeffnungszeiten;
-	private String standortId;
+	Standort standort;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +25,9 @@ public class StandortDetailsActivity extends Activity {
 		tvAdresse = (TextView) findViewById(R.id.tvStandortAdresse);
 		tvOeffnungszeiten = (TextView) findViewById(R.id.tvStandortOeffnungszeiten);
 
-		standortId = getIntent().getStringExtra("id");
+		String standortId = getIntent().getStringExtra("id");
 
-		Standort standort = DAO.getStandortById(standortId);
+		standort = DAO.getStandortById(standortId);
 
 		if (standort != null) {
 
@@ -74,10 +75,15 @@ public class StandortDetailsActivity extends Activity {
 	}
 
 	public void onClickBtnStandortAufKarteAnzeigen(View v) {
-		if (standortId != null) {
+		if (standort != null && standort.getGpsStandort() != null) {
 			Intent mapsIntent = new Intent(this, MapsActivity.class);
-			mapsIntent.putExtra("objectId", standortId);
+			mapsIntent.putExtra("objectId", standort.getId());
 			startActivity(mapsIntent);
+		} else {
+			Toast.makeText(
+					StandortDetailsActivity.this,
+					"Der Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf einer Karte angezeigt werden. Unter Feedback können Sie uns den genauen Standort mitteilen.",
+					Toast.LENGTH_LONG).show();
 		}
 	}
 }

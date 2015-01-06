@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class EntsorgungStandorteActivity extends Activity {
 
@@ -63,6 +64,9 @@ public class EntsorgungStandorteActivity extends Activity {
 
 	public void onClickBtnAlleStandorteAnzeigen(View v) {
 		if (entsorgungsArtId != null) {
+			Toast.makeText(EntsorgungStandorteActivity.this,
+					"Nur Standorte mit genauen Ortsangaben werden angezeigt",
+					Toast.LENGTH_LONG).show();
 			Intent mapsIntent = new Intent(this, MapsActivity.class);
 			mapsIntent.putExtra("entsorgungsartId", entsorgungsArtId);
 			startActivity(mapsIntent);
