@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import mawi.muellguidems.activities.MuellGuideMsApplication;
 import mawi.muellguidems.activities.R;
 import mawi.muellguidems.adapter.AdapterChildItem;
 import mawi.muellguidems.adapter.AdapterGroupItem;
 import mawi.muellguidems.adapter.AdapterSingleItem;
+import mawi.muellguidems.parseobjects.Bezirk;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Gegenstand;
+import mawi.muellguidems.parseobjects.OeffungszeitenContainer;
+import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 
 import com.parse.ParseException;
@@ -78,96 +80,10 @@ public class DAO {
 				Entsorgungsart entsorgungsArtdesGegenstands = entsorgungsartMap
 						.get(gegenstand.getEntsorgungsartId());
 
-				String test = entsorgungsArtdesGegenstands.getBezeichnung();
-
-				if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_altglas))) {
-					// Altglas
-					groupItem.setImage(R.drawable.altglas);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_altkleider))) {
-
-					// Altkleider-Image setzen
-					groupItem.setImage(R.drawable.altkleider);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_elektrokleingeraete))) {
-
-					// Elektrokleingeräte-Image setzen
-					groupItem.setImage(R.drawable.elektrokleingeraet);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_papiermuell))) {
-
-					// Papiermüll-Image setzen
-					groupItem.setImage(R.drawable.papiermuell);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_gelber_sack))) {
-
-					// Gelber Sack-Image setzen
-					groupItem.setImage(R.drawable.gelbersack);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_biotonne))) {
-
-					// Biotonne-Image setzen
-					groupItem.setImage(R.drawable.biotonne);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_restmuell))) {
-
-					// Restmüll-Image setzen
-					groupItem.setImage(R.drawable.restmuell);
-				} else if (entsorgungsArtdesGegenstands
-						.getBezeichnung()
-						.equalsIgnoreCase(
-								MuellGuideMsApplication
-										.getContext()
-										.getResources()
-										.getString(
-												R.string.db_entsorgungsart_value_recyclinghof))) {
-
-					// Recyclinghof-Image setzen
-					groupItem.setImage(R.drawable.recyclinghof);
-				}
+				// Images je nach Entsorgungsart setzen
+				int drawbleId = EntsorgungsartUtil
+						.getDrawableIdForEntsorgungsart(entsorgungsArtdesGegenstands);
+				groupItem.setImage(drawbleId);
 
 				ArrayList<AdapterChildItem> childList = new ArrayList<AdapterChildItem>();
 				AdapterChildItem child = new AdapterChildItem();
@@ -204,50 +120,9 @@ public class DAO {
 							entsorgungsart.getId(),
 							entsorgungsart.getBezeichnung(), null, 0);
 
-					if (item.getBezeichnung()
-							.equalsIgnoreCase(
-									MuellGuideMsApplication
-											.getContext()
-											.getResources()
-											.getString(
-													R.string.db_entsorgungsart_value_altglas))) {
-						item.setImage(R.drawable.altglas);
-
-					} else if (item
-							.getBezeichnung()
-							.equalsIgnoreCase(
-									MuellGuideMsApplication
-											.getContext()
-											.getResources()
-											.getString(
-													R.string.db_entsorgungsart_value_recyclinghof))) {
-
-						item.setImage(R.drawable.recyclinghof);
-					} else if (item
-							.getBezeichnung()
-							.equalsIgnoreCase(
-									MuellGuideMsApplication
-											.getContext()
-											.getResources()
-											.getString(
-													R.string.db_entsorgungsart_value_altkleider))) {
-
-						item.setImage(R.drawable.altkleider);
-
-					} else if (item
-							.getBezeichnung()
-							.equalsIgnoreCase(
-									MuellGuideMsApplication
-											.getContext()
-											.getResources()
-											.getString(
-													R.string.db_entsorgungsart_value_elektrokleingeraete))) {
-
-						item.setImage(R.drawable.elektrokleingeraet);
-
-					} else {
-						item.setImage(R.drawable.ic_launcher);
-					}
+					int drawbleId = EntsorgungsartUtil
+							.getDrawableIdForEntsorgungsart(entsorgungsart);
+					item.setImage(drawbleId);
 
 					result.add(item);
 				}
@@ -367,5 +242,91 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return standortList;
+	}
+
+	/**
+	 * Liefert ein Bezirksobjekt für eine bestimmte BezirksId zurück.
+	 * 
+	 * @param bezirkId
+	 * @return {@link Bezirk}
+	 */
+	public static Bezirk getBezirkById(String bezirkId) {
+		Bezirk bezirk = null;
+		ParseQuery<Bezirk> parseQuery = Bezirk.getQuery();
+
+		try {
+			bezirk = parseQuery.get(bezirkId);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return bezirk;
+	}
+
+	/**
+	 * Liest die Öffnungszeiten für die Container aus.
+	 * 
+	 * @param entsorgungsartId
+	 * @return String, der die aufbereiteten Öffnungszeiten enthält
+	 */
+	public static String getContainerOeffnungszeiten(String entsorgungsartId) {
+		ParseQuery<OeffungszeitenContainer> query = OeffungszeitenContainer
+				.getQuery();
+		List<OeffungszeitenContainer> oeffnungszeitList = new ArrayList<OeffungszeitenContainer>();
+
+		try {
+			Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
+					.createWithoutDataByObjectId(entsorgungsartId);
+
+			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+			// ist.
+			oeffnungszeitList = query.whereEqualTo("fkEntsorgungsart",
+					entsorgungsartWithoutData).find();
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		String oeffnungszeitenAufbereitet = "";
+		for (OeffungszeitenContainer oeffungszeitenContainer : oeffnungszeitList) {
+			oeffnungszeitenAufbereitet += oeffungszeitenContainer
+					.getWochentag()
+					+ ": "
+					+ oeffungszeitenContainer.getStart()
+					+ " - " + oeffungszeitenContainer.getEnde() + " Uhr \r\n";
+		}
+
+		return oeffnungszeitenAufbereitet;
+	}
+
+	public static String getRecyclinghofOeffnungszeiten(String recyclinghofId) {
+		ParseQuery<OeffungszeitenRecyclinghof> query = OeffungszeitenRecyclinghof
+				.getQuery();
+		List<OeffungszeitenRecyclinghof> oeffnungszeitList = new ArrayList<OeffungszeitenRecyclinghof>();
+
+		try {
+			Standort standortWithoutData = Standort
+					.createWithoutDataByObjectId(recyclinghofId);
+
+			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+			// ist.
+			oeffnungszeitList = query.whereEqualTo("fkStandort",
+					standortWithoutData).find();
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		String oeffnungszeitenAufbereitet = "";
+		for (OeffungszeitenRecyclinghof oeffungszeiten : oeffnungszeitList) {
+			oeffnungszeitenAufbereitet += oeffungszeiten.getWochentag() + ": "
+					+ oeffungszeiten.getStart() + " - "
+					+ oeffungszeiten.getEnde() + " Uhr \r\n";
+		}
+
+		return oeffnungszeitenAufbereitet;
 	}
 }

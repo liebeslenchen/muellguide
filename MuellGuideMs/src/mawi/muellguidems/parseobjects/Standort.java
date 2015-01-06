@@ -26,6 +26,10 @@ public class Standort extends ParseObject {
 		return getParseObject("fkBezirk");
 	}
 
+	public String getBezirkId() {
+		return getParseObject("fkBezirk").getObjectId();
+	}
+
 	public String getEntsorgungsartId() {
 		return getParseObject("fkEntsorgungsart").getObjectId();
 	}
@@ -44,6 +48,18 @@ public class Standort extends ParseObject {
 
 	public String getStrasse() {
 		return getString("strasse");
+	}
+
+	/**
+	 * Standortobjekt mit gegebener Id erzeugen. Wird für ParseQuery benötigt,
+	 * wenn man z.B. mit where... Pointer prüft. Der id-String kann dort nicht
+	 * direkt übergeben werden.
+	 * 
+	 * @param objectId
+	 * @return Standort
+	 */
+	public static Standort createWithoutDataByObjectId(String objectId) {
+		return (Standort) createWithoutData("Standort", objectId);
 	}
 
 	public static ParseQuery<Standort> getQuery() {

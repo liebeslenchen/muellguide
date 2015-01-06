@@ -63,6 +63,9 @@ public class EntsorgungStandorteActivity extends Activity {
 	}
 
 	public void onClickBtnAlleStandorteAnzeigen(View v) {
+		// Klick-Effekt anzeigen wenn Button gedrückt wird
+		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
+
 		if (entsorgungsArtId != null) {
 			Toast.makeText(EntsorgungStandorteActivity.this,
 					"Nur Standorte mit genauen Ortsangaben werden angezeigt",

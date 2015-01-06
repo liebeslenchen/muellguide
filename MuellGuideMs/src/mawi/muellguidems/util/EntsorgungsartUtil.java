@@ -67,6 +67,7 @@ public class EntsorgungsartUtil {
 		if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 				MuellGuideMsApplication.getContext().getResources()
 						.getString(R.string.db_entsorgungsart_value_altglas))) {
+			// Altglas
 			drawableId = R.drawable.altglas;
 		} else if (entsorgungsart
 				.getBezeichnung()
@@ -76,6 +77,7 @@ public class EntsorgungsartUtil {
 								.getResources()
 								.getString(
 										R.string.db_entsorgungsart_value_altkleider))) {
+			// Altkleider
 			drawableId = R.drawable.altkleider;
 		} else if (entsorgungsart
 				.getBezeichnung()
@@ -85,6 +87,7 @@ public class EntsorgungsartUtil {
 								.getResources()
 								.getString(
 										R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+			// Elektrokleingeräte
 			drawableId = R.drawable.elektrokleingeraet;
 		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 				MuellGuideMsApplication
@@ -92,7 +95,38 @@ public class EntsorgungsartUtil {
 						.getResources()
 						.getString(
 								R.string.db_entsorgungsart_value_recyclinghof))) {
+			// Recyclinghof
 			drawableId = R.drawable.recyclinghof;
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_papiermuell))) {
+			// Papier
+			drawableId = R.drawable.papiermuell;
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_gelber_sack))) {
+			// Gelber Sack
+			drawableId = R.drawable.gelbersack;
+		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				MuellGuideMsApplication.getContext().getResources()
+						.getString(R.string.db_entsorgungsart_value_biotonne))) {
+			// Biotonne
+			drawableId = R.drawable.biotonne;
+		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				MuellGuideMsApplication.getContext().getResources()
+						.getString(R.string.db_entsorgungsart_value_restmuell))) {
+			// Restmüll
+			drawableId = R.drawable.restmuell;
 		}
 
 		return drawableId;

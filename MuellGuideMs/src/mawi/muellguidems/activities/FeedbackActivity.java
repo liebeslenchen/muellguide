@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class FeedbackActivity extends Activity {
 
@@ -52,17 +53,28 @@ public class FeedbackActivity extends Activity {
 	}
 
 	public void onClickBtnSendFeedback(View v) {
+		// Klick-Effekt anzeigen wenn Button gedrückt wird
+		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
+
 		String betreff = spinner.getItemAtPosition(
 				spinner.getSelectedItemPosition()).toString();
 		String text = ((EditText) findViewById(R.id.etFeedbackMessage))
 				.getText().toString();
 
 		Intent emailIntent = new Intent(Intent.ACTION_SEND);
-		emailIntent.setType("text/plain");
+		// Auf E-Mail Apps einschränken
+		emailIntent.setType("message/rfc822");
 		emailIntent.putExtra(Intent.EXTRA_EMAIL,
 				new String[] { "info.muellguidems@gmail.com" });
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, betreff);
 		emailIntent.putExtra(Intent.EXTRA_TEXT, text);
-		startActivity(Intent.createChooser(emailIntent, "Feedback senden..."));
+		try {
+			startActivity(Intent.createChooser(emailIntent,
+					"Feedback senden..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+			Toast.makeText(FeedbackActivity.this,
+					"Sie haben keine E-Mail App installiert", Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 }
