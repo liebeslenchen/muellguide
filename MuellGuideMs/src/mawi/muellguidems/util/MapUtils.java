@@ -65,8 +65,13 @@ public class MapUtils {
 				LatLng latLng = new LatLng(standort.getGpsStandort()
 						.getLatitude(), standort.getGpsStandort()
 						.getLongitude());
-				MarkerOptions marker = new MarkerOptions().position(latLng)
-						.title(standort.getBezeichnung());
+				MarkerOptions marker = new MarkerOptions()
+						.position(latLng)
+						.title(standort.getBezeichnung())
+						.snippet(standort.getStrasse())
+						.snippet(
+								EntsorgungsartUtil
+										.getOeffnungszeitenForCurrentDayAndStandort(standort));
 
 				BitmapDescriptor icon = getIconsFromEntsorgungsartUtilForStandort(standort);
 				if (icon != null) {
