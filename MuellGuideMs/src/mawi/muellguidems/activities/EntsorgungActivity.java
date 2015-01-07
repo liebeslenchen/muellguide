@@ -7,6 +7,7 @@ import mawi.muellguidems.adapter.CustomEntsorgungsartenAdapter;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +20,18 @@ public class EntsorgungActivity extends BaseActivity {
 	private ListView lvEntsorgungMenu;
 	private ArrayList<AdapterSingleItem> data;
 
+	private ProgressDialog progressDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_entsorgung);
+
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		progressDialog.setTitle("Daten werden geladen");
+		progressDialog.setMessage("Bitte warten...");
+		progressDialog.setIndeterminate(true);
 
 		lvEntsorgungMenu = (ListView) findViewById(R.id.lvEntsorgung);
 		setList();
@@ -49,6 +58,8 @@ public class EntsorgungActivity extends BaseActivity {
 				intent.putExtra("id", selectedEntsorgungsartId);
 				intent.putExtra("bezeichnung",
 						selectedEntsorgungsartBezeichnung);
+
+				progressDialog.show();
 				startActivity(intent);
 				;
 			}

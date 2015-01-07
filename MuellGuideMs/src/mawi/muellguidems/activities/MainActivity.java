@@ -63,6 +63,9 @@ public class MainActivity extends BaseActivity {
 						// Mülltrennung aufrufen:
 						intent = new Intent(getBaseContext(),
 								MuelltrennungActivity.class);
+
+						progressDialog.show();
+
 					} else if (selectedItemId.equals("entsorgung")) {
 
 						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
@@ -74,6 +77,9 @@ public class MainActivity extends BaseActivity {
 						// Entsorgung-Activity aufrufen:
 						intent = new Intent(getBaseContext(),
 								EntsorgungActivity.class);
+
+						progressDialog.show();
+
 					} else if (selectedItemId.equals("hilfe")) {
 
 					} else if (selectedItemId.equals("feedback")) {
@@ -86,7 +92,6 @@ public class MainActivity extends BaseActivity {
 								TestActivity.class);
 					}
 
-					progressDialog.show();
 					startActivity(intent);
 
 				} catch (Exception ex) {
