@@ -70,17 +70,18 @@ public class StandortDetailsActivity extends BaseActivity {
 						.get(standort.getEntsorgungsartId());
 				if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")) {
 					oeffnungszeitenValue = DAO
-							.getContainerOeffnungszeiten(standort
+							.getContainerOeffnungszeitenAufbereitet(standort
 									.getEntsorgungsartId());
 				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 						"Elektrokleingeräte")) {
 					oeffnungszeitenValue = DAO
-							.getContainerOeffnungszeiten(standort
+							.getContainerOeffnungszeitenAufbereitet(standort
 									.getEntsorgungsartId());
 				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 						"Recyclinghof")) {
 					oeffnungszeitenValue = DAO
-							.getRecyclinghofOeffnungszeiten(standort.getId());
+							.getRecyclinghofOeffnungszeitenAufbereitet(standort
+									.getId());
 				}
 
 				tvOeffnungszeitenContext.setText(oeffnungszeitenValue);
