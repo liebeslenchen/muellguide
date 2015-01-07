@@ -31,22 +31,28 @@ public class MapUtils {
 	public static ArrayList<MarkerOptions> getAllMakers(
 			String entsorgungsartId, String id) {
 
-		ArrayList<MarkerOptions> markerOptions = new ArrayList<MarkerOptions>();
-		List<Standort> standorte = new ArrayList<Standort>();
-		if (entsorgungsartId == null && id == null) {
-			// zeige alles
-			standorte = DAO.getStandortListForAllTypes();
-		} else if (entsorgungsartId != null && id == null) {
-			// zeige alles für eine gegebene Entsorgungsart
-			standorte = DAO
-					.getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
-		} else if (entsorgungsartId == null && id != null) {
-			// zeige einen gegebene Standort
-			standorte = DAO.getStandortListById(id);
-		}
-		markerOptions = createMarkerForAllGivenStandorte(standorte);
+		try {
+			ArrayList<MarkerOptions> markerOptions = new ArrayList<MarkerOptions>();
+			List<Standort> standorte = new ArrayList<Standort>();
+			if (entsorgungsartId == null && id == null) {
+				// zeige alles
+				standorte = DAO.getStandortListForAllTypes();
+			} else if (entsorgungsartId != null && id == null) {
+				// zeige alles für eine gegebene Entsorgungsart
+				standorte = DAO
+						.getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
+			} else if (entsorgungsartId == null && id != null) {
 
-		return markerOptions;
+				// zeige einen gegebene Standort
+				standorte = DAO.getStandortListById(id);
+
+			}
+			markerOptions = createMarkerForAllGivenStandorte(standorte);
+			return markerOptions;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 
 	}
 

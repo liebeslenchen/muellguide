@@ -52,41 +52,44 @@ public class EntsorgungsartUtil {
 	 */
 	public static String getOeffnungszeitenForCurrentDayAndStandort(
 			Standort standort) {
-		// String gilt für Altkleidercontainer
-		String oeffnungszeitenValue = "immer geöffnet";
-		Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
-				.get(standort.getEntsorgungsartId());
+		try {
+			// String gilt für Altkleidercontainer
+			String oeffnungszeitenValue = "immer geöffnet";
+			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+					.get(standort.getEntsorgungsartId());
+			if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")
+					|| entsorgungsart.getBezeichnung().equalsIgnoreCase(
+							"Elektrokleingeräte")) {
+				oeffnungszeitenValue = "heute nicht geöffnet";
+				List<OeffungszeitenContainer> allOeffnungszeiten = DAO
+						.getContainerOeffnungszeitenList(standort
+								.getEntsorgungsartId());
+				String weekDay = getWochentagFromSystemDate();
+				for (OeffungszeitenContainer oeff : allOeffnungszeiten) {
+					if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
 
-		if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")
-				|| entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						"Elektrokleingeräte")) {
-			oeffnungszeitenValue = "heute nicht geöffnet";
-			List<OeffungszeitenContainer> allOeffnungszeiten = DAO
-					.getContainerOeffnungszeitenList(standort
-							.getEntsorgungsartId());
-			String weekDay = getWochentagFromSystemDate();
-			for (OeffungszeitenContainer oeff : allOeffnungszeiten) {
-				if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
+						return "geöffnet von " + oeff.getStart() + " bis "
+								+ oeff.getEnde();
+					}
+				}
 
-					return "geöffnet von " + oeff.getStart() + " bis "
-							+ oeff.getEnde();
+			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+					"Recyclinghof")) {
+				oeffnungszeitenValue = "heute nicht geöffnet";
+				List<OeffungszeitenRecyclinghof> allOeffnungszeiten = DAO
+						.getRecyclinghofOeffnungszeitenList(standort.getId());
+				String weekDay = getWochentagFromSystemDate();
+				for (OeffungszeitenRecyclinghof oeff : allOeffnungszeiten) {
+					if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
+						return "geöffnet von " + oeff.getStart() + " bis "
+								+ oeff.getEnde();
+					}
 				}
 			}
-
-		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-				"Recyclinghof")) {
-			oeffnungszeitenValue = "heute nicht geöffnet";
-			List<OeffungszeitenRecyclinghof> allOeffnungszeiten = DAO
-					.getRecyclinghofOeffnungszeitenList(standort.getId());
-			String weekDay = getWochentagFromSystemDate();
-			for (OeffungszeitenRecyclinghof oeff : allOeffnungszeiten) {
-				if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
-					return "geöffnet von " + oeff.getStart() + " bis "
-							+ oeff.getEnde();
-				}
-			}
+			return oeffnungszeitenValue;
+		} catch (Exception e) {
+			return null;
 		}
-		return oeffnungszeitenValue;
 
 	}
 

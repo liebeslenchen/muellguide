@@ -15,157 +15,149 @@ import mawi.muellguidems.parseobjects.OeffungszeitenContainer;
 import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 
-import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 
 public class DAO {
 
-	public static ArrayList<AdapterSingleItem> getHauptmenueEintraege() {
+	public static ArrayList<AdapterSingleItem> getHauptmenueEintraege()
+			throws Exception {
 
-		try {
-			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
+		ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
 
-			// Menüpunkt 1: Mülltrennung
-			result.add(new AdapterSingleItem("muelltrennung", "Mülltrennung",
-					"Was gehört in welche Tonne?", R.drawable.muelltrennung));
+		// Menüpunkt 1: Mülltrennung
+		result.add(new AdapterSingleItem("muelltrennung", "Mülltrennung",
+				"Was gehört in welche Tonne?", R.drawable.muelltrennung));
 
-			// Menüpunkt 2: Müllentsorgung
-			result.add(new AdapterSingleItem("entsorgung", "Entsorgung",
-					"Wo werde ich meinen Müll los?", R.drawable.entsorgung));
+		// Menüpunkt 2: Müllentsorgung
+		result.add(new AdapterSingleItem("entsorgung", "Entsorgung",
+				"Wo werde ich meinen Müll los?", R.drawable.entsorgung));
 
-			// Menüpunkt 3: Hilfe
-			result.add(new AdapterSingleItem("hilfe", "Hilfe",
-					"Symbolerklärung, Hinweise usw.", R.drawable.hilfe));
+		// Menüpunkt 3: Hilfe
+		result.add(new AdapterSingleItem("hilfe", "Hilfe",
+				"Symbolerklärung, Hinweise zur Bedienung usw.",
+				R.drawable.hilfe));
 
-			// Menüpunkt 4: Feedback
-			result.add(new AdapterSingleItem("feedback", "Feedback",
-					"Vorschläge machen, Wünsche äußern...", R.drawable.feedback));
+		// Menüpunkt 4: Feedback
+		result.add(new AdapterSingleItem("feedback", "Feedback",
+				"Vorschläge machen, Änderungswünsche äußern...",
+				R.drawable.feedback));
 
-			// Menüpunkt 5: Über uns
-			result.add(new AdapterSingleItem("about", "Über uns",
-					"Allgemeine Informationen", R.drawable.ueber_uns));
+		// Menüpunkt 5: Über uns
+		result.add(new AdapterSingleItem("about", "Über uns",
+				"Allgemeine Informationen zur App und dem Entwickler-Team...",
+				R.drawable.ueber_uns));
 
-			// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
-			result.add(new AdapterSingleItem("test", "Testwiese",
-					"Testen und so...", R.drawable.testwiese));
+		// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
+		result.add(new AdapterSingleItem("test", "Testwiese",
+				"Testen und so...", R.drawable.testwiese));
 
-			return result;
-		} catch (Exception ex) {
-			return null;
-		}
+		return result;
+
 	}
 
-	public static ArrayList<AdapterGroupItem> getAlleGegenstaendeFuerExpandableAdapter() {
+	public static ArrayList<AdapterGroupItem> getAlleGegenstaendeFuerExpandableAdapter()
+			throws Exception {
 		ParseQuery<Gegenstand> query = Gegenstand.getQuery();
 		ArrayList<AdapterGroupItem> result = new ArrayList<AdapterGroupItem>();
 		HashMap<String, Entsorgungsart> entsorgungsartMap = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
-		try {
-			// Das Limit wird gesetzt, da sonst nur die ersten 100 Gegenstände
-			// geladen werden.
-			List<Gegenstand> gegenstandList = query
-					.orderByAscending("bezeichnung").setLimit(200).find();
 
-			for (Gegenstand gegenstand : gegenstandList) {
-				AdapterGroupItem groupItem = new AdapterGroupItem();
-				groupItem.setId(gegenstand.getId());
-				groupItem.setBezeichnung(gegenstand.getBezeichnung());
+		// Das Limit wird gesetzt, da sonst nur die ersten 100 Gegenstände
+		// geladen werden.
+		List<Gegenstand> gegenstandList = query.orderByAscending("bezeichnung")
+				.setLimit(200).find();
 
-				// An dieser Stelle wird das jeweilige Entsorungsart-Image
-				// gesetzt !
-				Entsorgungsart entsorgungsArtdesGegenstands = entsorgungsartMap
-						.get(gegenstand.getEntsorgungsartId());
+		for (Gegenstand gegenstand : gegenstandList) {
+			AdapterGroupItem groupItem = new AdapterGroupItem();
+			groupItem.setId(gegenstand.getId());
+			groupItem.setBezeichnung(gegenstand.getBezeichnung());
 
-				// Images je nach Entsorgungsart setzen
-				int drawbleId = EntsorgungsartUtil
-						.getDrawableIdForEntsorgungsart(entsorgungsArtdesGegenstands);
-				groupItem.setImage(drawbleId);
+			// An dieser Stelle wird das jeweilige Entsorungsart-Image
+			// gesetzt !
+			Entsorgungsart entsorgungsArtdesGegenstands = entsorgungsartMap
+					.get(gegenstand.getEntsorgungsartId());
 
-				ArrayList<AdapterChildItem> childList = new ArrayList<AdapterChildItem>();
-				AdapterChildItem child = new AdapterChildItem();
-				child.setId(entsorgungsartMap.get(
-						gegenstand.getEntsorgungsartId()).getBezeichnung());
+			// Images je nach Entsorgungsart setzen
+			int drawbleId = EntsorgungsartUtil
+					.getDrawableIdForEntsorgungsart(entsorgungsArtdesGegenstands);
+			groupItem.setImage(drawbleId);
 
-				// An dieser Stelle wird der jeweilige Hinweis-Text im Sub-Item
-				// gesetzt !
-				child.setBezeichnung(entsorgungsartMap.get(
-						gegenstand.getEntsorgungsartId()).getBezeichnung());
+			ArrayList<AdapterChildItem> childList = new ArrayList<AdapterChildItem>();
+			AdapterChildItem child = new AdapterChildItem();
+			child.setId(entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
+					.getBezeichnung());
 
-				childList.add(child);
+			// An dieser Stelle wird der jeweilige Hinweis-Text im Sub-Item
+			// gesetzt !
+			child.setBezeichnung(entsorgungsartMap.get(
+					gegenstand.getEntsorgungsartId()).getBezeichnung());
 
-				groupItem.setChildren(childList);
-				result.add(groupItem);
+			childList.add(child);
 
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
+			groupItem.setChildren(childList);
+			result.add(groupItem);
+
 		}
 
 		return result;
 	}
 
-	public static ArrayList<AdapterSingleItem> getEntsorgungsartenMitStandortFuerAdapter() {
-		try {
-			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
-			HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
+	public static ArrayList<AdapterSingleItem> getEntsorgungsartenMitStandortFuerAdapter()
+			throws Exception {
 
-			for (Entsorgungsart entsorgungsart : entsorgungsarten.values()) {
-				if (entsorgungsart.getHatStandort()) {
-					AdapterSingleItem item = new AdapterSingleItem(
-							entsorgungsart.getId(),
-							entsorgungsart.getBezeichnung(), null, 0);
+		ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
+		HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
 
-					int drawbleId = EntsorgungsartUtil
-							.getDrawableIdForEntsorgungsart(entsorgungsart);
-					item.setImage(drawbleId);
-
-					result.add(item);
-				}
-			}
-
-			return result;
-		} catch (Exception ex) {
-			return null;
-		}
-	}
-
-	public static ArrayList<AdapterSingleItem> getStandortListByIdFuerAdapter(
-			String entsorgungsartId) {
-		try {
-			ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
-			HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
-			Entsorgungsart entsorgungsart = entsorgungsarten
-					.get(entsorgungsartId);
-
-			List<Standort> data = getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
-
-			for (Standort standort : data) {
+		for (Entsorgungsart entsorgungsart : entsorgungsarten.values()) {
+			if (entsorgungsart.getHatStandort()) {
 				AdapterSingleItem item = new AdapterSingleItem(
-						standort.getId(), standort.getBezeichnung(), null, 0);
+						entsorgungsart.getId(),
+						entsorgungsart.getBezeichnung(), null, 0);
 
-				// Abhänig davon, ob GPS-Koordinaten vorhanden sind ist das Icon
-				// grün oder grau
-				ParseGeoPoint geoPoint = standort.getGpsStandort();
-				int drawbleId;
-				if (geoPoint != null) {
-					drawbleId = EntsorgungsartUtil
-							.getDrawableIdForEntsorgungsart(entsorgungsart);
-				} else {
-					drawbleId = EntsorgungsartUtil
-							.getDrawableIdForEntsorgungsartGrey(entsorgungsart);
-				}
-
+				int drawbleId = EntsorgungsartUtil
+						.getDrawableIdForEntsorgungsart(entsorgungsart);
 				item.setImage(drawbleId);
 
 				result.add(item);
 			}
-
-			return result;
-
-		} catch (Exception ex) {
-			return null;
 		}
+
+		return result;
+
+	}
+
+	public static ArrayList<AdapterSingleItem> getStandortListByIdFuerAdapter(
+			String entsorgungsartId) throws Exception {
+
+		ArrayList<AdapterSingleItem> result = new ArrayList<AdapterSingleItem>();
+		HashMap<String, Entsorgungsart> entsorgungsarten = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP;
+		Entsorgungsart entsorgungsart = entsorgungsarten.get(entsorgungsartId);
+
+		List<Standort> data = getAllStandorteForGivenEntsorgungsart(entsorgungsartId);
+
+		for (Standort standort : data) {
+			AdapterSingleItem item = new AdapterSingleItem(standort.getId(),
+					standort.getBezeichnung(), null, 0);
+
+			// Abhänig davon, ob GPS-Koordinaten vorhanden sind ist das Icon
+			// grün oder grau
+			ParseGeoPoint geoPoint = standort.getGpsStandort();
+			int drawbleId;
+			if (geoPoint != null) {
+				drawbleId = EntsorgungsartUtil
+						.getDrawableIdForEntsorgungsart(entsorgungsart);
+			} else {
+				drawbleId = EntsorgungsartUtil
+						.getDrawableIdForEntsorgungsartGrey(entsorgungsart);
+			}
+
+			item.setImage(drawbleId);
+
+			result.add(item);
+		}
+
+		return result;
+
 	}
 
 	/**
@@ -176,7 +168,8 @@ public class DAO {
 	 * @param standortId
 	 * @return {@link ArrayList} vom Typ {@link Standort}
 	 */
-	public static ArrayList<Standort> getStandortListById(String standortId) {
+	public static ArrayList<Standort> getStandortListById(String standortId)
+			throws Exception {
 		ArrayList<Standort> standorte = new ArrayList<Standort>();
 		standorte.add(getStandortById(standortId));
 		return standorte;
@@ -189,15 +182,12 @@ public class DAO {
 	 * @param standortId
 	 * @return {@link Standort} oder null, falls ID nicht vorhanden ist
 	 */
-	public static Standort getStandortById(String standortId) {
+	public static Standort getStandortById(String standortId) throws Exception {
 		Standort standort = null;
 		ParseQuery<Standort> stParseQuery = Standort.getQuery();
 
-		try {
-			standort = stParseQuery.get(standortId);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		standort = stParseQuery.get(standortId);
+
 		return standort;
 	}
 
@@ -207,15 +197,13 @@ public class DAO {
 	 * 
 	 * @return {@link List} von {@link Standort}e
 	 */
-	public static List<Standort> getStandortListForAllTypes() {
+	public static List<Standort> getStandortListForAllTypes() throws Exception {
 
 		ParseQuery<Standort> query = Standort.getQuery();
 		List<Standort> standorte = null;
-		try {
-			standorte = query.find();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+
+		standorte = query.find();
+
 		return standorte;
 	}
 
@@ -227,27 +215,23 @@ public class DAO {
 	 * @return {@link List} mit {@link Standort}en
 	 */
 	public static List<Standort> getAllStandorteForGivenEntsorgungsart(
-			String entsorgungsartId) {
+			String entsorgungsartId) throws Exception {
 		ParseQuery<Standort> query = Standort.getQuery();
 		List<Standort> standortList = new ArrayList<Standort>();
 
-		try {
-			Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
-					.createWithoutDataByObjectId(entsorgungsartId);
+		Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
+				.createWithoutDataByObjectId(entsorgungsartId);
 
-			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
-			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
-			// ist.
-			// Das Limit wird gesetzt damit man alle Standorte bekommt.
-			// Ansonsten werden nur die ersten 100 zurückgegeben. Relevant
-			// für Altglas, da 290 Standort eingetragen sind.
-			standortList = query
-					.whereEqualTo("fkEntsorgungsart", entsorgungsartWithoutData)
-					.orderByAscending("bezeichnung").setLimit(350).find();
+		// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+		// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+		// ist.
+		// Das Limit wird gesetzt damit man alle Standorte bekommt.
+		// Ansonsten werden nur die ersten 100 zurückgegeben. Relevant
+		// für Altglas, da 290 Standort eingetragen sind.
+		standortList = query
+				.whereEqualTo("fkEntsorgungsart", entsorgungsartWithoutData)
+				.orderByAscending("bezeichnung").setLimit(350).find();
 
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		return standortList;
 	}
 
@@ -257,15 +241,12 @@ public class DAO {
 	 * @param bezirkId
 	 * @return {@link Bezirk}
 	 */
-	public static Bezirk getBezirkById(String bezirkId) {
+	public static Bezirk getBezirkById(String bezirkId) throws Exception {
 		Bezirk bezirk = null;
 		ParseQuery<Bezirk> parseQuery = Bezirk.getQuery();
 
-		try {
-			bezirk = parseQuery.get(bezirkId);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		bezirk = parseQuery.get(bezirkId);
+
 		return bezirk;
 	}
 
@@ -277,7 +258,7 @@ public class DAO {
 	 * @return String, der die aufbereiteten Öffnungszeiten enthält
 	 */
 	public static String getContainerOeffnungszeitenAufbereitet(
-			String entsorgungsartId) {
+			String entsorgungsartId) throws Exception {
 
 		List<OeffungszeitenContainer> oeffnungszeitList = getContainerOeffnungszeitenList(entsorgungsartId);
 
@@ -301,32 +282,26 @@ public class DAO {
 	 * @return {@link List} vom Typ {@link String} mit Öffnungszeiten
 	 */
 	public static List<OeffungszeitenContainer> getContainerOeffnungszeitenList(
-			String entsorgungsartId) {
+			String entsorgungsartId) throws Exception {
 		ParseQuery<OeffungszeitenContainer> query = OeffungszeitenContainer
 				.getQuery();
 		List<OeffungszeitenContainer> oeffnungszeitList = new ArrayList<OeffungszeitenContainer>();
 
-		try {
-			Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
-					.createWithoutDataByObjectId(entsorgungsartId);
+		Entsorgungsart entsorgungsartWithoutData = Entsorgungsart
+				.createWithoutDataByObjectId(entsorgungsartId);
 
-			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
-			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
-			// ist.
-			oeffnungszeitList = query.whereEqualTo("fkEntsorgungsart",
-					entsorgungsartWithoutData).find();
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
+		// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+		// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+		// ist.
+		oeffnungszeitList = query.whereEqualTo("fkEntsorgungsart",
+				entsorgungsartWithoutData).find();
 
 		return oeffnungszeitList;
 
 	}
 
 	public static String getRecyclinghofOeffnungszeitenAufbereitet(
-			String recyclinghofId) {
+			String recyclinghofId) throws Exception {
 		// ParseQuery<OeffungszeitenRecyclinghof> query =
 		// OeffungszeitenRecyclinghof
 		// .getQuery();
@@ -361,26 +336,20 @@ public class DAO {
 	}
 
 	public static List<OeffungszeitenRecyclinghof> getRecyclinghofOeffnungszeitenList(
-			String recyclinghofId) {
+			String recyclinghofId) throws Exception {
 		ParseQuery<OeffungszeitenRecyclinghof> query = OeffungszeitenRecyclinghof
 				.getQuery();
 		List<OeffungszeitenRecyclinghof> oeffnungszeitList = new ArrayList<OeffungszeitenRecyclinghof>();
 
-		try {
-			Standort standortWithoutData = Standort
-					.createWithoutDataByObjectId(recyclinghofId);
+		Standort standortWithoutData = Standort
+				.createWithoutDataByObjectId(recyclinghofId);
 
-			// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
-			// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
-			// ist.
-			oeffnungszeitList = query.whereEqualTo("fkStandort",
-					standortWithoutData).find();
-			return oeffnungszeitList;
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
-		}
+		// Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+		// direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+		// ist.
+		oeffnungszeitList = query.whereEqualTo("fkStandort",
+				standortWithoutData).find();
+		return oeffnungszeitList;
 
 	}
 }
