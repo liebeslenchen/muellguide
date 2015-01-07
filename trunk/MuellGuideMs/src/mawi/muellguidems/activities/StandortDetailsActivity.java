@@ -67,16 +67,18 @@ public class StandortDetailsActivity extends BaseActivity {
 			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
 					.get(standort.getEntsorgungsartId());
 			if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")) {
-				oeffnungszeitenValue = DAO.getContainerOeffnungszeiten(standort
-						.getEntsorgungsartId());
+				oeffnungszeitenValue = DAO
+						.getContainerOeffnungszeitenAufbereitet(standort
+								.getEntsorgungsartId());
 			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 					"Elektrokleingeräte")) {
-				oeffnungszeitenValue = DAO.getContainerOeffnungszeiten(standort
-						.getEntsorgungsartId());
+				oeffnungszeitenValue = DAO
+						.getContainerOeffnungszeitenAufbereitet(standort
+								.getEntsorgungsartId());
 			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
 					"Recyclinghof")) {
 				oeffnungszeitenValue = DAO
-						.getRecyclinghofOeffnungszeiten(standort.getId());
+						.getRecyclinghofOeffnungszeitenAufbereitet(standort.getId());
 			}
 
 			tvOeffnungszeitenContext.setText(oeffnungszeitenValue);

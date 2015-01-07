@@ -275,12 +275,38 @@ public class DAO {
 	}
 
 	/**
-	 * Liest die Öffnungszeiten für die Container aus.
+	 * Liest die Öffnungszeiten für die Container aus und gibt Sie aufbereitet
+	 * als {@link String} zurück
 	 * 
 	 * @param entsorgungsartId
 	 * @return String, der die aufbereiteten Öffnungszeiten enthält
 	 */
-	public static String getContainerOeffnungszeiten(String entsorgungsartId) {
+	public static String getContainerOeffnungszeitenAufbereitet(
+			String entsorgungsartId) {
+
+		List<OeffungszeitenContainer> oeffnungszeitList = getContainerOeffnungszeitenList(entsorgungsartId);
+
+		String oeffnungszeitenAufbereitet = "";
+		for (OeffungszeitenContainer oeffungszeitenContainer : oeffnungszeitList) {
+			oeffnungszeitenAufbereitet += oeffungszeitenContainer
+					.getWochentag()
+					+ ": "
+					+ oeffungszeitenContainer.getStart()
+					+ " - " + oeffungszeitenContainer.getEnde() + " Uhr \r\n";
+		}
+
+		return oeffnungszeitenAufbereitet;
+	}
+
+	/**
+	 * Liest die Öffnungszeiten für Container anhand der {@link Entsorgungsart}
+	 * -ID aus
+	 * 
+	 * @param entsorgungsartId
+	 * @return {@link List} vom Typ {@link String} mit Öffnungszeiten
+	 */
+	public static List<OeffungszeitenContainer> getContainerOeffnungszeitenList(
+			String entsorgungsartId) {
 		ParseQuery<OeffungszeitenContainer> query = OeffungszeitenContainer
 				.getQuery();
 		List<OeffungszeitenContainer> oeffnungszeitList = new ArrayList<OeffungszeitenContainer>();
@@ -300,19 +326,47 @@ public class DAO {
 			return null;
 		}
 
+		return oeffnungszeitList;
+
+	}
+
+	public static String getRecyclinghofOeffnungszeitenAufbereitet(
+			String recyclinghofId) {
+		// ParseQuery<OeffungszeitenRecyclinghof> query =
+		// OeffungszeitenRecyclinghof
+		// .getQuery();
+		// List<OeffungszeitenRecyclinghof> oeffnungszeitList = new
+		// ArrayList<OeffungszeitenRecyclinghof>();
+		//
+		// try {
+		// Standort standortWithoutData = Standort
+		// .createWithoutDataByObjectId(recyclinghofId);
+		//
+		// // Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
+		// // direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
+		// // ist.
+		// oeffnungszeitList = query.whereEqualTo("fkStandort",
+		// standortWithoutData).find();
+		//
+		// } catch (ParseException e) {
+		// e.printStackTrace();
+		// return null;
+		// }
+
+		List<OeffungszeitenRecyclinghof> oeffnungszeitList = getRecyclinghofOeffnungszeitenList(recyclinghofId);
+
 		String oeffnungszeitenAufbereitet = "";
-		for (OeffungszeitenContainer oeffungszeitenContainer : oeffnungszeitList) {
-			oeffnungszeitenAufbereitet += oeffungszeitenContainer
-					.getWochentag()
-					+ ": "
-					+ oeffungszeitenContainer.getStart()
-					+ " - " + oeffungszeitenContainer.getEnde() + " Uhr \r\n";
+		for (OeffungszeitenRecyclinghof oeffungszeiten : oeffnungszeitList) {
+			oeffnungszeitenAufbereitet += oeffungszeiten.getWochentag() + ": "
+					+ oeffungszeiten.getStart() + " - "
+					+ oeffungszeiten.getEnde() + " Uhr \r\n";
 		}
 
 		return oeffnungszeitenAufbereitet;
 	}
 
-	public static String getRecyclinghofOeffnungszeiten(String recyclinghofId) {
+	public static List<OeffungszeitenRecyclinghof> getRecyclinghofOeffnungszeitenList(
+			String recyclinghofId) {
 		ParseQuery<OeffungszeitenRecyclinghof> query = OeffungszeitenRecyclinghof
 				.getQuery();
 		List<OeffungszeitenRecyclinghof> oeffnungszeitList = new ArrayList<OeffungszeitenRecyclinghof>();
@@ -326,19 +380,12 @@ public class DAO {
 			// ist.
 			oeffnungszeitList = query.whereEqualTo("fkStandort",
 					standortWithoutData).find();
+			return oeffnungszeitList;
 
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
 		}
 
-		String oeffnungszeitenAufbereitet = "";
-		for (OeffungszeitenRecyclinghof oeffungszeiten : oeffnungszeitList) {
-			oeffnungszeitenAufbereitet += oeffungszeiten.getWochentag() + ": "
-					+ oeffungszeiten.getStart() + " - "
-					+ oeffungszeiten.getEnde() + " Uhr \r\n";
-		}
-
-		return oeffnungszeitenAufbereitet;
 	}
 }

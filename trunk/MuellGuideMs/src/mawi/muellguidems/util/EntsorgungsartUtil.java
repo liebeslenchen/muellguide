@@ -1,11 +1,16 @@
 package mawi.muellguidems.util;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import mawi.muellguidems.activities.MuellGuideMsApplication;
 import mawi.muellguidems.activities.R;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
+import mawi.muellguidems.parseobjects.OeffungszeitenContainer;
+import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
+import mawi.muellguidems.parseobjects.Standort;
 import android.content.Context;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -35,6 +40,77 @@ public class EntsorgungsartUtil {
 			e.printStackTrace();
 		}
 		return entsorgungsartMap;
+	}
+
+	/**
+	 * Hilfsmethode, die die Öffnungszeiten für einen gegebenen {@link Standort}
+	 * für den aktuellen Tag wiedergibt
+	 * 
+	 * @param standort
+	 * @return {@link Standort} mit den heutigen Öffnungszeiten des
+	 *         {@link Standort}s
+	 */
+	public static String getOeffnungszeitenForCurrentDayAndStandort(
+			Standort standort) {
+		// String gilt für Altkleidercontainer
+		String oeffnungszeitenValue = "immer geöffnet";
+		Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+				.get(standort.getEntsorgungsartId());
+
+		if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")
+				|| entsorgungsart.getBezeichnung().equalsIgnoreCase(
+						"Elektrokleingeräte")) {
+			oeffnungszeitenValue = "heute nicht geöffnet";
+			List<OeffungszeitenContainer> allOeffnungszeiten = DAO
+					.getContainerOeffnungszeitenList(standort
+							.getEntsorgungsartId());
+			String weekDay = getWochentagFromSystemDate();
+			for (OeffungszeitenContainer oeff : allOeffnungszeiten) {
+				if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
+
+					return "geöffnet von " + oeff.getStart() + " bis "
+							+ oeff.getEnde();
+				}
+			}
+
+		} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				"Recyclinghof")) {
+			oeffnungszeitenValue = "heute nicht geöffnet";
+			List<OeffungszeitenRecyclinghof> allOeffnungszeiten = DAO
+					.getRecyclinghofOeffnungszeitenList(standort.getId());
+			String weekDay = getWochentagFromSystemDate();
+			for (OeffungszeitenRecyclinghof oeff : allOeffnungszeiten) {
+				if (weekDay.equalsIgnoreCase(oeff.getWochentag())) {
+					return "geöffnet von " + oeff.getStart() + " bis "
+							+ oeff.getEnde();
+				}
+			}
+		}
+		return oeffnungszeitenValue;
+
+	}
+
+	public static String getWochentagFromSystemDate() {
+		Calendar rightNow = Calendar.getInstance(TimeZone.getDefault());
+		int dayOfWeek = rightNow.get(Calendar.DAY_OF_WEEK);
+		switch (dayOfWeek) {
+		case 1:
+			return "Sonntag";
+		case 2:
+			return "Montag";
+		case 3:
+			return "Dienstag";
+		case 4:
+			return "Mittwoch";
+		case 5:
+			return "Donnerstag";
+		case 6:
+			return "Freitag";
+		case 7:
+			return "Samstag";
+		}
+		return "";
+
 	}
 
 	/**
