@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import mawi.muellguidems.adapter.AdapterSingleItem;
 import mawi.muellguidems.adapter.CustomEntsorgungsartenAdapter;
 import mawi.muellguidems.util.DAO;
-import android.app.Activity;
+import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class EntsorgungActivity extends Activity {
+public class EntsorgungActivity extends BaseActivity {
 
 	private ListView lvEntsorgungMenu;
 	private ArrayList<AdapterSingleItem> data;
@@ -30,6 +31,14 @@ public class EntsorgungActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+
+				NetworkCondition netzwerkStatus = MuellGuideMsApplication
+						.getNetzwerkStatus();
+				if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+					EntsorgungActivity.this
+							.showToastIfNecessary(netzwerkStatus);
+					return;
+				}
 
 				String selectedEntsorgungsartId = data.get(position).getId();
 				String selectedEntsorgungsartBezeichnung = data.get(position)

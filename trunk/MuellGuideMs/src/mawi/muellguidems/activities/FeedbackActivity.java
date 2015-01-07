@@ -1,17 +1,15 @@
 package mawi.muellguidems.activities;
 
-import android.app.Activity;
+import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-public class FeedbackActivity extends Activity {
+public class FeedbackActivity extends BaseActivity {
 
 	Spinner spinner;
 
@@ -33,28 +31,14 @@ public class FeedbackActivity extends Activity {
 		spinner.setAdapter(adapter);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.feedback, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void onClickBtnSendFeedback(View v) {
-		// Klick-Effekt anzeigen wenn Button gedrückt wird
-		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
+
+		NetworkCondition netzwerkStatus = MuellGuideMsApplication
+				.getNetzwerkStatus();
+		if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+			FeedbackActivity.this.showToastIfNecessary(netzwerkStatus);
+			return;
+		}
 
 		String betreff = spinner.getItemAtPosition(
 				spinner.getSelectedItemPosition()).toString();
@@ -62,19 +46,11 @@ public class FeedbackActivity extends Activity {
 				.getText().toString();
 
 		Intent emailIntent = new Intent(Intent.ACTION_SEND);
-		// Auf E-Mail Apps einschränken
-		emailIntent.setType("message/rfc822");
+		emailIntent.setType("text/plain");
 		emailIntent.putExtra(Intent.EXTRA_EMAIL,
 				new String[] { "info.muellguidems@gmail.com" });
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, betreff);
 		emailIntent.putExtra(Intent.EXTRA_TEXT, text);
-		try {
-			startActivity(Intent.createChooser(emailIntent,
-					"Feedback senden..."));
-		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(FeedbackActivity.this,
-					"Sie haben keine E-Mail App installiert", Toast.LENGTH_LONG)
-					.show();
-		}
+		startActivity(Intent.createChooser(emailIntent, "Feedback senden..."));
 	}
 }

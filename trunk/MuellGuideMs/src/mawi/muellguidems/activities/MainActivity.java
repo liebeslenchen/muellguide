@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import mawi.muellguidems.adapter.AdapterSingleItem;
 import mawi.muellguidems.adapter.CustomHauptmenueAdapter;
 import mawi.muellguidems.util.DAO;
-import android.app.Activity;
+import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 	ListView lvMenu;
 	ArrayList<AdapterSingleItem> data;
@@ -35,6 +36,13 @@ public class MainActivity extends Activity {
 					int position, long id) {
 
 				try {
+
+					NetworkCondition netzwerkStatus = MuellGuideMsApplication
+							.getNetzwerkStatus();
+					if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+						MainActivity.this.showToastIfNecessary(netzwerkStatus);
+						return;
+					}
 
 					String selectedItemId = data.get(position).getId();
 					Intent intent = null;

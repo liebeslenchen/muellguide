@@ -7,20 +7,25 @@ import mawi.muellguidems.adapter.CustomEntsorgungStandortAdapter;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
-import android.app.Activity;
+import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class EntsorgungStandorteActivity extends Activity {
+public class EntsorgungStandorteActivity extends BaseActivity {
 
 	private ListView lvEntsorgungStandorte;
 	private ArrayList<AdapterSingleItem> data;
-
+	private CustomEntsorgungStandortAdapter adapter;
+	private EditText etSearchStandort;
 	private String entsorgungsArtId;
 
 	@Override
@@ -38,6 +43,15 @@ public class EntsorgungStandorteActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+
+				NetworkCondition netzwerkStatus = MuellGuideMsApplication
+						.getNetzwerkStatus();
+				if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+					EntsorgungStandorteActivity.this
+							.showToastIfNecessary(netzwerkStatus);
+					return;
+				}
+
 				String selectedStandortId = data.get(position).getId();
 
 				Intent intent = new Intent(getBaseContext(),
@@ -47,17 +61,49 @@ public class EntsorgungStandorteActivity extends Activity {
 			}
 		});
 
-		// Titeltext und Icon setzten, je nach Entsorgungsart
+		etSearchStandort = (EditText) findViewById(R.id.etSearchStandort);
+
+		etSearchStandort.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence cs, int arg1, int arg2,
+					int arg3) {
+				// When user changed the Text
+				try {
+					EntsorgungStandorteActivity.this.adapter.getFilter()
+							.filter(cs);
+				} catch (Exception ex) {
+					Toast.makeText(getBaseContext(), ex.toString(),
+							Toast.LENGTH_LONG);
+				}
+
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable arg0) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		// Titeltext und Icon setzen, je nach Entsorgungsart
 		Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
 				.get(entsorgungsArtId);
 		setTitle(entsorgungsart.getBezeichnung() + " Standorte");
 		getActionBar().setIcon(R.drawable.entsorgung_white);
+
 	}
 
 	private void setList() {
 		if (data != null) {
-			CustomEntsorgungStandortAdapter adapter = new CustomEntsorgungStandortAdapter(
-					getBaseContext(), data);
+			adapter = new CustomEntsorgungStandortAdapter(getBaseContext(),
+					data);
 			lvEntsorgungStandorte.setAdapter(adapter);
 		}
 	}
