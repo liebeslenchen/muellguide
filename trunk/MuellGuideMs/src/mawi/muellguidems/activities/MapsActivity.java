@@ -8,7 +8,9 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.MapUtils;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -42,20 +44,22 @@ public class MapsActivity extends Activity {
 				googleMap.addMarker(markerOptions);
 			}
 
-			// Münster Zentrum als Zoom
-			// TODO aktuelle Position
-			LatLng cityCenter = new LatLng(51.961749, 7.625591);
-			// Sorgt für den Zoom auf Muenster
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(cityCenter).zoom(12).build();
+			// Liest aktuelle Position mit Hilfe der MapUtils aus
+			LatLng zoomLocation = MapUtils
+					.getCurrentLocation((LocationManager) getSystemService(Context.LOCATION_SERVICE));
 
-			// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
-			// diese Position gezoomt werden (z.B. bei Recyclinghöfen)
 			if (allMarkers.size() == 1) {
-				cameraPosition = new CameraPosition.Builder()
-						.target(allMarkers.get(0).getPosition()).zoom(12)
-						.build();
+				// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
+				// diese Position gezoomt werden (z.B. bei Recyclinghöfen)
+				zoomLocation = allMarkers.get(0).getPosition();
+			} else if (zoomLocation == null) {
+				// Münster Zentrum als Zoom, falls die aktuelle Position nicht
+				// bekannt ist
+				zoomLocation = new LatLng(51.961749, 7.625591);
 			}
+
+			CameraPosition cameraPosition = new CameraPosition.Builder()
+					.target(zoomLocation).zoom(12).build();
 
 			googleMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPosition));

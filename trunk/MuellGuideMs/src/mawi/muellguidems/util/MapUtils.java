@@ -7,6 +7,9 @@ import mawi.muellguidems.activities.MapsActivity;
 import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Standort;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
@@ -84,5 +87,23 @@ public class MapUtils {
 				.getDrawableForEntsorgungsart(entsorgungsart);
 
 		return icon;
+	}
+
+	/**
+	 * Methode, die anhand des mitgegebenen {@link LocationManager}s den zuletzt
+	 * bekannten Standort im {@link LatLng}-Format zurückgibt
+	 * 
+	 * @param locationManager
+	 * @return {@link LatLng} der zuletzt bekannten Position
+	 */
+	public static LatLng getCurrentLocation(LocationManager locationManager) {
+		Criteria criteria = new Criteria();
+		String provider = locationManager.getBestProvider(criteria, false);
+		Location location = locationManager.getLastKnownLocation(provider);
+		LatLng currentPosition = new LatLng(location.getLatitude(),
+				location.getLongitude());
+
+		return currentPosition;
+
 	}
 }
