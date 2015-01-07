@@ -66,6 +66,14 @@ public class EntsorgungActivity extends BaseActivity {
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (progressDialog.isShowing())
+			progressDialog.cancel();
+	}
+
 	private void setList() {
 		data = DAO.getEntsorgungsartenMitStandortFuerAdapter();
 
