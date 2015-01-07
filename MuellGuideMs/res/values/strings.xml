@@ -29,9 +29,9 @@
     <string name="db_entsorgungsart_value_gelber_sack">Gelber Sack</string>
     <string name="db_entsorgungsart_value_papiermuell">Papiermüll</string>
     <string name="title_activity_standort_details">StandortDetailsActivity</string>
-    <string name="tvAdresseLabel">Adresse:</string>
-    <string name="tvOeffnungszeitenLabel">Öffnungszeiten:</string>
-    <string name="tvHinweisLabel">Hinweise:</string>
+    <string name="tvAdresseLabel">Adresse</string>
+    <string name="tvOeffnungszeitenLabel">Öffnungszeiten</string>
+    <string name="tvHinweisLabel">Hinweise</string>
     <string name="FeedbackSubjectLabel">Bitte wählen Sie einen Betreff:</string>
     <string name="FeedbackMessageLabel">Ihre Nachricht an uns:</string>
     <string name="senden">Senden</string>
