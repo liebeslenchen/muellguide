@@ -44,9 +44,18 @@ public class MapsActivity extends Activity {
 				googleMap.addMarker(markerOptions);
 			}
 
+			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Boolean gpsEnabled = locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER);
+			if (!gpsEnabled) {
+				Toast.makeText(
+						getBaseContext(),
+						"Schalten Sie für genauere Standortangaben bitte das GPS ein",
+						Toast.LENGTH_LONG).show();
+			}
+
 			// Liest aktuelle Position mit Hilfe der MapUtils aus
-			LatLng zoomLocation = MapUtils
-					.getCurrentLocation((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
 
 			if (allMarkers.size() == 1) {
 				// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
