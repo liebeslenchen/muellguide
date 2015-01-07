@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <EditText
+        android:id="@+id/etSearchStandort"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="51dp"
+        android:inputType="textVisiblePassword"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+    
     <ListView
         android:id="@+id/lvEntsorgungStandorte"
         android:layout_width="match_parent"

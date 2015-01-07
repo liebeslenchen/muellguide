@@ -7,6 +7,7 @@ import mawi.muellguidems.parseobjects.OeffungszeitenContainer;
 import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
+import mawi.muellguidems.util.NetworkIdentifier;
 import android.app.Application;
 import android.content.Context;
 import android.view.animation.AlphaAnimation;
@@ -20,6 +21,7 @@ import com.parse.ParseUser;
 public class MuellGuideMsApplication extends Application {
 
 	private static Context context;
+	private static NetworkIdentifier netzwerkIdentifier;
 
 	// Animation mit der Klick-Effekte bei Buttons realisiert werden können
 	public final static AlphaAnimation BUTTON_CLICK_ANIMATION = new AlphaAnimation(
@@ -30,6 +32,9 @@ public class MuellGuideMsApplication extends Application {
 		super.onCreate();
 
 		context = this;
+
+		// Objekt zum Prüfen des Netzwerkstatus
+		netzwerkIdentifier = new NetworkIdentifier(context);
 
 		// Initialize Crash Reporting.
 		ParseCrashReporting.enable(this);
@@ -62,4 +67,7 @@ public class MuellGuideMsApplication extends Application {
 		return context;
 	}
 
+	public static NetworkIdentifier.NetworkCondition getNetzwerkStatus() {
+		return netzwerkIdentifier.getNetworkStatus();
+	}
 }

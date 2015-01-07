@@ -5,18 +5,17 @@ import mawi.muellguidems.parseobjects.Entsorgungsart;
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
-import android.app.Activity;
+import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseGeoPoint;
 
-public class StandortDetailsActivity extends Activity {
+public class StandortDetailsActivity extends BaseActivity {
 
 	private TextView tvAdresseContext;
 	private TextView tvOeffnungszeitenContext;
@@ -101,26 +100,15 @@ public class StandortDetailsActivity extends Activity {
 		getActionBar().setIcon(R.drawable.entsorgung_white);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.standort_details, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 	public void onClickBtnStandortAufKarteAnzeigen(View v) {
+
+		NetworkCondition netzwerkStatus = MuellGuideMsApplication
+				.getNetzwerkStatus();
+		if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+			StandortDetailsActivity.this.showToastIfNecessary(netzwerkStatus);
+			return;
+		}
+
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 

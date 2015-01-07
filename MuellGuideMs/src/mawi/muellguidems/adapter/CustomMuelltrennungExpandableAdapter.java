@@ -8,13 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomMuelltrennungExpandableAdapter extends BaseExpandableListAdapter {
+public class CustomMuelltrennungExpandableAdapter extends
+		BaseExpandableListAdapter implements Filterable {
 
 	private Context context;
 	private ArrayList<AdapterGroupItem> groups;
+	private MuelltrennungFilter filter;
 
 	public CustomMuelltrennungExpandableAdapter(Context context,
 			ArrayList<AdapterGroupItem> groups) {
@@ -108,4 +112,57 @@ public class CustomMuelltrennungExpandableAdapter extends BaseExpandableListAdap
 		return true;
 	}
 
+	@Override
+	public Filter getFilter() {
+		if (filter == null)
+			filter = new MuelltrennungFilter();
+
+		return filter;
+	}
+
+	private class MuelltrennungFilter extends Filter {
+
+		ArrayList<AdapterGroupItem> allGroups = groups;
+
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+
+			groups = allGroups;
+
+			FilterResults filterResults = new FilterResults();
+
+			if (constraint == null || constraint.length() == 0) {
+				// No filter implemented we return all the list
+				filterResults.values = groups;
+				filterResults.count = groups.size();
+			} else {
+				ArrayList<AdapterGroupItem> newList = new ArrayList<AdapterGroupItem>();
+
+				for (AdapterGroupItem p : groups) {
+					if (p.getBezeichnung().toUpperCase()
+							.startsWith(constraint.toString().toUpperCase()))
+						newList.add(p);
+				}
+
+				filterResults.values = newList;
+				filterResults.count = newList.size();
+
+			}
+
+			return filterResults;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			if (results.count == 0)
+				notifyDataSetInvalidated();
+			else {
+				groups = (ArrayList<AdapterGroupItem>) results.values;
+				notifyDataSetChanged();
+			}
+
+		}
+	}
 }
