@@ -7,6 +7,7 @@ import mawi.muellguidems.adapter.CustomHauptmenueAdapter;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,10 +21,18 @@ public class MainActivity extends BaseActivity {
 	ListView lvMenu;
 	ArrayList<AdapterSingleItem> data;
 
+	ProgressDialog progressDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		progressDialog.setTitle("Daten werden geladen");
+		progressDialog.setMessage("Bitte warten...");
+		progressDialog.setIndeterminate(true);
 
 		lvMenu = (ListView) findViewById(R.id.lvMenu);
 		data = DAO.getHauptmenueEintraege();
@@ -39,19 +48,29 @@ public class MainActivity extends BaseActivity {
 
 					NetworkCondition netzwerkStatus = MuellGuideMsApplication
 							.getNetzwerkStatus();
-					if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-						MainActivity.this.showToastIfNecessary(netzwerkStatus);
-						return;
-					}
 
 					String selectedItemId = data.get(position).getId();
 					Intent intent = null;
 
 					if (selectedItemId.equals("muelltrennung")) {
+
+						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+							MainActivity.this
+									.showToastIfNecessary(netzwerkStatus);
+							return;
+						}
+
 						// Mülltrennung aufrufen:
 						intent = new Intent(getBaseContext(),
 								MuelltrennungActivity.class);
 					} else if (selectedItemId.equals("entsorgung")) {
+
+						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+							MainActivity.this
+									.showToastIfNecessary(netzwerkStatus);
+							return;
+						}
+
 						// Entsorgung-Activity aufrufen:
 						intent = new Intent(getBaseContext(),
 								EntsorgungActivity.class);
@@ -67,13 +86,23 @@ public class MainActivity extends BaseActivity {
 								TestActivity.class);
 					}
 
+					progressDialog.show();
 					startActivity(intent);
+
 				} catch (Exception ex) {
 					Toast.makeText(MainActivity.this, ex.getMessage(),
 							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (progressDialog.isShowing())
+			progressDialog.cancel();
 	}
 
 	public void setList() {
