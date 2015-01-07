@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 public class MuelltrennungActivity extends BaseActivity {
 
@@ -39,29 +40,32 @@ public class MuelltrennungActivity extends BaseActivity {
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1,
 					int arg2, int arg3) {
-				// TODO Auto-generated method stub
+				return;
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
+				return;
 			}
 		});
 	}
 
 	public void setList() {
 
-		ArrayList<AdapterGroupItem> data = DAO
-				.getAlleGegenstaendeFuerExpandableAdapter();
-
-		adapter = null;
-
-		if (data != null) {
-			adapter = new CustomMuelltrennungExpandableAdapter(this, data);
+		try {
+			ArrayList<AdapterGroupItem> data = DAO
+					.getAlleGegenstaendeFuerExpandableAdapter();
+			adapter = null;
+			if (data != null) {
+				adapter = new CustomMuelltrennungExpandableAdapter(this, data);
+			}
+			elvMuelltrennung.setAdapter(adapter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(),
+					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
+					.show();
 		}
-
-		elvMuelltrennung.setAdapter(adapter);
-
 	}
 }

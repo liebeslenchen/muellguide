@@ -92,8 +92,15 @@ public class MapsActivity extends Activity {
 					.get(entsorgungsartId);
 			setTitle(entsorgungsart.getBezeichnung() + " Standorte");
 		} else if (id != null) {
-			Standort standort = DAO.getStandortById(id);
-			setTitle(standort.getBezeichnung());
+			try {
+				Standort standort = DAO.getStandortById(id);
+				setTitle(standort.getBezeichnung());
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(getBaseContext(),
+						getString(R.string.fehler_beim_laden),
+						Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 

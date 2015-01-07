@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
 		progressDialog.setIndeterminate(true);
 
 		lvMenu = (ListView) findViewById(R.id.lvMenu);
-		data = DAO.getHauptmenueEintraege();
+
 		setList();
 
 		lvMenu.setOnItemClickListener(new OnItemClickListener() {
@@ -46,53 +46,56 @@ public class MainActivity extends BaseActivity {
 
 				try {
 
-					NetworkCondition netzwerkStatus = MuellGuideMsApplication
-							.getNetzwerkStatus();
+					if (data != null) {
 
-					String selectedItemId = data.get(position).getId();
-					Intent intent = null;
+						NetworkCondition netzwerkStatus = MuellGuideMsApplication
+								.getNetzwerkStatus();
 
-					if (selectedItemId.equals("muelltrennung")) {
+						String selectedItemId = data.get(position).getId();
+						Intent intent = null;
 
-						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-							MainActivity.this
-									.showToastIfNecessary(netzwerkStatus);
-							return;
+						if (selectedItemId.equals("muelltrennung")) {
+
+							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+								MainActivity.this
+										.showToastIfNecessary(netzwerkStatus);
+								return;
+							}
+
+							// Mülltrennung aufrufen:
+							intent = new Intent(getBaseContext(),
+									MuelltrennungActivity.class);
+
+							progressDialog.show();
+
+						} else if (selectedItemId.equals("entsorgung")) {
+
+							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+								MainActivity.this
+										.showToastIfNecessary(netzwerkStatus);
+								return;
+							}
+
+							// Entsorgung-Activity aufrufen:
+							intent = new Intent(getBaseContext(),
+									EntsorgungActivity.class);
+
+							progressDialog.show();
+
+						} else if (selectedItemId.equals("hilfe")) {
+
+						} else if (selectedItemId.equals("feedback")) {
+							// Feedback-Activity aufrufen:
+							intent = new Intent(getBaseContext(),
+									FeedbackActivity.class);
+						} else if (selectedItemId.equals("test")) {
+							// Testwiese aufrufen:
+							intent = new Intent(getBaseContext(),
+									TestActivity.class);
 						}
 
-						// Mülltrennung aufrufen:
-						intent = new Intent(getBaseContext(),
-								MuelltrennungActivity.class);
-
-						progressDialog.show();
-
-					} else if (selectedItemId.equals("entsorgung")) {
-
-						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-							MainActivity.this
-									.showToastIfNecessary(netzwerkStatus);
-							return;
-						}
-
-						// Entsorgung-Activity aufrufen:
-						intent = new Intent(getBaseContext(),
-								EntsorgungActivity.class);
-
-						progressDialog.show();
-
-					} else if (selectedItemId.equals("hilfe")) {
-
-					} else if (selectedItemId.equals("feedback")) {
-						// Feedback-Activity aufrufen:
-						intent = new Intent(getBaseContext(),
-								FeedbackActivity.class);
-					} else if (selectedItemId.equals("test")) {
-						// Testwiese aufrufen:
-						intent = new Intent(getBaseContext(),
-								TestActivity.class);
+						startActivity(intent);
 					}
-
-					startActivity(intent);
 
 				} catch (Exception ex) {
 					Toast.makeText(MainActivity.this, ex.getMessage(),
@@ -112,9 +115,20 @@ public class MainActivity extends BaseActivity {
 
 	public void setList() {
 
-		CustomHauptmenueAdapter adapter = new CustomHauptmenueAdapter(
-				getBaseContext(), data);
-		lvMenu.setAdapter(adapter);
+		try {
+			data = DAO.getHauptmenueEintraege();
+
+			if (data != null) {
+				CustomHauptmenueAdapter adapter = new CustomHauptmenueAdapter(
+						getBaseContext(), data);
+				lvMenu.setAdapter(adapter);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(),
+					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
+					.show();
+		}
 
 	}
 }
