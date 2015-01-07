@@ -97,13 +97,18 @@ public class MapUtils {
 	 * @return {@link LatLng} der zuletzt bekannten Position
 	 */
 	public static LatLng getCurrentLocation(LocationManager locationManager) {
+		LatLng currentLatLng = null;
 		Criteria criteria = new Criteria();
 		String provider = locationManager.getBestProvider(criteria, false);
 		Location location = locationManager.getLastKnownLocation(provider);
-		LatLng currentPosition = new LatLng(location.getLatitude(),
-				location.getLongitude());
 
-		return currentPosition;
+		if (location != null) {
+			currentLatLng = new LatLng(location.getLatitude(),
+					location.getLongitude());
+
+		}
+
+		return currentLatLng;
 
 	}
 }
