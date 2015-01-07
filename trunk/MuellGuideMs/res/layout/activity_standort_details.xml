@@ -17,7 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvAdresseLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvStandortAdresseContext"
@@ -31,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvHinweisLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
     
     <TextView
         android:id="@+id/tvStandortHinweisContext"
@@ -45,7 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvOeffnungszeitenLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" 
+        android:textStyle="bold"/>
     
     <TextView
         android:id="@+id/tvStandortOeffnungszeitenContext"

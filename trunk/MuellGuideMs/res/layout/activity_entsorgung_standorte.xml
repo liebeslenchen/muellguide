@@ -4,16 +4,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/etSearchStandort"
-        android:layout_width="fill_parent"
+     <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="51dp"
-        android:inputType="textVisiblePassword"
-        android:ems="10" >
+        android:orientation="horizontal" 
+        android:layout_marginRight="15dp">
 
-        <requestFocus />
-    </EditText>
+        <ImageView
+            android:id="@+id/iVSearchStandort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/lupe" />
+
+        <EditText
+            android:id="@+id/etSearchStandort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ems="10"
+            android:inputType="text" > 
+
+            <requestFocus />
+        </EditText>
+        
+    </LinearLayout>
     
     <ListView
         android:id="@+id/lvEntsorgungStandorte"
