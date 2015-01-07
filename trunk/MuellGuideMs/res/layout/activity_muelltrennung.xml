@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:focusableInTouchMode="true"
     tools:context="mawi.muellguidems.activities.MuelltrennungActivity" >
 
     <LinearLayout
@@ -21,15 +22,13 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/lupe" />
 
-        <EditText
+        <EditText 
             android:id="@+id/etSearchMuelltrennung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:ems="10"
             android:inputType="text" > 
-
-            <requestFocus />
         </EditText>
         
     </LinearLayout>
