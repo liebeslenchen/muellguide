@@ -41,4 +41,6 @@
 	    <item>Mülltrennung - Gegenstand melden</item>
 	    <item>Sonstiges</item>
 	</string-array>
+    <string name="zurueck">Zurück</string>
+    <string name="dialogStandortFeedback">Der Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf einer Karte angezeigt werden.\nUnter Feedback können Sie uns den genauen Standort mitteilen.</string>
 </resources>

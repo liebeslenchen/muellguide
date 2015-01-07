@@ -7,13 +7,12 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.parse.ParseGeoPoint;
 
 public class StandortDetailsActivity extends BaseActivity {
 
@@ -53,11 +52,6 @@ public class StandortDetailsActivity extends BaseActivity {
 
 			String adressValue = strasse + "\r\n" + plzValue + " Münster ("
 					+ bezirkValue + ")";
-
-			ParseGeoPoint geoPoint = standort.getGpsStandort();
-			if (geoPoint == null) {
-				/* TODO: Feedbackbutton anzeigen! */
-			}
 			tvAdresseContext.setText(adressValue);
 
 			// Hinweis auslesen
@@ -101,28 +95,48 @@ public class StandortDetailsActivity extends BaseActivity {
 	}
 
 	public void onClickBtnStandortAufKarteAnzeigen(View v) {
-
-		NetworkCondition netzwerkStatus = MuellGuideMsApplication
-				.getNetzwerkStatus();
-		if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-			StandortDetailsActivity.this.showToastIfNecessary(netzwerkStatus);
-			return;
-		}
-
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
 		// Falls kein genauer Standort vorhanden ist Hinweis anzeigen und
 		// Karte nicht öffnen
 		if (standort != null && standort.getGpsStandort() != null) {
+			// Netzwerk prüfen
+			NetworkCondition netzwerkStatus = MuellGuideMsApplication
+					.getNetzwerkStatus();
+			if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+				StandortDetailsActivity.this
+						.showToastIfNecessary(netzwerkStatus);
+				return;
+			}
+			// Maps öffnen
 			Intent mapsIntent = new Intent(this, MapsActivity.class);
 			mapsIntent.putExtra("objectId", standort.getId());
 			startActivity(mapsIntent);
 		} else {
-			Toast.makeText(
-					StandortDetailsActivity.this,
-					"Der Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf einer Karte angezeigt werden. Unter Feedback können Sie uns den genauen Standort mitteilen.",
-					Toast.LENGTH_LONG).show();
+			// AlertDialog für Feedback
+			AlertDialog.Builder builder = new AlertDialog.Builder(
+					StandortDetailsActivity.this);
+			builder.setMessage(R.string.dialogStandortFeedback);
+			// Add the buttons
+			builder.setNegativeButton(R.string.zurueck,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							// User cancelled the dialog
+						}
+					});
+			builder.setPositiveButton(R.string.feedback,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							// Feedback Activity aufrufen
+							startActivity(new Intent(getBaseContext(),
+									FeedbackActivity.class));
+						}
+					});
+			// Get the AlertDialog and show it
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
+
 	}
 }
