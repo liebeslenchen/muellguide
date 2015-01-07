@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StandortDetailsActivity extends BaseActivity {
 
@@ -33,64 +34,65 @@ public class StandortDetailsActivity extends BaseActivity {
 
 		String standortId = getIntent().getStringExtra("id");
 
-		standort = DAO.getStandortById(standortId);
+		try {
+			standort = DAO.getStandortById(standortId);
 
-		if (standort != null) {
+			if (standort != null) {
 
-			// Adresse auslesen
-			String strasse = standort.getStrasse();
-			String plzValue = "...";
-			String plz = standort.getPlz();
-			if (!plz.equals("")) {
-				plzValue = plz;
+				// Adresse auslesen
+				String strasse = standort.getStrasse();
+				String plzValue = "...";
+				String plz = standort.getPlz();
+				if (!plz.equals("")) {
+					plzValue = plz;
+				}
+
+				String bezirkValue = "";
+				String bezirkId = standort.getBezirkId();
+				Bezirk bezirk = DAO.getBezirkById(bezirkId);
+				bezirkValue = bezirk.getBezeichnung();
+
+				String adressValue = strasse + "\r\n" + plzValue + " Münster ("
+						+ bezirkValue + ")";
+				tvAdresseContext.setText(adressValue);
+
+				// Hinweis auslesen
+				String hinweisValue = "-";
+				String hinweis = standort.getHinweis();
+				if (!hinweis.equals("")) {
+					hinweisValue = hinweis;
+				}
+				tvHinweisContext.setText(hinweisValue);
+
+				// Öffungszeiten auslesen
+				String oeffnungszeitenValue = "immer geöffnet";
+				Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+						.get(standort.getEntsorgungsartId());
+				if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")) {
+					oeffnungszeitenValue = DAO
+							.getContainerOeffnungszeiten(standort
+									.getEntsorgungsartId());
+				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+						"Elektrokleingeräte")) {
+					oeffnungszeitenValue = DAO
+							.getContainerOeffnungszeiten(standort
+									.getEntsorgungsartId());
+				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+						"Recyclinghof")) {
+					oeffnungszeitenValue = DAO
+							.getRecyclinghofOeffnungszeiten(standort.getId());
+				}
+
+				tvOeffnungszeitenContext.setText(oeffnungszeitenValue);
+
+				// Titeltext setzten, je nach Entsorgungsart
+				setTitle(standort.getBezeichnung());
 			}
-
-			String bezirkValue = "";
-			String bezirkId = standort.getBezirkId();
-			Bezirk bezirk = DAO.getBezirkById(bezirkId);
-			bezirkValue = bezirk.getBezeichnung();
-
-			String adressValue = strasse + "\r\n" + plzValue + " Münster ("
-					+ bezirkValue + ")";
-			tvAdresseContext.setText(adressValue);
-
-			// Hinweis auslesen
-			String hinweisValue = "-";
-			String hinweis = standort.getHinweis();
-			if (!hinweis.equals("")) {
-				hinweisValue = hinweis;
-			}
-			tvHinweisContext.setText(hinweisValue);
-
-			// Öffungszeiten auslesen
-			String oeffnungszeitenValue = "immer geöffnet";
-			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
-					.get(standort.getEntsorgungsartId());
-			if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")) {
-				oeffnungszeitenValue = DAO
-						.getContainerOeffnungszeitenAufbereitet(standort
-								.getEntsorgungsartId());
-			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-					"Elektrokleingeräte")) {
-				oeffnungszeitenValue = DAO
-						.getContainerOeffnungszeitenAufbereitet(standort
-								.getEntsorgungsartId());
-			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-					"Recyclinghof")) {
-				oeffnungszeitenValue = DAO
-						.getRecyclinghofOeffnungszeitenAufbereitet(standort.getId());
-			}
-
-			tvOeffnungszeitenContext.setText(oeffnungszeitenValue);
-
-			// Titeltext setzten, je nach Entsorgungsart
-			setTitle(standort.getBezeichnung());
-		} else {
-			setTitle("Standort");
-			// TODO: Fehlerbehandlung fehlt noch !
-			// Kann eigentlich nur auftreten bei Parse Fehler (kein Netzwerk
-			// etc.), dann ist standort null
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(),
+					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
+					.show();
 		}
 		// Titelicon setzen
 		getActionBar().setIcon(R.drawable.entsorgung_white);

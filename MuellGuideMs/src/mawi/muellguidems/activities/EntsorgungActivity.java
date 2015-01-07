@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class EntsorgungActivity extends BaseActivity {
 
@@ -41,27 +42,37 @@ public class EntsorgungActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				NetworkCondition netzwerkStatus = MuellGuideMsApplication
-						.getNetzwerkStatus();
-				if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-					EntsorgungActivity.this
-							.showToastIfNecessary(netzwerkStatus);
-					return;
+				try {
+					if (data != null) {
+						NetworkCondition netzwerkStatus = MuellGuideMsApplication
+								.getNetzwerkStatus();
+						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+							EntsorgungActivity.this
+									.showToastIfNecessary(netzwerkStatus);
+							return;
+						}
+
+						String selectedEntsorgungsartId = data.get(position)
+								.getId();
+						String selectedEntsorgungsartBezeichnung = data.get(
+								position).getBezeichnung();
+
+						Intent intent = new Intent(getBaseContext(),
+								EntsorgungStandorteActivity.class);
+						intent.putExtra("id", selectedEntsorgungsartId);
+						intent.putExtra("bezeichnung",
+								selectedEntsorgungsartBezeichnung);
+
+						progressDialog.show();
+						startActivity(intent);
+					}
+					;
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(getBaseContext(),
+							getString(R.string.fehler_beim_laden),
+							Toast.LENGTH_LONG).show();
 				}
-
-				String selectedEntsorgungsartId = data.get(position).getId();
-				String selectedEntsorgungsartBezeichnung = data.get(position)
-						.getBezeichnung();
-
-				Intent intent = new Intent(getBaseContext(),
-						EntsorgungStandorteActivity.class);
-				intent.putExtra("id", selectedEntsorgungsartId);
-				intent.putExtra("bezeichnung",
-						selectedEntsorgungsartBezeichnung);
-
-				progressDialog.show();
-				startActivity(intent);
-				;
 			}
 		});
 	}
@@ -75,10 +86,19 @@ public class EntsorgungActivity extends BaseActivity {
 	}
 
 	private void setList() {
-		data = DAO.getEntsorgungsartenMitStandortFuerAdapter();
+		try {
+			data = DAO.getEntsorgungsartenMitStandortFuerAdapter();
 
-		CustomEntsorgungsartenAdapter adapter = new CustomEntsorgungsartenAdapter(
-				getBaseContext(), data);
-		lvEntsorgungMenu.setAdapter(adapter);
+			if (data != null) {
+				CustomEntsorgungsartenAdapter adapter = new CustomEntsorgungsartenAdapter(
+						getBaseContext(), data);
+				lvEntsorgungMenu.setAdapter(adapter);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(),
+					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 }

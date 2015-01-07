@@ -36,7 +36,6 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		lvEntsorgungStandorte = (ListView) findViewById(R.id.lvEntsorgungStandorte);
 		entsorgungsArtId = getIntent().getStringExtra("id");
 
-		data = DAO.getStandortListByIdFuerAdapter(entsorgungsArtId);
 		setList();
 
 		lvEntsorgungStandorte.setOnItemClickListener(new OnItemClickListener() {
@@ -52,12 +51,20 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 					return;
 				}
 
-				String selectedStandortId = data.get(position).getId();
-
-				Intent intent = new Intent(getBaseContext(),
-						StandortDetailsActivity.class);
-				intent.putExtra("id", selectedStandortId);
-				startActivity(intent);
+				try {
+					if (data != null) {
+						String selectedStandortId = data.get(position).getId();
+						Intent intent = new Intent(getBaseContext(),
+								StandortDetailsActivity.class);
+						intent.putExtra("id", selectedStandortId);
+						startActivity(intent);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(getBaseContext(),
+							getString(R.string.fehler_beim_laden),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -101,10 +108,18 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 	}
 
 	private void setList() {
-		if (data != null) {
-			adapter = new CustomEntsorgungStandortAdapter(getBaseContext(),
-					data);
-			lvEntsorgungStandorte.setAdapter(adapter);
+		try {
+			data = DAO.getStandortListByIdFuerAdapter(entsorgungsArtId);
+			if (data != null) {
+				adapter = new CustomEntsorgungStandortAdapter(getBaseContext(),
+						data);
+				lvEntsorgungStandorte.setAdapter(adapter);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(getBaseContext(),
+					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
