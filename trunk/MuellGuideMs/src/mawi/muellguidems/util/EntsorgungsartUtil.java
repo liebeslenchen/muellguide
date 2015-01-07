@@ -127,6 +127,51 @@ public class EntsorgungsartUtil {
 						.getString(R.string.db_entsorgungsart_value_restmuell))) {
 			// Restmüll
 			drawableId = R.drawable.restmuell;
+		} else {
+			drawableId = R.drawable.ic_launcher;
+		}
+
+		return drawableId;
+	}
+
+	/**
+	 * Gibt die R.Drawable ID für ein graues Icon in Form eines {@link Integer}s
+	 * zurück, in Abhängigkeit von einer gegebenen {@link Entsorgungsart}.
+	 * 
+	 * @param entsorgungsart
+	 * @return {@link Integer}
+	 */
+	public static Integer getDrawableIdForEntsorgungsartGrey(
+			Entsorgungsart entsorgungsart) {
+		Integer drawableId = null;
+
+		if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+				MuellGuideMsApplication.getContext().getResources()
+						.getString(R.string.db_entsorgungsart_value_altglas))) {
+			// Altglas
+			drawableId = R.drawable.altglas_grey;
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_altkleider))) {
+			// Altkleider
+			drawableId = R.drawable.altkleider_grey;
+		} else if (entsorgungsart
+				.getBezeichnung()
+				.equalsIgnoreCase(
+						MuellGuideMsApplication
+								.getContext()
+								.getResources()
+								.getString(
+										R.string.db_entsorgungsart_value_elektrokleingeraete))) {
+			// Elektrokleingeräte
+			drawableId = R.drawable.elektrokleingeraet_grey;
+		} else {
+			drawableId = R.drawable.ic_launcher;
 		}
 
 		return drawableId;

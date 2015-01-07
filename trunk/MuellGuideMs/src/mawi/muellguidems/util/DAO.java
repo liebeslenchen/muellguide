@@ -16,6 +16,7 @@ import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 
 public class DAO {
@@ -147,8 +148,19 @@ public class DAO {
 			for (Standort standort : data) {
 				AdapterSingleItem item = new AdapterSingleItem(
 						standort.getId(), standort.getBezeichnung(), null, 0);
-				int drawbleId = EntsorgungsartUtil
-						.getDrawableIdForEntsorgungsart(entsorgungsart);
+
+				// Abhänig davon, ob GPS-Koordinaten vorhanden sind ist das Icon
+				// grün oder grau
+				ParseGeoPoint geoPoint = standort.getGpsStandort();
+				int drawbleId;
+				if (geoPoint != null) {
+					drawbleId = EntsorgungsartUtil
+							.getDrawableIdForEntsorgungsart(entsorgungsart);
+				} else {
+					drawbleId = EntsorgungsartUtil
+							.getDrawableIdForEntsorgungsartGrey(entsorgungsart);
+				}
+
 				item.setImage(drawbleId);
 
 				result.add(item);
