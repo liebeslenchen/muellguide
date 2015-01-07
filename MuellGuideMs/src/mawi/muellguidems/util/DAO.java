@@ -36,20 +36,15 @@ public class DAO {
 
 			// Menüpunkt 3: Hilfe
 			result.add(new AdapterSingleItem("hilfe", "Hilfe",
-					"Symbolerklärung, Hinweise zur Bedienung usw.",
-					R.drawable.hilfe));
+					"Symbolerklärung, Hinweise usw.", R.drawable.hilfe));
 
 			// Menüpunkt 4: Feedback
 			result.add(new AdapterSingleItem("feedback", "Feedback",
-					"Vorschläge machen, Änderungswünsche äußern...",
-					R.drawable.feedback));
+					"Vorschläge machen, Wünsche äußern...", R.drawable.feedback));
 
 			// Menüpunkt 5: Über uns
-			result.add(new AdapterSingleItem(
-					"about",
-					"Über uns",
-					"Allgemeine Informationen zur App und dem Entwickler-Team...",
-					R.drawable.ueber_uns));
+			result.add(new AdapterSingleItem("about", "Über uns",
+					"Allgemeine Informationen", R.drawable.ueber_uns));
 
 			// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
 			result.add(new AdapterSingleItem("test", "Testwiese",
