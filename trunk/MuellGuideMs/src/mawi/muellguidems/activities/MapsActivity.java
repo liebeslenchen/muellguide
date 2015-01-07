@@ -45,14 +45,18 @@ public class MapsActivity extends Activity {
 			}
 
 			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			Boolean gpsEnabled = locationManager
-					.isProviderEnabled(LocationManager.GPS_PROVIDER);
-			if (!gpsEnabled) {
+			if (!locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				Toast.makeText(
 						getBaseContext(),
 						"Schalten Sie für genauere Standortangaben bitte das GPS ein",
 						Toast.LENGTH_LONG).show();
 			}
+			// else if (!locationManager
+			// .isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			// Toast.makeText(getBaseContext(), "NETWORK", Toast.LENGTH_LONG)
+			// .show();
+			// }
 
 			// Liest aktuelle Position mit Hilfe der MapUtils aus
 			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
