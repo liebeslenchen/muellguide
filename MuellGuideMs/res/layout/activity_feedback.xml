@@ -1,57 +1,61 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="mawi.muellguidems.activities.FeedbackActivity" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/tvFeedbackSubjectLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/FeedbackSubjectLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/spnrFeedbackSubject"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="mawi.muellguidems.activities.FeedbackActivity" >
 
-    <TextView
-        android:id="@+id/tvFeedbackMessageLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/FeedbackMessageLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/tvFeedbackSubjectLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/FeedbackSubjectLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/etFeedbackMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:lines="8"
-        android:minLines="3" 
-        android:gravity="top|left"
-        android:scrollbars="vertical"
-        android:inputType="textMultiLine" >
- 
-    </EditText>
+        <Spinner
+            android:id="@+id/spnrFeedbackSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
 
-    <Button 
-        android:id="@+id/btnSendFeedback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/green" 
-        android:onClick="onClickBtnSendFeedback"
-        android:text="@string/senden" 
-        android:textColor="@color/white" 
-        android:drawableRight="@drawable/feedback_white" />
+        <TextView
+            android:id="@+id/tvFeedbackMessageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/FeedbackMessageLabel"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/etFeedbackMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:minLines="3"
+            android:scrollbars="vertical" >
+        </EditText>
+
+        <Button
+            android:id="@+id/btnSendFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:drawableRight="@drawable/feedback_white"
+            android:onClick="onClickBtnSendFeedback"
+            android:text="@string/senden"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</ScrollView>
