@@ -9,8 +9,10 @@ import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import mawi.muellguidems.util.StringEnum;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ public class StandortDetailsActivity extends BaseActivity {
 	private TextView tvAdresseContext;
 	private TextView tvOeffnungszeitenContext;
 	private TextView tvHinweisContext;
-
+	private ProgressDialog progressDialog;
 	private Standort standort;
 
 	@Override
@@ -33,72 +35,113 @@ public class StandortDetailsActivity extends BaseActivity {
 		tvHinweisContext = (TextView) findViewById(R.id.tvStandortHinweisContext);
 		tvOeffnungszeitenContext = (TextView) findViewById(R.id.tvStandortOeffnungszeitenContext);
 
-		String standortId = getIntent().getStringExtra("id");
-
-		try {
-			standort = DAO.getStandortById(standortId);
-
-			if (standort != null) {
-
-				// Adresse auslesen
-				String strasse = standort.getStrasse();
-				String plzValue = "...";
-				String plz = standort.getPlz();
-				if (!plz.equals("")) {
-					plzValue = plz;
-				}
-
-				String bezirkValue = "";
-				String bezirkId = standort.getBezirkId();
-				Bezirk bezirk = DAO.getBezirkById(bezirkId);
-				bezirkValue = bezirk.getBezeichnung();
-
-				String adressValue = strasse + "\r\n" + plzValue + " Münster ("
-						+ bezirkValue + ")";
-				tvAdresseContext.setText(adressValue);
-
-				// Hinweis auslesen
-				String hinweisValue = "-";
-				String hinweis = standort.getHinweis();
-				if (!hinweis.equals("")) {
-					hinweisValue = hinweis;
-				}
-				tvHinweisContext.setText(hinweisValue);
-
-				// Öffungszeiten auslesen
-				String oeffnungszeitenValue = StringEnum.IMMER_OFFEN.toString();
-				Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
-						.get(standort.getEntsorgungsartId());
-				if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						StringEnum.ALTGLAS.toString())) {
-					oeffnungszeitenValue = DAO
-							.getContainerOeffnungszeitenAufbereitet(standort
-									.getEntsorgungsartId());
-				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						StringEnum.ELEKTROKLEINGERAETE.toString())) {
-					oeffnungszeitenValue = DAO
-							.getContainerOeffnungszeitenAufbereitet(standort
-									.getEntsorgungsartId());
-				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						StringEnum.RECYCLINGHOF.toString())) {
-					oeffnungszeitenValue = DAO
-							.getRecyclinghofOeffnungszeitenAufbereitet(standort
-									.getId());
-				}
-
-				tvOeffnungszeitenContext.setText(oeffnungszeitenValue);
-
-				// Titeltext setzten, je nach Entsorgungsart
-				setTitle(standort.getBezeichnung());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(getBaseContext(),
-					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
-					.show();
-		}
 		// Titelicon setzen
 		getActionBar().setIcon(R.drawable.entsorgung_white);
+
+		String standortId = getIntent().getStringExtra("id");
+		new AsyncParseLoader().execute(standortId);
+	}
+
+	private class AsyncParseLoader extends AsyncTask<String, Integer, Standort> {
+
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(StandortDetailsActivity.this);
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.setTitle("Daten werden geladen");
+			progressDialog.setMessage("Bitte warten...");
+			progressDialog.setIndeterminate(false);
+			progressDialog.show();
+		}
+
+		protected Standort doInBackground(String... params) {
+
+			try {
+				standort = DAO.getStandortById(params[0]);
+
+				return standort;
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(getBaseContext(),
+						getString(R.string.fehler_beim_laden),
+						Toast.LENGTH_LONG).show();
+
+				return null;
+			}
+
+		}
+
+		protected void onPostExecute(Standort result) {
+			if (progressDialog.isShowing())
+				progressDialog.cancel();
+
+			try {
+
+				if (standort != null) {
+
+					// Adresse auslesen
+					String strasse = standort.getStrasse();
+					String plzValue = "...";
+					String plz = standort.getPlz();
+					if (!plz.equals("")) {
+						plzValue = plz;
+					}
+
+					String bezirkValue = "";
+					String bezirkId = standort.getBezirkId();
+					Bezirk bezirk = DAO.getBezirkById(bezirkId);
+					bezirkValue = bezirk.getBezeichnung();
+
+					String adressValue = strasse + "\r\n" + plzValue
+							+ " Münster (" + bezirkValue + ")";
+					tvAdresseContext.setText(adressValue);
+
+					// Hinweis auslesen
+					String hinweisValue = "-";
+					String hinweis = standort.getHinweis();
+					if (!hinweis.equals("")) {
+						hinweisValue = hinweis;
+					}
+					tvHinweisContext.setText(hinweisValue);
+
+					// Öffungszeiten auslesen
+					String oeffnungszeitenValue = StringEnum.IMMER_OFFEN
+							.toString();
+					Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+							.get(standort.getEntsorgungsartId());
+					if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+							StringEnum.ALTGLAS.toString())) {
+						oeffnungszeitenValue = DAO
+								.getContainerOeffnungszeitenAufbereitet(standort
+										.getEntsorgungsartId());
+					} else if (entsorgungsart.getBezeichnung()
+							.equalsIgnoreCase(
+									StringEnum.ELEKTROKLEINGERAETE.toString())) {
+						oeffnungszeitenValue = DAO
+								.getContainerOeffnungszeitenAufbereitet(standort
+										.getEntsorgungsartId());
+					} else if (entsorgungsart.getBezeichnung()
+							.equalsIgnoreCase(
+									StringEnum.RECYCLINGHOF.toString())) {
+						oeffnungszeitenValue = DAO
+								.getRecyclinghofOeffnungszeitenAufbereitet(standort
+										.getId());
+					}
+
+					tvOeffnungszeitenContext.setText(oeffnungszeitenValue);
+
+					// Titeltext setzten, je nach Entsorgungsart
+					setTitle(standort.getBezeichnung());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(getBaseContext(),
+						getString(R.string.fehler_beim_laden),
+						Toast.LENGTH_LONG).show();
+			}
+		}
+
 	}
 
 	public void onClickBtnStandortAufKarteAnzeigen(View v) {
