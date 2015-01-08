@@ -54,13 +54,14 @@ public class EntsorgungsartUtil {
 			Standort standort) {
 		try {
 			// String gilt für Altkleidercontainer
-			String oeffnungszeitenValue = "immer geöffnet";
+			String oeffnungszeitenValue = StringEnum.IMMER_OFFEN.toString();
 			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
 					.get(standort.getEntsorgungsartId());
-			if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")
+			if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+					StringEnum.ALTGLAS.toString())
 					|| entsorgungsart.getBezeichnung().equalsIgnoreCase(
-							"Elektrokleingeräte")) {
-				oeffnungszeitenValue = "heute nicht geöffnet";
+							StringEnum.ELEKTROKLEINGERAETE.toString())) {
+				oeffnungszeitenValue = StringEnum.HEUTE_NICHT_OFFEN.toString();
 				List<OeffungszeitenContainer> allOeffnungszeiten = DAO
 						.getContainerOeffnungszeitenList(standort
 								.getEntsorgungsartId());
@@ -74,8 +75,8 @@ public class EntsorgungsartUtil {
 				}
 
 			} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-					"Recyclinghof")) {
-				oeffnungszeitenValue = "heute nicht geöffnet";
+					StringEnum.RECYCLINGHOF.toString())) {
+				oeffnungszeitenValue = StringEnum.HEUTE_NICHT_OFFEN.toString();
 				List<OeffungszeitenRecyclinghof> allOeffnungszeiten = DAO
 						.getRecyclinghofOeffnungszeitenList(standort.getId());
 				String weekDay = getWochentagFromSystemDate();

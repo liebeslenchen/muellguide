@@ -35,18 +35,15 @@ public class DAO {
 
 		// Menüpunkt 3: Hilfe
 		result.add(new AdapterSingleItem("hilfe", "Hilfe",
-				"Symbolerklärung, Hinweise zur Bedienung usw.",
-				R.drawable.hilfe));
+				"Symbolerklärung und Hinweise", R.drawable.hilfe));
 
 		// Menüpunkt 4: Feedback
 		result.add(new AdapterSingleItem("feedback", "Feedback",
-				"Vorschläge machen, Änderungswünsche äußern...",
-				R.drawable.feedback));
+				"Vorschläge machen, Wünsche äußern...", R.drawable.feedback));
 
 		// Menüpunkt 5: Über uns
 		result.add(new AdapterSingleItem("about", "Über uns",
-				"Allgemeine Informationen zur App und dem Entwickler-Team...",
-				R.drawable.ueber_uns));
+				"Allgemeine Informationen...", R.drawable.ueber_uns));
 
 		// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
 		result.add(new AdapterSingleItem("test", "Testwiese",
@@ -300,29 +297,16 @@ public class DAO {
 
 	}
 
+	/**
+	 * Gibt alle Öffnungszeiten-Tage von Recyclinghöfen als String aufbereitet
+	 * zurück
+	 * 
+	 * @param recyclinghofId
+	 * @return {@link String} mit Öffnungszeiten und Umbrüchen
+	 * @throws Exception
+	 */
 	public static String getRecyclinghofOeffnungszeitenAufbereitet(
 			String recyclinghofId) throws Exception {
-		// ParseQuery<OeffungszeitenRecyclinghof> query =
-		// OeffungszeitenRecyclinghof
-		// .getQuery();
-		// List<OeffungszeitenRecyclinghof> oeffnungszeitList = new
-		// ArrayList<OeffungszeitenRecyclinghof>();
-		//
-		// try {
-		// Standort standortWithoutData = Standort
-		// .createWithoutDataByObjectId(recyclinghofId);
-		//
-		// // Die Query erwartet ein Entsorgungsartobjekt. Man kann nicht
-		// // direkt den Id-String vergleichen, da die Spalte vom Typ "Pointer"
-		// // ist.
-		// oeffnungszeitList = query.whereEqualTo("fkStandort",
-		// standortWithoutData).find();
-		//
-		// } catch (ParseException e) {
-		// e.printStackTrace();
-		// return null;
-		// }
-
 		List<OeffungszeitenRecyclinghof> oeffnungszeitList = getRecyclinghofOeffnungszeitenList(recyclinghofId);
 
 		String oeffnungszeitenAufbereitet = "";
@@ -335,6 +319,14 @@ public class DAO {
 		return oeffnungszeitenAufbereitet;
 	}
 
+	/**
+	 * Liest die Öffnungzeiten für Recyclinghöfe aus und gibt sie als
+	 * {@link List} vom Typ {@link OeffungszeitenRecyclinghof} zurück
+	 * 
+	 * @param recyclinghofId
+	 * @return {@link List} vom Typ {@link OeffungszeitenRecyclinghof}
+	 * @throws Exception
+	 */
 	public static List<OeffungszeitenRecyclinghof> getRecyclinghofOeffnungszeitenList(
 			String recyclinghofId) throws Exception {
 		ParseQuery<OeffungszeitenRecyclinghof> query = OeffungszeitenRecyclinghof
