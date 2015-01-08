@@ -9,7 +9,9 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,6 +29,7 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 	private CustomEntsorgungStandortAdapter adapter;
 	private EditText etSearchStandort;
 	private String entsorgungsArtId;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,6 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 
 		lvEntsorgungStandorte = (ListView) findViewById(R.id.lvEntsorgungStandorte);
 		entsorgungsArtId = getIntent().getStringExtra("id");
-
-		setList();
 
 		lvEntsorgungStandorte.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -105,22 +106,59 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		setTitle(entsorgungsart.getBezeichnung() + " Standorte");
 		getActionBar().setIcon(R.drawable.entsorgung_white);
 
+		new AsyncParseLoader().execute();
+
 	}
 
-	private void setList() {
-		try {
-			data = DAO.getStandortListByIdFuerAdapter(entsorgungsArtId);
-			if (data != null) {
-				adapter = new CustomEntsorgungStandortAdapter(getBaseContext(),
-						data);
-				lvEntsorgungStandorte.setAdapter(adapter);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(getBaseContext(),
-					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
-					.show();
+	private class AsyncParseLoader extends
+			AsyncTask<Void, Integer, ArrayList<AdapterSingleItem>> {
+
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(
+					EntsorgungStandorteActivity.this);
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.setTitle("Daten werden geladen");
+			progressDialog.setMessage("Bitte warten...");
+			progressDialog.setIndeterminate(false);
+			progressDialog.show();
 		}
+
+		protected ArrayList<AdapterSingleItem> doInBackground(Void... params) {
+
+			try {
+				data = DAO.getStandortListByIdFuerAdapter(entsorgungsArtId);
+
+				return data;
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(getBaseContext(),
+						getString(R.string.fehler_beim_laden),
+						Toast.LENGTH_LONG).show();
+
+				return null;
+			}
+
+		}
+
+		protected void onPostExecute(ArrayList<AdapterSingleItem> result) {
+			if (progressDialog.isShowing())
+				progressDialog.cancel();
+
+			try {
+
+				if (result != null) {
+					adapter = new CustomEntsorgungStandortAdapter(
+							getBaseContext(), result);
+					lvEntsorgungStandorte.setAdapter(adapter);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	public void onClickBtnAlleStandorteAnzeigen(View v) {

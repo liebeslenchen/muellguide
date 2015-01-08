@@ -7,7 +7,6 @@ import mawi.muellguidems.adapter.CustomHauptmenueAdapter;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,18 +21,10 @@ public class MainActivity extends BaseActivity {
 	ListView lvMenu;
 	ArrayList<AdapterSingleItem> data;
 
-	ProgressDialog progressDialog;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-		progressDialog = new ProgressDialog(this);
-		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		progressDialog.setTitle("Daten werden geladen");
-		progressDialog.setMessage("Bitte warten...");
-		progressDialog.setIndeterminate(true);
 
 		lvMenu = (ListView) findViewById(R.id.lvMenu);
 
@@ -80,8 +71,6 @@ public class MainActivity extends BaseActivity {
 							intent = new Intent(getBaseContext(),
 									EntsorgungActivity.class);
 
-							progressDialog.show();
-
 						} else if (selectedItemId.equals("hilfe")) {
 
 						} else if (selectedItemId.equals("feedback")) {
@@ -109,8 +98,6 @@ public class MainActivity extends BaseActivity {
 	protected void onResume() {
 		super.onResume();
 
-		if (progressDialog.isShowing())
-			progressDialog.cancel();
 	}
 
 	public void setList() {
