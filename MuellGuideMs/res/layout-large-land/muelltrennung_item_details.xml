@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ################################################### -->
+<!-- ###  Anpassungen Tablet:                        ### -->
+<!-- ###  - Schrift vergrößert                       ### -->
+<!-- ################################################### -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/tvMuelltrennungItemDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="80dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" >
+    </TextView>
+
+</LinearLayout>
