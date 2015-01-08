@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"/>
     
- 
+  
     <!-- Item -->
     <TextView
         android:id="@+id/tvHauptmenueItem"
@@ -21,8 +21,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="60dp"
         android:textColor="#040404"
-        android:typeface="sans"
-        android:textSize="15sp"
+        android:textAppearance="?android:attr/textAppearanceMedium" 
         android:textStyle="bold"
          />
  
@@ -33,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvHauptmenueItem"
         android:textColor="#343434"
-        android:textSize="12sp"
+        android:textAppearance="?android:attr/textAppearanceSmall" 
         android:paddingLeft="60dp"
         android:layout_marginTop="1dip"
          />
