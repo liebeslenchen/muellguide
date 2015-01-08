@@ -7,6 +7,7 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import mawi.muellguidems.util.StringEnum;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -65,20 +66,21 @@ public class StandortDetailsActivity extends BaseActivity {
 				tvHinweisContext.setText(hinweisValue);
 
 				// Öffungszeiten auslesen
-				String oeffnungszeitenValue = "immer geöffnet";
+				String oeffnungszeitenValue = StringEnum.IMMER_OFFEN.toString();
 				Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
 						.get(standort.getEntsorgungsartId());
-				if (entsorgungsart.getBezeichnung().equalsIgnoreCase("Altglas")) {
+				if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
+						StringEnum.ALTGLAS.toString())) {
 					oeffnungszeitenValue = DAO
 							.getContainerOeffnungszeitenAufbereitet(standort
 									.getEntsorgungsartId());
 				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						"Elektrokleingeräte")) {
+						StringEnum.ELEKTROKLEINGERAETE.toString())) {
 					oeffnungszeitenValue = DAO
 							.getContainerOeffnungszeitenAufbereitet(standort
 									.getEntsorgungsartId());
 				} else if (entsorgungsart.getBezeichnung().equalsIgnoreCase(
-						"Recyclinghof")) {
+						StringEnum.RECYCLINGHOF.toString())) {
 					oeffnungszeitenValue = DAO
 							.getRecyclinghofOeffnungszeitenAufbereitet(standort
 									.getId());
@@ -123,11 +125,11 @@ public class StandortDetailsActivity extends BaseActivity {
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					StandortDetailsActivity.this);
 			builder.setMessage(R.string.dialogStandortFeedback);
-			// Add the buttons
+			// Hinzufügen der Buttons
 			builder.setNegativeButton(R.string.zurueck,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
-							// User cancelled the dialog
+							// User bricht denn Dialog ab
 						}
 					});
 			builder.setPositiveButton(R.string.feedback,
@@ -138,7 +140,7 @@ public class StandortDetailsActivity extends BaseActivity {
 									FeedbackActivity.class));
 						}
 					});
-			// Get the AlertDialog and show it
+			// Dialog anzeigen
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}

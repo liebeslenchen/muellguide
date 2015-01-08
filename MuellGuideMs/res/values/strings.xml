@@ -42,6 +42,10 @@
 	    <item>Sonstiges</item>
 	</string-array>
     <string name="zurueck">Zurück</string>
-    <string name="dialogStandortFeedback">Der Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf einer Karte angezeigt werden.\nUnter Feedback können Sie uns den genauen Standort mitteilen.</string>
+    <string name="dialogStandortFeedback">Dieser Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf der Karte angezeigt werden.\nUnter Feedback können Sie uns den genauen Standort mitteilen.</string>
     <string name="fehler_beim_laden">Beim Laden der Daten ist ein Fehler aufgetreten. Bitte vergewissern Sie sich, dass Sie über eine bestehende Netzwerkverbindung verfügen und versuchen Sie es erneut!</string>
+	<string name="gps_gpsEinschalten">Schalten Sie für genauere Standortangaben bitte das GPS ein.</string>
+	<string name="gps_lokalisierungPerNetzwerk">Aktivieren Sie für genauere Standortangaben die Lokalisierung über das Netzwerk.</string>
+	<string name="gps_keineDiensteAktiviert">Es sind keine Standorte-Dienste aktiviert.</string>
+	<string name="gps_einstellungenAendern">Einstellungen anpassen</string>
 </resources>

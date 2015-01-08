@@ -8,7 +8,9 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.MapUtils;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -45,19 +47,8 @@ public class MapsActivity extends Activity {
 			}
 
 			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			if (!locationManager
-					.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				Toast.makeText(
-						getBaseContext(),
-						"Schalten Sie für genauere Standortangaben bitte das GPS ein.",
-						Toast.LENGTH_LONG).show();
-			} else if (!locationManager
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				Toast.makeText(
-						getBaseContext(),
-						"Schalten Sie für genauere Standortangaben die Lokalisierung per Netzwerk ein.",
-						Toast.LENGTH_LONG).show();
-			}
+
+			checkForServices(locationManager);
 
 			// Liest aktuelle Position mit Hilfe der MapUtils aus
 			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
@@ -104,6 +95,57 @@ public class MapsActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Überprüft, welche Standort-Dienste aktiviert sind und gibt gegebenenfalls
+	 * ein Toast mit Hinweisen aus
+	 * 
+	 * @param locationManager
+	 */
+	private void checkForServices(LocationManager locationManager) {
+		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+				&& !locationManager
+						.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			buildLocationSettingsAlert();
+
+		} else if (!locationManager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
+					Toast.LENGTH_LONG).show();
+		} else if (!locationManager
+				.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			Toast.makeText(getBaseContext(),
+					R.string.gps_lokalisierungPerNetzwerk, Toast.LENGTH_LONG)
+					.show();
+		}
+	}
+
+	/**
+	 * Erzeugt ein Popup, wenn keine Einstellungen aktiviert sind
+	 */
+	private void buildLocationSettingsAlert() {
+		// AlertDialog für Feedback
+		AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+		builder.setMessage(R.string.gps_keineDiensteAktiviert);
+		// Hinzufügen der Buttons
+		builder.setNegativeButton(R.string.zurueck,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User bricht denn Dialog ab
+					}
+				});
+		builder.setPositiveButton(R.string.gps_einstellungenAendern,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// Einstellungen aufrufen
+						startActivity(new Intent(
+								android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+					}
+				});
+		// Dialog anzeigen
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
 	private void initializeMap() {
 		if (googleMap == null) {
 			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
@@ -111,8 +153,8 @@ public class MapsActivity extends Activity {
 
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
-						"Sorry, unable to create Map", Toast.LENGTH_SHORT)
-						.show();
+						"Entschuldigung, die Map konnte nicht geladen werden.",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
