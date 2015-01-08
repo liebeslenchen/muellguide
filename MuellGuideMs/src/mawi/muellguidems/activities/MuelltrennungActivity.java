@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import mawi.muellguidems.adapter.AdapterGroupItem;
 import mawi.muellguidems.adapter.CustomMuelltrennungExpandableAdapter;
 import mawi.muellguidems.util.DAO;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,16 +19,17 @@ public class MuelltrennungActivity extends BaseActivity {
 	ExpandableListView elvMuelltrennung;
 	CustomMuelltrennungExpandableAdapter adapter;
 	EditText etSearchMuelltrennung;
+	AsyncParseLoader asyncTask;
+
+	ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_muelltrennung);
 
-		etSearchMuelltrennung = (EditText) findViewById(R.id.etSearchMuelltrennung);
-
 		elvMuelltrennung = (ExpandableListView) findViewById(R.id.elvMuelltrennung);
-		setList();
+		etSearchMuelltrennung = (EditText) findViewById(R.id.etSearchMuelltrennung);
 
 		etSearchMuelltrennung.addTextChangedListener(new TextWatcher() {
 
@@ -49,23 +52,64 @@ public class MuelltrennungActivity extends BaseActivity {
 				return;
 			}
 		});
+
+		new AsyncParseLoader().execute();
 	}
 
-	public void setList() {
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-		try {
-			ArrayList<AdapterGroupItem> data = DAO
-					.getAlleGegenstaendeFuerExpandableAdapter();
-			adapter = null;
-			if (data != null) {
-				adapter = new CustomMuelltrennungExpandableAdapter(this, data);
-			}
-			elvMuelltrennung.setAdapter(adapter);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Toast.makeText(getBaseContext(),
-					getString(R.string.fehler_beim_laden), Toast.LENGTH_LONG)
-					.show();
+	}
+
+	private class AsyncParseLoader extends
+			AsyncTask<Void, Integer, ArrayList<AdapterGroupItem>> {
+
+		protected void onPreExecute() {
+			progressDialog = new ProgressDialog(MuelltrennungActivity.this);
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			progressDialog.setTitle("Daten werden geladen");
+			progressDialog.setMessage("Bitte warten...");
+			progressDialog.setIndeterminate(false);
+			progressDialog.show();
 		}
+
+		protected ArrayList<AdapterGroupItem> doInBackground(Void... params) {
+
+			try {
+				ArrayList<AdapterGroupItem> data = DAO
+						.getAlleGegenstaendeFuerExpandableAdapter();
+
+				return data;
+			}
+
+			catch (Exception e) {
+				e.printStackTrace();
+				Toast.makeText(getBaseContext(),
+						getString(R.string.fehler_beim_laden),
+						Toast.LENGTH_LONG).show();
+
+				return null;
+			}
+
+		}
+
+		protected void onPostExecute(ArrayList<AdapterGroupItem> result) {
+			if (progressDialog.isShowing())
+				progressDialog.cancel();
+
+			try {
+
+				adapter = new CustomMuelltrennungExpandableAdapter(
+						getBaseContext(), result);
+
+				elvMuelltrennung.setAdapter(adapter);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
+
 }

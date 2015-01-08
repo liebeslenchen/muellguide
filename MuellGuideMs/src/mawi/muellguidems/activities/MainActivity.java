@@ -9,6 +9,7 @@ import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,10 +64,9 @@ public class MainActivity extends BaseActivity {
 							}
 
 							// Mülltrennung aufrufen:
+
 							intent = new Intent(getBaseContext(),
 									MuelltrennungActivity.class);
-
-							progressDialog.show();
 
 						} else if (selectedItemId.equals("entsorgung")) {
 
@@ -130,5 +130,17 @@ public class MainActivity extends BaseActivity {
 					.show();
 		}
 
+	}
+
+	private class AsyncIntentStarter extends AsyncTask<Class<?>, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Class<?>... params) {
+			// TODO Auto-generated method stub
+
+			Intent intent = new Intent(getBaseContext(), params[0]);
+			startActivity(intent);
+			return null;
+		}
 	}
 }
