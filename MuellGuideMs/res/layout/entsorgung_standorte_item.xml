@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:textColor="#040404"
         android:typeface="sans"
-        android:textSize="15sp"
+         android:textAppearance="?android:attr/textAppearanceMedium"
         android:paddingLeft="60sp"
         android:layout_centerVertical="true"/>
  
