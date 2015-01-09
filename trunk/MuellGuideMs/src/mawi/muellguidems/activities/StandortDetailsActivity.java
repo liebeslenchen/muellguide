@@ -241,6 +241,14 @@ public class StandortDetailsActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+	}
+
 	public boolean isTablet(Context context) {
 		boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE);
 		boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
