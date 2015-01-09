@@ -17,33 +17,64 @@ public class CustomEntsorgungStandortAdapter extends
 		ArrayAdapter<AdapterSingleItem> implements Filterable {
 
 	private Context context;
-	private ArrayList<AdapterSingleItem> items;
+	private ArrayList<AdapterSingleItem> filteredData;
+	private ArrayList<AdapterSingleItem> originalData;
 	private StandorteFilter filter;
+	private LayoutInflater inflater;
 
 	public CustomEntsorgungStandortAdapter(Context context,
 			ArrayList<AdapterSingleItem> items) {
 		super(context, R.layout.entsorgung_standorte_item, items);
 
 		this.context = context;
-		this.items = items;
+		this.filteredData = items;
+		this.originalData = items;
+		inflater = LayoutInflater.from(this.context);
+	}
+
+	public int getCount() {
+		return filteredData.size();
+	}
+
+	public AdapterSingleItem getItem(int position) {
+		return filteredData.get(position);
+	}
+
+	public long getItemId(int position) {
+		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.entsorgung_standorte_item,
-				parent, false);
+		ViewHolder holder;
 
-		TextView textViewMain = (TextView) rowView
-				.findViewById(R.id.tvEntsorgungStandort);
-		ImageView imageView = (ImageView) rowView
-				.findViewById(R.id.ivEntsorgungStandortItem);
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.entsorgung_standorte_item,
+					null);
 
-		textViewMain.setText(items.get(position).getBezeichnung());
-		imageView.setImageResource(items.get(position).getImage());
+			holder = new ViewHolder();
+			holder.textViewMain = (TextView) convertView
+					.findViewById(R.id.tvEntsorgungStandort);
 
-		return rowView;
+			holder.imageView = (ImageView) convertView
+					.findViewById(R.id.ivEntsorgungStandortItem);
+
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		holder.textViewMain
+				.setText(filteredData.get(position).getBezeichnung());
+		holder.imageView
+				.setImageResource(filteredData.get(position).getImage());
+		return convertView;
+
+	}
+
+	static class ViewHolder {
+		TextView textViewMain;
+		ImageView imageView;
 	}
 
 	@Override
@@ -57,45 +88,40 @@ public class CustomEntsorgungStandortAdapter extends
 
 	private class StandorteFilter extends Filter {
 
-		ArrayList<AdapterSingleItem> allItems = items;
-
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
-			items = allItems;
 
-			FilterResults filterResults = new FilterResults();
+			String filterString = constraint.toString().toLowerCase();
 
-			if (constraint == null || constraint.length() == 0) {
-				// No filter implemented we return all the list
-				filterResults.values = items;
-				filterResults.count = items.size();
-			} else {
-				ArrayList<AdapterSingleItem> newList = new ArrayList<AdapterSingleItem>();
+			FilterResults results = new FilterResults();
 
-				for (AdapterSingleItem p : items) {
-					if (p.getBezeichnung().toUpperCase()
-							.startsWith(constraint.toString().toUpperCase()))
-						newList.add(p);
+			final ArrayList<AdapterSingleItem> list = originalData;
+
+			int count = list.size();
+			final ArrayList<AdapterSingleItem> nlist = new ArrayList<AdapterSingleItem>(
+					count);
+
+			String filterableString;
+
+			for (int i = 0; i < count; i++) {
+				filterableString = list.get(i).getBezeichnung();
+				if (filterableString.toLowerCase().contains(filterString)) {
+					nlist.add(list.get(i));
 				}
-
-				filterResults.values = newList;
-				filterResults.count = newList.size();
-
 			}
 
-			return filterResults;
+			results.values = nlist;
+			results.count = nlist.size();
+
+			return results;
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {
-			if (results.count == 0)
-				notifyDataSetInvalidated();
-			else {
-				items = (ArrayList<AdapterSingleItem>) results.values;
-				notifyDataSetChanged();
-			}
+			filteredData = (ArrayList<AdapterSingleItem>) results.values;
+			notifyDataSetChanged();
 
 		}
 

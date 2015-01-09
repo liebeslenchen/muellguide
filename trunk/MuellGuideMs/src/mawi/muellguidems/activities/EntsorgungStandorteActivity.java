@@ -54,7 +54,9 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 
 				try {
 					if (data != null) {
-						String selectedStandortId = data.get(position).getId();
+						String selectedStandortId = adapter.getItem(position)
+								.getId();
+
 						Intent intent = new Intent(getBaseContext(),
 								StandortDetailsActivity.class);
 						intent.putExtra("id", selectedStandortId);
