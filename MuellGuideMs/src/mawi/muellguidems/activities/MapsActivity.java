@@ -106,7 +106,8 @@ public class MapsActivity extends Activity {
 				&& !locationManager
 						.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			buildLocationSettingsAlert();
-
+			// TODO check ob er auf einem echten Geerät in diese Abfrage rein
+			// läuft
 		} else if (!locationManager
 				.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,

@@ -72,6 +72,8 @@ public class MainActivity extends BaseActivity {
 									EntsorgungActivity.class);
 
 						} else if (selectedItemId.equals("hilfe")) {
+							intent = new Intent(getBaseContext(),
+									HilfeActivity.class);
 
 						} else if (selectedItemId.equals("feedback")) {
 							// Feedback-Activity aufrufen:

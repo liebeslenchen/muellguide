@@ -17,6 +17,7 @@
     <string name="entsorgung">Entsorgung</string>
     <string name="feedback">Feedback</string>
     <string name="einstellungen">Einstellungen</string>
+    <string name="hilfe">Hilfe</string>
     <string name="title_activity_entsorgung_standorte">EntsorgungStandorteActivity</string>
     <string name="aufKarteAnzeigen">Auf Karte anzeigen</string>
     <!-- Strings, die mit db_[tabelle]_value_ beginnen stehen für Strings, die Werten einer Datenbanktabelle entsprechen -->
@@ -35,17 +36,30 @@
     <string name="FeedbackSubjectLabel">Bitte wählen Sie einen Betreff:</string>
     <string name="FeedbackMessageLabel">Ihre Nachricht an uns:</string>
     <string name="senden">Senden</string>
-	<string-array name="feedback_betreffoptionen">
-	    <item>Entsorgungsstandort melden</item>
-	    <item>Container defekt</item>
-	    <item>Mülltrennung - Gegenstand melden</item>
-	    <item>Sonstiges</item>
-	</string-array>
+
+    <string-array name="feedback_betreffoptionen">
+        <item>Entsorgungsstandort melden</item>
+        <item>Container defekt</item>
+        <item>Mülltrennung - Gegenstand melden</item>
+        <item>Sonstiges</item>
+    </string-array>
+
     <string name="zurueck">Zurück</string>
     <string name="dialogStandortFeedback">Dieser Standort verfügt über keine genaue Ortsangabe und kann deshalb nicht auf der Karte angezeigt werden.\nUnter Feedback können Sie uns den genauen Standort mitteilen.</string>
     <string name="fehler_beim_laden">Beim Laden der Daten ist ein Fehler aufgetreten. Bitte vergewissern Sie sich, dass Sie über eine bestehende Netzwerkverbindung verfügen und versuchen Sie es erneut!</string>
-	<string name="gps_gpsEinschalten">Schalten Sie für genauere Standortangaben bitte das GPS ein.</string>
-	<string name="gps_lokalisierungPerNetzwerk">Aktivieren Sie für genauere Standortangaben die Lokalisierung über das Netzwerk.</string>
-	<string name="gps_keineDiensteAktiviert">Es sind keine Standorte-Dienste aktiviert.</string>
-	<string name="gps_einstellungenAendern">Einstellungen anpassen</string>
+    <string name="gps_gpsEinschalten">Schalten Sie für genauere Standortangaben bitte das GPS ein.</string>
+    <string name="gps_lokalisierungPerNetzwerk">Aktivieren Sie für genauere Standortangaben die Lokalisierung über das Netzwerk.</string>
+    <string name="gps_keineDiensteAktiviert">Es sind keine Standorte-Dienste aktiviert.</string>
+    <string name="gps_einstellungenAendern">Einstellungen anpassen</string>
+    <string name="help_AltglasAllgemein">Kennzeichnung für einen Altglas-Container</string>
+    <string name="help_Altkleider">Kennzeichnung für Altkleider. Diese Container sind rund um die Uhr geöffnet</string>
+    <string name="help_Biotonne">Kennzeichnung für braune Biotonnen</string>
+    <string name="help_Papiertonne">Kennzeichnung für blaue Papiertonnen</string>
+    <string name="help_Restmuell">Kennzeichnung für graue Restmüll-Tonnen</string>
+    <string name="help_StandortFehlt">Für einen so gekennzeichneten Standort fehlen genaue Ortsangaben</string>
+    <string name="help_GraueSymbole">Graue Symbole</string>
+    <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten</string>
+    <string name="help_GelbeTonne">Kennzeichnung für gelbe Tonnen</string>
+    <string name="help_Recyclinghof">Standorte von Recyclinghöfen. Dort kann fast alles entsorgt werden! Hinweis: Öffnungszeiten beachten!</string>
+
 </resources>
