@@ -34,16 +34,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
-        
         <receiver
             android:name="mawi.muellguidems.util.NetworkChangedBroadcastReceiver"
-            android:label="NetworkChangedReceiver">
+            android:label="NetworkChangedReceiver" >
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        
-        <activity 
+
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -52,35 +51,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity 
+        <activity
             android:name=".ParseTestActivity"
-            android:label="@string/title_activity_parse_test">
+            android:label="@string/title_activity_parse_test" >
         </activity>
 
-        <!-- Andriod Key Lena -->
+        <!-- Android Key Lena -->
         <!--
         <meta-data  
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />        -->
-        
-        <!-- Andriod Key Marlen -->
+            android:value="AIzaSyCjVd6fY5hinGGn720EzDFzoF0YN8FGT8M" />
+        -->
+
+        <!-- Android Key Marlen -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDCAnvvqIj4gt2m-lmIuiAxJkta6_vbdg8" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Android Key Marlen Release -->
+		<!--
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyC3oeGiASPNrJ-V6ut2LzRrHFHo0jblpZs" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        -->
 
         <!-- Android Key Ruslan -->
-		<!--         
+        <!--
 		<meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDVL5iL81j6ypZnoKfIJkZNQM9qyXZQRIE" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
- 		-->
- 		
+            android:value="@integer/google_play_services_version" />
+        -->
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps_" >
@@ -89,21 +99,21 @@
             android:name=".TestActivity"
             android:label="@string/title_activity_test" >
         </activity>
-        <activity 
+        <activity
             android:name=".MuelltrennungActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/muelltrennung" 
-            android:icon="@drawable/muelltrennung_white">
+            android:icon="@drawable/muelltrennung_white"
+            android:label="@string/muelltrennung"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".EntsorgungActivity"
-            android:label="@string/entsorgung"
-            android:icon="@drawable/entsorgung_white" >
+            android:icon="@drawable/entsorgung_white"
+            android:label="@string/entsorgung" >
         </activity>
         <activity
             android:name=".EntsorgungStandorteActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:label="@string/title_activity_entsorgung_standorte" >
+            android:label="@string/title_activity_entsorgung_standorte"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".StandortDetailsActivity"
@@ -111,8 +121,8 @@
         </activity>
         <activity
             android:name=".FeedbackActivity"
-            android:label="@string/feedback" 
-            android:icon="@drawable/feedback_white" >
+            android:icon="@drawable/feedback_white"
+            android:label="@string/feedback" >
         </activity>
     </application>
 
