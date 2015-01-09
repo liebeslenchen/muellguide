@@ -89,7 +89,7 @@ public class MuelltrennungActivity extends BaseActivity {
 						getString(R.string.fehler_beim_laden),
 						Toast.LENGTH_LONG).show();
 
-				return null;
+				return new ArrayList<AdapterGroupItem>();
 			}
 
 		}
@@ -99,11 +99,12 @@ public class MuelltrennungActivity extends BaseActivity {
 				progressDialog.cancel();
 
 			try {
+				if (result != null) {
+					adapter = new CustomMuelltrennungExpandableAdapter(
+							getBaseContext(), result);
 
-				adapter = new CustomMuelltrennungExpandableAdapter(
-						getBaseContext(), result);
-
-				elvMuelltrennung.setAdapter(adapter);
+					elvMuelltrennung.setAdapter(adapter);
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
