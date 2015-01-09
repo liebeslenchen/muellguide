@@ -109,7 +109,6 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		getActionBar().setIcon(R.drawable.entsorgung_white);
 
 		new AsyncParseLoader().execute();
-
 	}
 
 	private class AsyncParseLoader extends
@@ -154,6 +153,12 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 					adapter = new CustomEntsorgungStandortAdapter(
 							getBaseContext(), result);
 					lvEntsorgungStandorte.setAdapter(adapter);
+					// Wenn man von Portrait auf Landscape wechselt,
+					// Suche berücksichtigen und Ergebnisse filtern
+					if (adapter != null && etSearchStandort.getTextSize() != 0) {
+						EntsorgungStandorteActivity.this.adapter.getFilter()
+								.filter(etSearchStandort.getText());
+					}
 				}
 
 			} catch (Exception e) {
