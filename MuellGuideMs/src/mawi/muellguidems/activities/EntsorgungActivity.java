@@ -125,4 +125,12 @@ public class EntsorgungActivity extends BaseActivity {
 		}
 
 	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (progressDialog != null && progressDialog.isShowing()) {
+			progressDialog.dismiss();
+		}
+	}
 }
