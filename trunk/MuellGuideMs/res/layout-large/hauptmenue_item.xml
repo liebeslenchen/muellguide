@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ################################################### -->
+<!-- ###  Anpassungen Tablet:                        ### -->
+<!-- ###  - Schrift vergrößert                       ### -->
+<!-- ################################################### -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+ 
+    <!-- Eintrag-spezifisches Icon (wird zur Laufzeit vom Adapter gesetzt) -->
+     <ImageView 
+        android:id="@+id/ivHauptmenueItemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"/>
+    
+ 
+    <!-- Item -->
+    <TextView
+        android:id="@+id/tvHauptmenueItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="60dp"
+        android:textColor="#040404"
+        android:typeface="sans" 
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:textStyle="bold"
+         />
+  
+    <!-- SubItem -->
+    <TextView
+        android:id="@+id/tvHauptmenueSubItem"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHauptmenueItem"
+        android:textColor="#343434"
+        android:paddingLeft="60dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginTop="1dip"
+         />
+ 
+  
+     <!-- Pfeil -->
+     <ImageView 
+        android:id="@+id/ivNaviPfeilInHauptmenueActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pfeil_rechts"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+ 
+</RelativeLayout>
+
