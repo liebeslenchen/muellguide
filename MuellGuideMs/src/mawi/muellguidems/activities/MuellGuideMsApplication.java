@@ -22,6 +22,7 @@ public class MuellGuideMsApplication extends Application {
 
 	private static Context context;
 	private static NetworkIdentifier netzwerkIdentifier;
+	public static boolean toastForSlowConnectionAlreadyShown;
 
 	// Animation mit der Klick-Effekte bei Buttons realisiert werden können
 	public final static AlphaAnimation BUTTON_CLICK_ANIMATION = new AlphaAnimation(

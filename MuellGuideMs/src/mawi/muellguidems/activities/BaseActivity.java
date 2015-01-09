@@ -20,13 +20,6 @@ public class BaseActivity extends Activity {
 	// Aktueller Netzwerk-Status
 	private NetworkCondition currentNetworkType;
 
-	/**
-	 * Gibt an, ob der Toast für langsame Internetverbindung bereits einmal
-	 * angezeigt wurde. Falls ja, soll dieser nicht nochmal angezeigt werden,
-	 * bis zwischendurch eine schnellere Verbindung aktiv war.
-	 */
-	private boolean toastForSlowConnectionAlreadyShown;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,9 +46,10 @@ public class BaseActivity extends Activity {
 	 */
 	protected void showToastIfNecessary(NetworkCondition type) {
 
-		if (toastForSlowConnectionAlreadyShown
-				&& type == NetworkCondition.SLOW_MOBILE)
+		if (MuellGuideMsApplication.toastForSlowConnectionAlreadyShown
+				& type == NetworkCondition.SLOW_MOBILE) {
 			return;
+		}
 
 		switch (type) {
 		case NO_CONNECTION:
@@ -63,16 +57,17 @@ public class BaseActivity extends Activity {
 					getBaseContext(),
 					"Achtung! Es besteht momentan KEINE  Netzwerkverbindung! Die App kann nicht ohne eine bestehende Verbindung ausgeführt werden!",
 					Toast.LENGTH_LONG).show();
-			toastForSlowConnectionAlreadyShown = false;
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
 			break;
 		case SLOW_MOBILE:
 			Toast.makeText(
 					getBaseContext(),
 					"Achtung! Ihre Netzwerkverbindung ist momentan sehr langsam. Dadurch werden einige Daten u.U. langsamer geladen!",
 					Toast.LENGTH_LONG).show();
-			toastForSlowConnectionAlreadyShown = true;
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = true;
+			break;
 		default:
-			toastForSlowConnectionAlreadyShown = false;
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
 			break;
 		}
 	}
