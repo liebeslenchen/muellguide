@@ -17,19 +17,25 @@ public class CustomMuelltrennungExpandableAdapter extends
 		BaseExpandableListAdapter implements Filterable {
 
 	private Context context;
-	private ArrayList<AdapterGroupItem> groups;
+	private ArrayList<AdapterGroupItem> filteredData;
+	private ArrayList<AdapterGroupItem> originalData;
+
+	private LayoutInflater inflater;
+
 	private MuelltrennungFilter filter;
 
 	public CustomMuelltrennungExpandableAdapter(Context context,
 			ArrayList<AdapterGroupItem> groups) {
 
 		this.context = context;
-		this.groups = groups;
+		this.filteredData = groups;
+		this.originalData = groups;
+		inflater = LayoutInflater.from(context);
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return groups.get(groupPosition).getChildren().get(childPosition);
+		return filteredData.get(groupPosition).getChildren().get(childPosition);
 	}
 
 	@Override
@@ -43,32 +49,44 @@ public class CustomMuelltrennungExpandableAdapter extends
 
 		AdapterChildItem child = (AdapterChildItem) getChild(groupPosition,
 				childPosition);
-		if (convertView == null) {
-			LayoutInflater infalInflater = (LayoutInflater) context
-					.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(
-					R.layout.muelltrennung_item_details, parent, false);
-		}
-		TextView tv = (TextView) convertView
-				.findViewById(R.id.tvMuelltrennungItemDetails);
 
-		tv.setText(child.getBezeichnung().toString());
+		ChildViewHolder childViewHolder;
+
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.muelltrennung_item_details,
+					null);
+
+			childViewHolder = new ChildViewHolder();
+			childViewHolder.textView = (TextView) convertView
+					.findViewById(R.id.tvMuelltrennungItemDetails);
+
+			convertView.setTag(childViewHolder);
+		} else {
+			childViewHolder = (ChildViewHolder) convertView.getTag();
+		}
+
+		childViewHolder.textView.setText(child.getBezeichnung().toString());
+
 		return convertView;
+	}
+
+	static class ChildViewHolder {
+		TextView textView;
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return groups.get(groupPosition).getChildren().size();
+		return filteredData.get(groupPosition).getChildren().size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		return groups.get(groupPosition);
+		return filteredData.get(groupPosition);
 	}
 
 	@Override
 	public int getGroupCount() {
-		return groups.size();
+		return filteredData.size();
 	}
 
 	@Override
@@ -79,27 +97,32 @@ public class CustomMuelltrennungExpandableAdapter extends
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
+		AdapterGroupItem group = (AdapterGroupItem) getGroup(groupPosition);
+		GroupViewHolder groupViewHolder;
 
-		try {
-			AdapterGroupItem group = (AdapterGroupItem) getGroup(groupPosition);
-			if (convertView == null) {
-				LayoutInflater inf = (LayoutInflater) context
-						.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-				convertView = inf.inflate(R.layout.muelltrennung_item, parent,
-						false);
-			}
-			TextView tv = (TextView) convertView
+		if (convertView == null) {
+			convertView = inflater.inflate(R.layout.muelltrennung_item, null);
+
+			groupViewHolder = new GroupViewHolder();
+			groupViewHolder.tv = (TextView) convertView
 					.findViewById(R.id.tvMuelltrennungItem);
-			ImageView iv = (ImageView) convertView
+			groupViewHolder.iv = (ImageView) convertView
 					.findViewById(R.id.imgMuelltrennung);
 
-			tv.setText(group.getBezeichnung());
-			iv.setImageResource(group.getImage());
-			return convertView;
-		} catch (Exception ex) {
-
-			return null;
+			convertView.setTag(groupViewHolder);
+		} else {
+			groupViewHolder = (GroupViewHolder) convertView.getTag();
 		}
+
+		groupViewHolder.tv.setText(group.getBezeichnung());
+		groupViewHolder.iv.setImageResource(group.getImage());
+		return convertView;
+
+	}
+
+	static class GroupViewHolder {
+		TextView tv;
+		ImageView iv;
 	}
 
 	@Override
@@ -122,46 +145,40 @@ public class CustomMuelltrennungExpandableAdapter extends
 
 	private class MuelltrennungFilter extends Filter {
 
-		ArrayList<AdapterGroupItem> allGroups = groups;
-
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
 
-			groups = allGroups;
+			String filterString = constraint.toString().toLowerCase();
 
-			FilterResults filterResults = new FilterResults();
+			FilterResults results = new FilterResults();
 
-			if (constraint == null || constraint.length() == 0) {
-				// No filter implemented we return all the list
-				filterResults.values = groups;
-				filterResults.count = groups.size();
-			} else {
-				ArrayList<AdapterGroupItem> newList = new ArrayList<AdapterGroupItem>();
+			final ArrayList<AdapterGroupItem> list = originalData;
 
-				for (AdapterGroupItem p : groups) {
-					if (p.getBezeichnung().toUpperCase()
-							.startsWith(constraint.toString().toUpperCase()))
-						newList.add(p);
+			int count = list.size();
+			final ArrayList<AdapterGroupItem> nlist = new ArrayList<AdapterGroupItem>(
+					count);
+
+			String filterableString;
+
+			for (int i = 0; i < count; i++) {
+				filterableString = list.get(i).getBezeichnung();
+				if (filterableString.toLowerCase().contains(filterString)) {
+					nlist.add(list.get(i));
 				}
-
-				filterResults.values = newList;
-				filterResults.count = newList.size();
-
 			}
 
-			return filterResults;
+			results.values = nlist;
+			results.count = nlist.size();
+
+			return results;
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {
-			if (results.count == 0)
-				notifyDataSetInvalidated();
-			else {
-				groups = (ArrayList<AdapterGroupItem>) results.values;
-				notifyDataSetChanged();
-			}
+			filteredData = (ArrayList<AdapterGroupItem>) results.values;
+			notifyDataSetChanged();
 
 		}
 	}
