@@ -86,8 +86,25 @@ public class DAO {
 
 			// An dieser Stelle wird der jeweilige Hinweis-Text im Sub-Item
 			// gesetzt !
-			child.setBezeichnung(entsorgungsartMap.get(
-					gegenstand.getEntsorgungsartId()).getBezeichnung());
+			String childBezeichnung = "Entsorgungsart: "
+					+ entsorgungsartMap.get(gegenstand.getEntsorgungsartId())
+							.getBezeichnung();
+
+			try {
+				/*
+				 * Warum try/catch? Wenn 'Hinweis' null (in PARSE: undefined)
+				 * ist, kommt es zum Absturz! (Ist noch nicht geklärt, warum das
+				 * so ist)
+				 */
+				if (!gegenstand.getHinweis().equals("")) {
+					childBezeichnung += "\r\nHinweis: "
+							+ gegenstand.getHinweis();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			child.setBezeichnung(childBezeichnung);
 
 			childList.add(child);
 
