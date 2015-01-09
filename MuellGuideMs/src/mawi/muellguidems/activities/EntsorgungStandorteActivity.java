@@ -80,8 +80,10 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 					int arg3) {
 				// When user changed the Text
 				try {
-					EntsorgungStandorteActivity.this.adapter.getFilter()
-							.filter(cs);
+					if (adapter != null) {
+						EntsorgungStandorteActivity.this.adapter.getFilter()
+								.filter(cs);
+					}
 				} catch (Exception ex) {
 					Toast.makeText(getBaseContext(), ex.toString(),
 							Toast.LENGTH_LONG);

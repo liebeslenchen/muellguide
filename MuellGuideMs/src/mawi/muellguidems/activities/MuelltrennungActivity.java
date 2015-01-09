@@ -37,7 +37,9 @@ public class MuelltrennungActivity extends BaseActivity {
 			public void onTextChanged(CharSequence cs, int arg1, int arg2,
 					int arg3) {
 				// When user changed the Text
-				MuelltrennungActivity.this.adapter.getFilter().filter(cs);
+				if (adapter != null) {
+					MuelltrennungActivity.this.adapter.getFilter().filter(cs);
+				}
 			}
 
 			@Override
@@ -104,6 +106,12 @@ public class MuelltrennungActivity extends BaseActivity {
 							getBaseContext(), result);
 
 					elvMuelltrennung.setAdapter(adapter);
+				}
+				// Wenn man von Portrait auf Landscape wechselt,
+				// Suche berücksichtigen und Ergebnisse filtern
+				if (adapter != null && etSearchMuelltrennung.getTextSize() != 0) {
+					MuelltrennungActivity.this.adapter.getFilter().filter(
+							etSearchMuelltrennung.getText());
 				}
 
 			} catch (Exception e) {
