@@ -10,7 +10,8 @@
         android:id="@+id/tvMuelltrennungItem"
         android:layout_width="wrap_content" 
         android:layout_height="48dp"
-        android:paddingLeft="35dp" 
+        android:paddingLeft="35dp"
+        android:paddingRight="48dp" 
         android:textAppearance="?android:attr/textAppearanceMedium"
 		android:gravity="center_vertical"
          />
