@@ -51,15 +51,15 @@
     <string name="gps_lokalisierungPerNetzwerk">Aktivieren Sie für genauere Standortangaben die Lokalisierung über das Netzwerk.</string>
     <string name="gps_keineDiensteAktiviert">Es sind keine Standorte-Dienste aktiviert.</string>
     <string name="gps_einstellungenAendern">Einstellungen anpassen</string>
-    <string name="help_AltglasAllgemein">Kennzeichnung für einen Altglas-Container</string>
-    <string name="help_Altkleider">Kennzeichnung für Altkleider. Diese Container sind rund um die Uhr geöffnet</string>
+    <string name="help_AltglasAllgemein">Kennzeichnung für einen Altglas-Container. Hinweis: Unterliegen Öffnungszeiten.</string>
+    <string name="help_Altkleider">Kennzeichnung für Altkleider. Diese Container sind rund um die Uhr geöffnet.</string>
     <string name="help_Biotonne">Kennzeichnung für braune Biotonnen</string>
-    <string name="help_Papiertonne">Kennzeichnung für blaue Papiertonnen</string>
-    <string name="help_Restmuell">Kennzeichnung für graue Restmüll-Tonnen</string>
-    <string name="help_StandortFehlt">Für einen so gekennzeichneten Standort fehlen genaue Ortsangaben</string>
+    <string name="help_Papiertonne">Kennzeichnung für blaue Papiertonnen.</string>
+    <string name="help_Restmuell">Kennzeichnung für graue Restmüll-Tonnen.</string>
+    <string name="help_StandortFehlt">Für einen so gekennzeichneten Standort fehlen genaue Ortsangaben.</string>
     <string name="help_GraueSymbole">Graue Symbole</string>
-    <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten</string>
-    <string name="help_GelbeTonne">Kennzeichnung für gelbe Tonnen</string>
+    <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten. Die maximale Objektgröße beträgt max. 60*28 cm.</string>
+    <string name="help_GelbeTonne">Kennzeichnung für die gelbe Tonne bzw. den gelben Sack.</string>
     <string name="help_Recyclinghof">Standorte von Recyclinghöfen. Dort kann fast alles entsorgt werden! Hinweis: Öffnungszeiten beachten!</string>
 
 </resources>
