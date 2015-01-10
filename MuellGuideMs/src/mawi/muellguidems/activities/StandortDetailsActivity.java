@@ -231,10 +231,8 @@ public class StandortDetailsActivity extends BaseActivity {
 						public void onClick(DialogInterface dialog, int id) {
 							Intent gpsIntent = new Intent(getBaseContext(),
 									FeedbackActivity.class);
-							gpsIntent.putExtra(
-									"gpsText",
-									"Mein Feedback zum Standort: \""
-											+ standort.getId() + "\": ");
+							gpsIntent.putExtra("gpsText", "Mein Feedback zum Standort: \""
+									+ standort.getId() + "\": ");
 							// Feedback Activity aufrufen
 							startActivity(gpsIntent);
 						}

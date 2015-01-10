@@ -3,7 +3,9 @@ package mawi.muellguidems.activities;
 import mawi.muellguidems.util.MapUtils;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -49,14 +52,50 @@ public class FeedbackActivity extends BaseActivity {
 		// Aktuellen Standort auslesen
 		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (locationManager != null) {
-			LatLng location = MapUtils.getCurrentLocation(locationManager);
-			if (location != null) {
-				EditText editText = (EditText) findViewById(R.id.etFeedbackMessage);
-				String test = "Mein aktueller Standort: (" + location.latitude
-						+ ", " + location.longitude + "). ";
-				editText.setText(editText.getText() + "\n" + test);
+			// Alert, wenn alle Dienste deaktiviert sind
+			if (!locationManager
+					.isProviderEnabled(LocationManager.GPS_PROVIDER)
+					&& !locationManager
+							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+				// AlertDialog für Feedback
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						FeedbackActivity.this);
+				builder.setMessage(R.string.gps_keineDiensteAktiviert);
+				// Hinzufügen der Buttons
+				builder.setNegativeButton(R.string.zurueck,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// User bricht denn Dialog ab
+							}
+						});
+				builder.setPositiveButton(R.string.gps_einstellungenAendern,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// Einstellungen aufrufen
+								startActivity(new Intent(
+										android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+							}
+						});
+				// Dialog anzeigen
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			} else {
+				LatLng location = MapUtils.getCurrentLocation(locationManager);
+				if (location != null) {
+					EditText editText = (EditText) findViewById(R.id.etFeedbackMessage);
+					String test = "Mein aktueller Standort: ("
+							+ location.latitude + ", " + location.longitude
+							+ "). ";
+					editText.setText(editText.getText() + "\n" + test);
+				} else {
+					// Toast, wenn der Standort nicht ausgelesen werden konnte
+					Toast.makeText(getBaseContext(),
+							R.string.keinenStandortGefunden, Toast.LENGTH_LONG)
+							.show();
+				}
 			}
 		}
+
 	}
 
 	public void onClickBtnSendFeedback(View v) {

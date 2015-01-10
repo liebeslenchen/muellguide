@@ -38,6 +38,7 @@
     <string name="FeedbackMessageLabel">Ihre Nachricht an uns:</string>
     <string name="senden">Senden</string>
     <string name="standortMitteilen">Standort mitteilen</string>
+    <string name="keinenStandortGefunden">Es tut uns Leid, ihr Standort konnte nicht ermittelt werden.</string>
 
     <string-array name="feedback_betreffoptionen">
         <item>Entsorgungsstandort melden</item>
