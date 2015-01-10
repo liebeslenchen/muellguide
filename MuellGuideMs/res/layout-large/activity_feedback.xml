@@ -1,0 +1,80 @@
+<!-- ################################################### -->
+<!-- ###  Anpassungen Tablet:                        ### -->
+<!-- ###  - Schrift vergrößert                       ### -->
+<!-- ################################################### -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="mawi.muellguidems.activities.FeedbackActivity" >
+
+        <TextView
+            android:id="@+id/tvFeedbackSubjectLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/FeedbackSubjectLabel"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Spinner
+            android:id="@+id/spnrFeedbackSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/tvFeedbackMessageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/FeedbackMessageLabel"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/etFeedbackMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:lines="7"
+            android:minLines="7"
+            android:scrollbars="vertical"
+            android:textAppearance="?android:attr/textAppearanceLarge" >
+        </EditText>
+
+        <Button
+            android:id="@+id/btnStandortVersenden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@color/green"
+            android:drawableRight="@drawable/gps"
+            android:onClick="onClickBtnEnterGPS"
+            android:text="@string/standortMitteilen"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnSendFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:drawableRight="@drawable/feedback_white"
+            android:onClick="onClickBtnSendFeedback"
+            android:text="@string/senden"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</ScrollView>

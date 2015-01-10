@@ -1,0 +1,376 @@
+<!-- ################################################### -->
+<!-- ###  Anpassungen Tablet:                        ### -->
+<!-- ###  - Schrift vergrößert                       ### -->
+<!-- ################################################### -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivAltglasGreyItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/altglas_grey" />
+
+            <!-- Item -->
+
+            <TextView
+                android:id="@+id/tvAltglasGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/help_GraueSymbole"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <!-- SubItem -->
+
+            <TextView
+                android:id="@+id/tvAltglasGreyInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAltglasGrey"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_StandortFehlt"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- ALTGLAS -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <!-- android:padding="5dip" -->
+
+            <ImageView
+                android:id="@+id/ivAltglasIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/altglas" />
+
+            <!-- Item -->
+
+            <TextView
+                android:id="@+id/tvAltglas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_altglas"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <!-- SubItem -->
+
+            <TextView
+                android:id="@+id/tvAltglasInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAltglas"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_AltglasAllgemein"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- ALTKLEIDER -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <!-- android:padding="5dip" -->
+
+            <ImageView
+                android:id="@+id/ivAltkleiderIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/altkleider" />
+
+            <!-- Item -->
+
+            <TextView
+                android:id="@+id/tvAltkleider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_altkleider"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <!-- SubItem -->
+
+            <TextView
+                android:id="@+id/tvAltkleiderInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAltkleider"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Altkleider"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- BIOTONNE -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivBioIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/biotonne" />
+
+            <!-- Item -->
+
+            <TextView
+                android:id="@+id/tvBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_biotonne"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <!-- SubItem -->
+
+            <TextView
+                android:id="@+id/tvBioInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBio"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Biotonne"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- ELEKTROKLEINGERÄTE -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivElektroIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/elektrokleingeraet" />
+
+            <TextView
+                android:id="@+id/tvElektro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_elektrokleingeraete"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvElektroInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvElektro"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Elektrokleingeräte"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- GELBE TONNE -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivGelbIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gelbersack" />
+
+            <TextView
+                android:id="@+id/tvGelb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_gelber_sack"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvGelbInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvGelb"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_GelbeTonne"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- PAPIER TONNE -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivPapierIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/papiermuell" />
+
+            <TextView
+                android:id="@+id/tvPapier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_papiermuell"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPapierInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPapier"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Papiertonne"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- RECYCLINGHÖFE -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivRecyclinghoefeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/recyclinghof" />
+
+            <TextView
+                android:id="@+id/tveRecyclinghoefe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_recyclinghof"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRecyclinghoefeInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tveRecyclinghoefe"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Recyclinghof"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+
+        <!-- RESTMUELL -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dip" >
+
+            <ImageView
+                android:id="@+id/ivRestIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/restmuell" />
+
+            <TextView
+                android:id="@+id/tveRest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp"
+                android:text="@string/db_entsorgungsart_value_restmuell"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#040404"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRestInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tveRest"
+                android:layout_marginTop="1dip"
+                android:paddingLeft="60dp"
+                android:text="@string/help_Restmuell"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#343434" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
