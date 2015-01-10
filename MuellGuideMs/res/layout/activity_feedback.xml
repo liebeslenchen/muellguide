@@ -25,7 +25,7 @@
             android:id="@+id/spnrFeedbackSubject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp" 
+            android:layout_marginBottom="20dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -40,13 +40,24 @@
             android:id="@+id/etFeedbackMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="8"
             android:minLines="3"
             android:scrollbars="vertical" >
         </EditText>
+
+        <Button
+            android:id="@+id/btnStandortVersenden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:drawableRight="@drawable/gps"
+            android:onClick="onClickBtnEnterGPS"
+            android:text="@string/standortMitteilen"
+            android:textColor="@color/white" 
+            android:layout_marginBottom="20dp"/>
 
         <Button
             android:id="@+id/btnSendFeedback"

@@ -1,13 +1,18 @@
 package mawi.muellguidems.activities;
 
+import mawi.muellguidems.util.MapUtils;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class FeedbackActivity extends BaseActivity {
 
@@ -29,6 +34,29 @@ public class FeedbackActivity extends BaseActivity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
+
+		Intent myIntent = getIntent();
+		String gpsText = myIntent.getStringExtra("gpsText");
+
+		if (gpsText != null) {
+			EditText editText = (EditText) findViewById(R.id.etFeedbackMessage);
+			editText.setText(gpsText);
+
+		}
+	}
+
+	public void onClickBtnEnterGPS(View v) {
+		// Aktuellen Standort auslesen
+		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		if (locationManager != null) {
+			LatLng location = MapUtils.getCurrentLocation(locationManager);
+			if (location != null) {
+				EditText editText = (EditText) findViewById(R.id.etFeedbackMessage);
+				String test = "Mein aktueller Standort: (" + location.latitude
+						+ ", " + location.longitude + "). ";
+				editText.setText(editText.getText() + "\n" + test);
+			}
+		}
 	}
 
 	public void onClickBtnSendFeedback(View v) {

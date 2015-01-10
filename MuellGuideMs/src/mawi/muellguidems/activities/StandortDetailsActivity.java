@@ -229,9 +229,14 @@ public class StandortDetailsActivity extends BaseActivity {
 			builder.setPositiveButton(R.string.feedback,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
+							Intent gpsIntent = new Intent(getBaseContext(),
+									FeedbackActivity.class);
+							gpsIntent.putExtra(
+									"gpsText",
+									"Mein Feedback zum Standort: \""
+											+ standort.getId() + "\": ");
 							// Feedback Activity aufrufen
-							startActivity(new Intent(getBaseContext(),
-									FeedbackActivity.class));
+							startActivity(gpsIntent);
 						}
 					});
 			// Dialog anzeigen
