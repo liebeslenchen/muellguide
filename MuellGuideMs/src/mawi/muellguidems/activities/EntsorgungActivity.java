@@ -40,8 +40,8 @@ public class EntsorgungActivity extends BaseActivity {
 						NetworkCondition netzwerkStatus = MuellGuideMsApplication
 								.getNetzwerkStatus();
 						if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-							EntsorgungActivity.this
-									.showToastIfNecessary(netzwerkStatus);
+							MuellGuideMsApplication.showToastIfNecessary(
+									getBaseContext(), netzwerkStatus);
 							return;
 						}
 

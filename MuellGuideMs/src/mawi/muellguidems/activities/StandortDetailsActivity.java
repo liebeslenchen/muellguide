@@ -168,8 +168,8 @@ public class StandortDetailsActivity extends BaseActivity {
 			NetworkCondition netzwerkStatus = MuellGuideMsApplication
 					.getNetzwerkStatus();
 			if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-				StandortDetailsActivity.this
-						.showToastIfNecessary(netzwerkStatus);
+				MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
+						netzwerkStatus);
 				return;
 			}
 
