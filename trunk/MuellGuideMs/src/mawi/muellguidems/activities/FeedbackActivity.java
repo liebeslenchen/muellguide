@@ -49,6 +49,9 @@ public class FeedbackActivity extends BaseActivity {
 	}
 
 	public void onClickBtnEnterGPS(View v) {
+		// Klick-Effekt anzeigen wenn Button gedrückt wird
+		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
+
 		// Aktuellen Standort auslesen
 		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		if (locationManager != null) {
@@ -99,6 +102,8 @@ public class FeedbackActivity extends BaseActivity {
 	}
 
 	public void onClickBtnSendFeedback(View v) {
+		// Klick-Effekt anzeigen wenn Button gedrückt wird
+		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
 		NetworkCondition netzwerkStatus = MuellGuideMsApplication
 				.getNetzwerkStatus();
