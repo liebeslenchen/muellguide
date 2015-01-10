@@ -83,6 +83,10 @@ public class MainActivity extends BaseActivity {
 							// Testwiese aufrufen:
 							intent = new Intent(getBaseContext(),
 									TestActivity.class);
+						} else if (selectedItemId.equals("about")) {
+							// Uber uns aufrufen:
+							intent = new Intent(getBaseContext(),
+									InfoActivity.class);
 						}
 
 						startActivity(intent);
