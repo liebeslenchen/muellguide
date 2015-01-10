@@ -8,9 +8,11 @@ import mawi.muellguidems.parseobjects.OeffungszeitenRecyclinghof;
 import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import mawi.muellguidems.util.NetworkIdentifier;
+import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.app.Application;
 import android.content.Context;
 import android.view.animation.AlphaAnimation;
+import android.widget.Toast;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -70,5 +72,40 @@ public class MuellGuideMsApplication extends Application {
 
 	public static NetworkIdentifier.NetworkCondition getNetzwerkStatus() {
 		return netzwerkIdentifier.getNetworkStatus();
+	}
+
+	/**
+	 * Zeigt einen Info-Toast zur aktuellen Datenverbindung an, sofern diese
+	 * schlechter als 3G ist !
+	 * 
+	 * @param type
+	 */
+	public static void showToastIfNecessary(Context context,
+			NetworkCondition type) {
+
+		if (MuellGuideMsApplication.toastForSlowConnectionAlreadyShown
+				& type == NetworkCondition.SLOW_MOBILE) {
+			return;
+		}
+
+		switch (type) {
+		case NO_CONNECTION:
+			Toast.makeText(
+					context,
+					"Achtung! Es besteht momentan KEINE  Netzwerkverbindung! Die App kann nicht ohne eine bestehende Verbindung ausgeführt werden!",
+					Toast.LENGTH_LONG).show();
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
+			break;
+		case SLOW_MOBILE:
+			Toast.makeText(
+					context,
+					"Achtung! Ihre Netzwerkverbindung ist momentan sehr langsam. Dadurch werden einige Daten u.U. langsamer geladen!",
+					Toast.LENGTH_LONG).show();
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = true;
+			break;
+		default:
+			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
+			break;
+		}
 	}
 }

@@ -9,7 +9,7 @@ public class NetworkIdentifier {
 	private ConnectivityManager connectivityManager;
 
 	public static enum NetworkCondition {
-		NO_CONNECTION, SLOW_MOBILE, FAST_MOBILE, WIFI, UNKNOWN;
+		NO_CONNECTION, AIRPLANE_MODE, SLOW_MOBILE, FAST_MOBILE, WIFI, UNKNOWN;
 	}
 
 	public NetworkIdentifier(Context context) {
@@ -72,9 +72,11 @@ public class NetworkIdentifier {
 				break;
 			}
 		} else if (info == null || !info.isConnected()) {
+
 			networkCondition = NetworkCondition.NO_CONNECTION;
 		}
 
 		return networkCondition;
 	}
+
 }

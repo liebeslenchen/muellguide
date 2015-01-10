@@ -49,8 +49,8 @@ public class MainActivity extends BaseActivity {
 						if (selectedItemId.equals("muelltrennung")) {
 
 							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-								MainActivity.this
-										.showToastIfNecessary(netzwerkStatus);
+								MuellGuideMsApplication.showToastIfNecessary(
+										getBaseContext(), netzwerkStatus);
 								return;
 							}
 
@@ -62,8 +62,8 @@ public class MainActivity extends BaseActivity {
 						} else if (selectedItemId.equals("entsorgung")) {
 
 							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-								MainActivity.this
-										.showToastIfNecessary(netzwerkStatus);
+								MuellGuideMsApplication.showToastIfNecessary(
+										getBaseContext(), netzwerkStatus);
 								return;
 							}
 
