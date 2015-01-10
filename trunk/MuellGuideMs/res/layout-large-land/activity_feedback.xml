@@ -46,7 +46,7 @@
             android:id="@+id/etFeedbackMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="10dp"
             android:gravity="top|left"
             android:inputType="textMultiLine"
             android:lines="7"
@@ -55,18 +55,39 @@
             android:textAppearance="?android:attr/textAppearanceLarge" >
         </EditText>
 
-        <Button
-            android:id="@+id/btnSendFeedback"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/green"
-            android:drawableRight="@drawable/feedback_white"
-            android:onClick="onClickBtnSendFeedback"
-            android:text="@string/senden"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/white" />
+            android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/btnStandortVersenden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/green"
+                android:drawableRight="@drawable/gps"
+                android:onClick="onClickBtnEnterGPS"
+                android:paddingLeft="10dp"
+                android:text="@string/standortMitteilen"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSendFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/green"
+                android:drawableRight="@drawable/feedback_white"
+                android:onClick="onClickBtnSendFeedback"
+                android:paddingLeft="10dp"
+                android:text="@string/senden"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
