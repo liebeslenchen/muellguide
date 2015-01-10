@@ -85,10 +85,9 @@
             android:layout_marginLeft="50dp">
 
             <include
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                layout="@layout/activity_maps" 
-                />
+                layout="@layout/activity_maps" />
         </LinearLayout>
     </LinearLayout>
 
