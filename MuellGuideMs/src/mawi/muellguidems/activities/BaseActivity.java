@@ -1,5 +1,6 @@
 package mawi.muellguidems.activities;
 
+import mawi.muellguidems.util.AirplaneModeChangedBroadcastReceiver;
 import mawi.muellguidems.util.NetworkChangedBroadcastReceiver;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.app.Activity;
@@ -9,12 +10,13 @@ import android.os.Bundle;
 /**
  * Diese Klasse dient als Basis-Klasse für die anderen Activities und soll Logik
  * implementieren, die für alle oder den Großteil aller Activities gilt (z.B.
- * Netzwerkprüfung). Dadurch soll Mehraufwand bzw. redundanter Code vermieden
- * werden.
+ * Einsatz von allgemeinen BroadcastReceivern). Dadurch soll Mehraufwand bzw.
+ * redundanter Code vermieden werden.
  */
 public class BaseActivity extends Activity {
 
-	private final NetworkChangedBroadcastReceiver broadcastReceiver = new NetworkChangedBroadcastReceiver();
+	private final NetworkChangedBroadcastReceiver networkBroadcastReceiver = new NetworkChangedBroadcastReceiver();
+	private final AirplaneModeChangedBroadcastReceiver airplaneModeBroadcastReceiver = new AirplaneModeChangedBroadcastReceiver();
 
 	// Aktueller Netzwerk-Status
 	private NetworkCondition currentNetworkType;
@@ -22,10 +24,6 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		currentNetworkType = MuellGuideMsApplication.getNetzwerkStatus();
-		MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
-				currentNetworkType);
 	}
 
 	@Override
@@ -33,19 +31,27 @@ public class BaseActivity extends Activity {
 		super.onResume();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-		registerReceiver(broadcastReceiver, intentFilter);
+		intentFilter.addAction("android.intent.action.AIRPLANE_MODE");
 
-		currentNetworkType = MuellGuideMsApplication.getNetzwerkStatus();
-		MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
-				currentNetworkType);
+		registerReceiver(networkBroadcastReceiver, intentFilter);
+		registerReceiver(airplaneModeBroadcastReceiver, intentFilter);
 
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		if (broadcastReceiver != null) {
-			unregisterReceiver(broadcastReceiver);
+	protected void onPause() {
+		super.onPause();
+		unregisterAllBroadcastReceiver();
+	}
+
+	private void unregisterAllBroadcastReceiver() {
+		if (networkBroadcastReceiver != null) {
+			unregisterReceiver(networkBroadcastReceiver);
+
+		}
+
+		if (airplaneModeBroadcastReceiver != null) {
+			unregisterReceiver(airplaneModeBroadcastReceiver);
 		}
 	}
 }

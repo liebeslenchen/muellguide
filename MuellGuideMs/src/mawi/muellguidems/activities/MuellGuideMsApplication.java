@@ -22,7 +22,7 @@ import com.parse.ParseUser;
 
 public class MuellGuideMsApplication extends Application {
 
-	private static Context context;
+	private static Context appContext;
 	private static NetworkIdentifier netzwerkIdentifier;
 	public static boolean toastForSlowConnectionAlreadyShown;
 
@@ -34,10 +34,10 @@ public class MuellGuideMsApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-		context = this;
+		appContext = getApplicationContext();
 
 		// Objekt zum Prüfen des Netzwerkstatus
-		netzwerkIdentifier = new NetworkIdentifier(context);
+		netzwerkIdentifier = new NetworkIdentifier(appContext);
 
 		// Initialize Crash Reporting.
 		ParseCrashReporting.enable(this);
@@ -67,7 +67,7 @@ public class MuellGuideMsApplication extends Application {
 	}
 
 	public static Context getContext() {
-		return context;
+		return appContext;
 	}
 
 	public static NetworkIdentifier.NetworkCondition getNetzwerkStatus() {
@@ -83,7 +83,7 @@ public class MuellGuideMsApplication extends Application {
 	public static void showToastIfNecessary(Context context,
 			NetworkCondition type) {
 
-		if (MuellGuideMsApplication.toastForSlowConnectionAlreadyShown
+		if (toastForSlowConnectionAlreadyShown
 				& type == NetworkCondition.SLOW_MOBILE) {
 			return;
 		}
@@ -94,17 +94,57 @@ public class MuellGuideMsApplication extends Application {
 					context,
 					"Achtung! Es besteht momentan KEINE  Netzwerkverbindung! Die App kann nicht ohne eine bestehende Verbindung ausgeführt werden!",
 					Toast.LENGTH_LONG).show();
-			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
+			toastForSlowConnectionAlreadyShown = false;
+			break;
+		case AIRPLANE_MODE:
+
+			Toast.makeText(
+					context,
+					"Achtung! Auf Ihrem Smartphone ist derzeit der FLUGMODUS aktiviert."
+							+ " Ohne eine bestehende Netzwerkverbindung können allerdings Daten, die diese App erfordert nicht geladen werden.",
+					Toast.LENGTH_LONG).show();
+
+			/*
+			 * TODO: Funktioniert noch nicht !
+			 */
+			// AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			// builder.setMessage("Achtung! Ihr Smartphone befindet sich momentan im FLUGMODUS. "
+			// +
+			// "\r\nDiese App erfordert allerdings eine bestehende Netzwerkverbindung zum Laden der erforderlichen Daten!"
+			// + "\r\nMöchten Sie zu den FLUGMODUS-Einstellungen wechseln?");
+			// // Hinzufügen der Buttons
+			// builder.setNegativeButton(R.string.zurueck,
+			// new DialogInterface.OnClickListener() {
+			// public void onClick(DialogInterface dialog, int id) {
+			// // User bricht denn Dialog ab
+			// }
+			// });
+			// builder.setPositiveButton(R.string.flugmodus_aendern,
+			// new DialogInterface.OnClickListener() {
+			// public void onClick(DialogInterface dialog, int id) {
+			// // Einstellungen aufrufen
+			//
+			// // ((Activity) context)
+			// // .startActivity(new Intent(
+			// // android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS));
+			//
+			// }
+			// });
+			// // Dialog anzeigen
+			// AlertDialog dialog = builder.create();
+			// dialog.show();
+
+			toastForSlowConnectionAlreadyShown = false;
 			break;
 		case SLOW_MOBILE:
 			Toast.makeText(
 					context,
 					"Achtung! Ihre Netzwerkverbindung ist momentan sehr langsam. Dadurch werden einige Daten u.U. langsamer geladen!",
 					Toast.LENGTH_LONG).show();
-			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = true;
+			toastForSlowConnectionAlreadyShown = true;
 			break;
 		default:
-			MuellGuideMsApplication.toastForSlowConnectionAlreadyShown = false;
+			toastForSlowConnectionAlreadyShown = false;
 			break;
 		}
 	}
