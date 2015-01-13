@@ -1,3 +1,7 @@
+<!-- ################################################### -->
+<!-- ###  Anpassungen Landscape:                     ### -->
+<!-- ###  - Button nebeneinander                     ### -->
+<!-- ################################################### -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -48,26 +52,36 @@
             android:scrollbars="vertical" >
         </EditText>
 
-        <Button
-            android:id="@+id/btnStandortVersenden"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:drawableRight="@drawable/gps"
-            android:onClick="onClickBtnEnterGPS"
-            android:text="@string/standortMitteilen"
-            android:textColor="@color/white" 
-            android:layout_marginBottom="20dp"/>
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal" >
 
-        <Button
-            android:id="@+id/btnSendFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:drawableRight="@drawable/feedback_white"
-            android:onClick="onClickBtnSendFeedback"
-            android:text="@string/senden"
-            android:textColor="@color/white" />
+            <Button
+                android:id="@+id/btnStandortVersenden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/green"
+                android:drawableRight="@drawable/gps"
+                android:onClick="onClickBtnEnterGPS"
+                android:paddingLeft="10dp"
+                android:text="@string/standortMitteilen"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnSendFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/green"
+                android:drawableRight="@drawable/feedback_white"
+                android:onClick="onClickBtnSendFeedback"
+                android:paddingLeft="10dp"
+                android:text="@string/senden"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
