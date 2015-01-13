@@ -1,8 +1,9 @@
 package mawi.muellguidems.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 
-public class HilfeActivity extends BaseActivity {
+public class HilfeActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -64,14 +64,18 @@
     <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten. Die maximale Objektgröße beträgt max. 60*28 cm.</string>
     <string name="help_GelbeTonne">Kennzeichnung für die gelbe Tonne bzw. den gelben Sack.</string>
     <string name="help_Recyclinghof">Standorte von Recyclinghöfen. Dort kann fast alles entsorgt werden! Hinweis: Öffnungszeiten beachten!</string>
-	<string name="info_werWirSind">Wer wir sind:</string>
+	<string name="info_werWirSind">Wer wir sind</string>
 	<string name="info_wirSind">Wir sind Marlen, Ruslan und Lena. Zusammen bilden wir das Team von Müll Guide MS!\n</string>
 	<string name="info_warumDieseApp">Wieso gibt es diese App?</string>
 	<string name="info_appBegruendung">Wir alle belegen den Masterstudiengang Wirtschaftsinformatik an der FH Münster. Diese App entstand im Rahmen des Moduls "Mobile Engineering".\n</string>
 	<string name="info_woherKommenDieDaten">Woher stammen all die Informationen?</string>
 	<string name="info_herkunftDaten">Die Daten stammen von der Webseite der awm Münster, die örtlich zuständige Entsorgungsgesellschaft.\n</string>
-	<string name="info_Copyright">Das Copyright an dieser App haben Marlen, Ruslan und Lena</string>
+	<string name="info_Copyright">Das Copyright an dieser App haben Marlen Rotert, Ruslan Widemann und Lena Rother</string>
 	<string name="info_Kontakt">Kontaktieren können Sie uns unter: info.muellguidems@gmail.com \n</string>
 	<string name="info_Email">info.muellguidems@gmail.com</string>
+	<string name="info_Version">Version 1.0</string>
 	<string name="konakt">Kontakt</string>
+	<string name="alert_Flugmodus">Ihr Gerät befindet sich im Flugmodus. Möchten Sie zu den Einstellungen wechseln?</string>
+	<string name="alert_Netzwerk">Keine Netzwerkverbindung vorhanden</string>
+	<string name="alert_NetzwerkLangsam">Achtung, Ihre Netzwerkverbindung ist sehr langsam. Das Laden kann jetzt länger dauern.</string>
 </resources>

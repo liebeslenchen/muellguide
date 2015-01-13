@@ -7,8 +7,8 @@ import mawi.muellguidems.adapter.CustomHauptmenueAdapter;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends Activity {
 
 	ListView lvMenu;
 	ArrayList<AdapterSingleItem> data;
@@ -125,15 +125,4 @@ public class MainActivity extends BaseActivity {
 
 	}
 
-	private class AsyncIntentStarter extends AsyncTask<Class<?>, Void, Void> {
-
-		@Override
-		protected Void doInBackground(Class<?>... params) {
-			// TODO Auto-generated method stub
-
-			Intent intent = new Intent(getBaseContext(), params[0]);
-			startActivity(intent);
-			return null;
-		}
-	}
 }

@@ -46,8 +46,8 @@ public class DAO {
 				"Allgemeine Informationen...", R.drawable.ueber_uns));
 
 		// TODO: Test-Menüpunkt --> vor RELEASE unbedingt entfernen !
-		result.add(new AdapterSingleItem("test", "Testwiese",
-				"Testen und so...", R.drawable.testwiese));
+		// result.add(new AdapterSingleItem("test", "Testwiese",
+		// "Testen und so...", R.drawable.testwiese));
 
 		return result;
 

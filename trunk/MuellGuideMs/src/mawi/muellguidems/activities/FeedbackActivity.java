@@ -3,6 +3,7 @@ package mawi.muellguidems.activities;
 import mawi.muellguidems.util.MapUtils;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class FeedbackActivity extends BaseActivity {
+public class FeedbackActivity extends Activity {
 
 	Spinner spinner;
 

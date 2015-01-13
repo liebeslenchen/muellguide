@@ -2,7 +2,6 @@ package mawi.muellguidems.activities;
 
 import mawi.muellguidems.util.AirplaneModeChangedBroadcastReceiver;
 import mawi.muellguidems.util.NetworkChangedBroadcastReceiver;
-import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -17,9 +16,6 @@ public class BaseActivity extends Activity {
 
 	private final NetworkChangedBroadcastReceiver networkBroadcastReceiver = new NetworkChangedBroadcastReceiver();
 	private final AirplaneModeChangedBroadcastReceiver airplaneModeBroadcastReceiver = new AirplaneModeChangedBroadcastReceiver();
-
-	// Aktueller Netzwerk-Status
-	private NetworkCondition currentNetworkType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

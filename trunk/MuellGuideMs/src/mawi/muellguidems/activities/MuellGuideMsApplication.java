@@ -9,8 +9,11 @@ import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.parseobjects.TestObject;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.animation.AlphaAnimation;
 import android.widget.Toast;
 
@@ -89,57 +92,41 @@ public class MuellGuideMsApplication extends Application {
 		}
 
 		switch (type) {
-		case NO_CONNECTION:
-			Toast.makeText(
-					context,
-					"Achtung! Es besteht momentan KEINE  Netzwerkverbindung! Die App kann nicht ohne eine bestehende Verbindung ausgeführt werden!",
-					Toast.LENGTH_LONG).show();
-			toastForSlowConnectionAlreadyShown = false;
-			break;
 		case AIRPLANE_MODE:
 
-			Toast.makeText(
-					context,
-					"Achtung! Auf Ihrem Smartphone ist derzeit der FLUGMODUS aktiviert."
-							+ " Ohne eine bestehende Netzwerkverbindung können allerdings Daten, die diese App erfordert nicht geladen werden.",
-					Toast.LENGTH_LONG).show();
+			AlertDialog.Builder builder = new AlertDialog.Builder(context);
+			builder.setMessage(R.string.alert_Flugmodus);
+			// Hinzufügen der Buttons
+			builder.setNegativeButton(R.string.zurueck,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							// User bricht denn Dialog ab
+						}
+					});
+			builder.setPositiveButton("Flugmodus",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							// Einstellungen aufrufen
+							Intent flightModeIntent = new Intent(
+									android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+							flightModeIntent
+									.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							getContext().startActivity(flightModeIntent);
+						}
+					});
+			// Dialog anzeigen
+			AlertDialog dialog = builder.create();
+			dialog.show();
 
-			/*
-			 * TODO: Funktioniert noch nicht !
-			 */
-			// AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			// builder.setMessage("Achtung! Ihr Smartphone befindet sich momentan im FLUGMODUS. "
-			// +
-			// "\r\nDiese App erfordert allerdings eine bestehende Netzwerkverbindung zum Laden der erforderlichen Daten!"
-			// + "\r\nMöchten Sie zu den FLUGMODUS-Einstellungen wechseln?");
-			// // Hinzufügen der Buttons
-			// builder.setNegativeButton(R.string.zurueck,
-			// new DialogInterface.OnClickListener() {
-			// public void onClick(DialogInterface dialog, int id) {
-			// // User bricht denn Dialog ab
-			// }
-			// });
-			// builder.setPositiveButton(R.string.flugmodus_aendern,
-			// new DialogInterface.OnClickListener() {
-			// public void onClick(DialogInterface dialog, int id) {
-			// // Einstellungen aufrufen
-			//
-			// // ((Activity) context)
-			// // .startActivity(new Intent(
-			// // android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS));
-			//
-			// }
-			// });
-			// // Dialog anzeigen
-			// AlertDialog dialog = builder.create();
-			// dialog.show();
-
+			toastForSlowConnectionAlreadyShown = false;
+			break;
+		case NO_CONNECTION:
+			Toast.makeText(context, R.string.alert_Netzwerk, Toast.LENGTH_LONG)
+					.show();
 			toastForSlowConnectionAlreadyShown = false;
 			break;
 		case SLOW_MOBILE:
-			Toast.makeText(
-					context,
-					"Achtung! Ihre Netzwerkverbindung ist momentan sehr langsam. Dadurch werden einige Daten u.U. langsamer geladen!",
+			Toast.makeText(context, R.string.alert_NetzwerkLangsam,
 					Toast.LENGTH_LONG).show();
 			toastForSlowConnectionAlreadyShown = true;
 			break;
