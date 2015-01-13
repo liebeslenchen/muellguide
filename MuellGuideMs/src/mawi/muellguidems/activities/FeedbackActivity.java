@@ -120,7 +120,8 @@ public class FeedbackActivity extends Activity {
 				.getText().toString();
 
 		Intent emailIntent = new Intent(Intent.ACTION_SEND);
-		emailIntent.setType("text/plain");
+		// Auf E-Mail Apps einschränken
+		emailIntent.setType("message/rfc822");
 		emailIntent.putExtra(Intent.EXTRA_EMAIL,
 				new String[] { "info.muellguidems@gmail.com" });
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT, betreff);
