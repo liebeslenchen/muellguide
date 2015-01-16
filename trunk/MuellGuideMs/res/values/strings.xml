@@ -61,7 +61,7 @@
     <string name="help_Restmuell">Kennzeichnung für graue Restmüll-Tonnen.</string>
     <string name="help_StandortFehlt">Für einen so gekennzeichneten Standort fehlen genaue Ortsangaben.</string>
     <string name="help_GraueSymbole">Graue Symbole</string>
-    <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten. Die maximale Objektgröße beträgt max. 60*28 cm.</string>
+    <string name="help_Elektrokleingeräte">Container für Elektrokleingeräte. Hinweis: Unterliegen Öffnungszeiten. Die maximale Objektgröße beträgt 60*28 cm.</string>
     <string name="help_GelbeTonne">Kennzeichnung für die gelbe Tonne bzw. den gelben Sack.</string>
     <string name="help_Recyclinghof">Standorte von Recyclinghöfen. Dort kann fast alles entsorgt werden! Hinweis: Öffnungszeiten beachten!</string>
 	<string name="info_werWirSind">Wer wir sind</string>
