@@ -167,6 +167,10 @@ public class DAO {
 
 			item.setImage(drawbleId);
 
+			if (standort.getPlz() != null) {
+				item.setPlz(standort.getPlz());
+			}
+
 			result.add(item);
 		}
 

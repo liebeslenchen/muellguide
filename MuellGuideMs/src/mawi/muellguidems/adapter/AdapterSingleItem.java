@@ -5,6 +5,7 @@ public class AdapterSingleItem {
 	private String bezeichnung;
 	private String untertitel;
 	private int image;
+	private String plz;
 
 	public AdapterSingleItem(String id, String bezeichnung, String untertitel,
 			int image) {
@@ -44,5 +45,13 @@ public class AdapterSingleItem {
 
 	public void setUntertitel(String untertitel) {
 		this.untertitel = untertitel;
+	}
+
+	public String getPlz() {
+		return plz;
+	}
+
+	public void setPlz(String plz) {
+		this.plz = plz;
 	}
 }
