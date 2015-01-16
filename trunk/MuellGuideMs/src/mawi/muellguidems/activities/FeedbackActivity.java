@@ -1,8 +1,6 @@
 package mawi.muellguidems.activities;
 
 import mawi.muellguidems.util.MapUtils;
-import mawi.muellguidems.util.NetworkIdentifier;
-import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -105,14 +103,6 @@ public class FeedbackActivity extends Activity {
 	public void onClickBtnSendFeedback(View v) {
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
-
-		NetworkCondition netzwerkStatus = MuellGuideMsApplication
-				.getNetzwerkStatus();
-		if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-			MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
-					netzwerkStatus);
-			return;
-		}
 
 		String betreff = spinner.getItemAtPosition(
 				spinner.getSelectedItemPosition()).toString();
