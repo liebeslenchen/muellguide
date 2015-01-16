@@ -104,9 +104,18 @@ public class CustomEntsorgungStandortAdapter extends
 			String filterableString;
 
 			for (int i = 0; i < count; i++) {
+				// Nach Bezeichnung durchfiltern...
 				filterableString = list.get(i).getBezeichnung();
 				if (filterableString.toLowerCase().contains(filterString)) {
 					nlist.add(list.get(i));
+				}
+
+				// Nach PLZ durchfiltern... (nur, falls ne PLZ angegeben ist!)
+				if (list.get(i).getPlz() != null) {
+					filterableString = list.get(i).getPlz();
+					if (filterableString.toLowerCase().contains(filterString)) {
+						nlist.add(list.get(i));
+					}
 				}
 			}
 
