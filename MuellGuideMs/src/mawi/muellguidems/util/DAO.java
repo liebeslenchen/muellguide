@@ -96,9 +96,11 @@ public class DAO {
 				 * ist, kommt es zum Absturz! (Ist noch nicht geklärt, warum das
 				 * so ist)
 				 */
-				if (!gegenstand.getHinweis().equals("")) {
+				if (!gegenstand.getHinweis().trim().isEmpty()) {
 					childBezeichnung += "\r\nHinweis: "
 							+ gegenstand.getHinweis();
+				} else {
+					childBezeichnung += "\r\nHinweis: -";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
