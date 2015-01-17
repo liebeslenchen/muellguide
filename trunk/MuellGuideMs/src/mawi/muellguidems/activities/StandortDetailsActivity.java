@@ -231,8 +231,10 @@ public class StandortDetailsActivity extends BaseActivity {
 						public void onClick(DialogInterface dialog, int id) {
 							Intent gpsIntent = new Intent(getBaseContext(),
 									FeedbackActivity.class);
-							gpsIntent.putExtra("gpsText", "Mein Feedback zum Standort: \""
-									+ standort.getId() + "\": ");
+							gpsIntent.putExtra(
+									"gpsText",
+									"Mein Feedback zum Standort: \""
+											+ standort.getId() + "\": ");
 							// Feedback Activity aufrufen
 							startActivity(gpsIntent);
 						}
@@ -268,12 +270,12 @@ public class StandortDetailsActivity extends BaseActivity {
 		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 				&& !locationManager
 						.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			buildLocationSettingsAlert();
-
+			buildLocationSettingsAlert(R.string.gps_keineDiensteAktiviert);
 		} else if (!locationManager
 				.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
-					Toast.LENGTH_LONG).show();
+			// Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
+			// Toast.LENGTH_LONG).show();
+			buildLocationSettingsAlert(R.string.gps_gpsEinschalten);
 		} else if (!locationManager
 				.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			Toast.makeText(getBaseContext(),
@@ -283,14 +285,13 @@ public class StandortDetailsActivity extends BaseActivity {
 	}
 
 	/**
-	 * Erzeugt ein Popup, wenn keine Einstellungen aktiviert sind (Aus Maps
-	 * Activity kopiert)
+	 * Erzeugt ein Popup, wenn keine Einstellungen aktiviert sind
 	 */
-	private void buildLocationSettingsAlert() {
+	private void buildLocationSettingsAlert(int gpsKeinediensteaktiviert) {
 		// AlertDialog für Feedback
 		AlertDialog.Builder builder = new AlertDialog.Builder(
 				StandortDetailsActivity.this);
-		builder.setMessage(R.string.gps_keineDiensteAktiviert);
+		builder.setMessage(gpsKeinediensteaktiviert);
 		// Hinzufügen der Buttons
 		builder.setNegativeButton(R.string.zurueck,
 				new DialogInterface.OnClickListener() {

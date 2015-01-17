@@ -106,10 +106,11 @@ public class MapsActivity extends Activity {
 				&& !locationManager
 						.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			buildLocationSettingsAlert(R.string.gps_keineDiensteAktiviert);
-			// } else if (!locationManager
-			// .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+		} else if (!locationManager
+				.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 			// Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
 			// Toast.LENGTH_LONG).show();
+			buildLocationSettingsAlert(R.string.gps_gpsEinschalten);
 		} else if (!locationManager
 				.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			Toast.makeText(getBaseContext(),
