@@ -101,22 +101,33 @@ public class CustomEntsorgungStandortAdapter extends
 			final ArrayList<AdapterSingleItem> nlist = new ArrayList<AdapterSingleItem>(
 					count);
 
-			String filterableString;
+			String filterableStringFuerBezeichnung;
+			String filterableStringFuerPLZ;
 
 			for (int i = 0; i < count; i++) {
 				// Nach Bezeichnung durchfiltern...
-				filterableString = list.get(i).getBezeichnung();
-				if (filterableString.toLowerCase().contains(filterString)) {
+				filterableStringFuerBezeichnung = list.get(i).getBezeichnung();
+				filterableStringFuerPLZ = list.get(i).getPlz() == null ? null
+						: list.get(i).getPlz();
+
+				if (filterableStringFuerBezeichnung.toLowerCase().contains(
+						filterString)
+						|| (filterableStringFuerPLZ != null && filterableStringFuerPLZ
+								.toLowerCase().contains(filterString))) {
 					nlist.add(list.get(i));
 				}
 
-				// Nach PLZ durchfiltern... (nur, falls ne PLZ angegeben ist!)
-				if (list.get(i).getPlz() != null) {
-					filterableString = list.get(i).getPlz();
-					if (filterableString.toLowerCase().contains(filterString)) {
-						nlist.add(list.get(i));
-					}
-				}
+				// // // Nach PLZ durchfiltern... (nur, falls nichts unter
+				// // 'Bezeichnung' gefunden wurde!)
+				// if (nlist == null) {
+				// if (list.get(i).getPlz() != null) {
+				// filterableStringFuerBezeichnung = list.get(i).getPlz();
+				// if (filterableStringFuerBezeichnung.toLowerCase()
+				// .contains(filterString)) {
+				// nlist.add(list.get(i));
+				// }
+				// }
+				// }
 			}
 
 			results.values = nlist;
