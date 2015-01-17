@@ -9,6 +9,7 @@ import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import mawi.muellguidems.util.SettingUtils;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -174,14 +175,21 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
-		if (entsorgungsArtId != null) {
-			// Toast.makeText(EntsorgungStandorteActivity.this,
-			// "Nur Standorte mit genauen Ortsangaben werden angezeigt",
-			// Toast.LENGTH_LONG).show();
-			Intent mapsIntent = new Intent(this, MapsActivity.class);
-			mapsIntent.putExtra("entsorgungsartId", entsorgungsArtId);
-			startActivity(mapsIntent);
+		boolean flightModeOn = SettingUtils
+				.isAirplaneModeOn(EntsorgungStandorteActivity.this);
+		if (flightModeOn) {
+			MuellGuideMsApplication.showToastIfNecessary(
+					EntsorgungStandorteActivity.this,
+					NetworkCondition.AIRPLANE_MODE);
+			return;
+		} else {
+			if (entsorgungsArtId != null) {
+				Intent mapsIntent = new Intent(this, MapsActivity.class);
+				mapsIntent.putExtra("entsorgungsartId", entsorgungsArtId);
+				startActivity(mapsIntent);
+			}
 		}
+
 	}
 
 	@Override
