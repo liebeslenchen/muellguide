@@ -6,6 +6,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -16,14 +19,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class FeedbackActivity extends Activity {
+public class FeedbackActivity extends Activity implements LocationListener {
 
 	Spinner spinner;
+	private LocationManager locationManager;
+	private String provider;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feedback);
+
+		// Beim Starten setzen, sonst folgt eine NullPointerException!
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		provider = locationManager.getBestProvider(criteria, false);
 
 		spinner = (Spinner) findViewById(R.id.spnrFeedbackSubject);
 		// Create an ArrayAdapter using the string array and a default spinner
@@ -52,13 +62,11 @@ public class FeedbackActivity extends Activity {
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
 		// Aktuellen Standort auslesen
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
 		if (locationManager != null) {
 			// Alert, wenn alle Dienste deaktiviert sind
 			if (!locationManager
-					.isProviderEnabled(LocationManager.GPS_PROVIDER)
-					&& !locationManager
-							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				// AlertDialog für Feedback
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						FeedbackActivity.this);
@@ -118,4 +126,40 @@ public class FeedbackActivity extends Activity {
 		emailIntent.putExtra(Intent.EXTRA_TEXT, text);
 		startActivity(Intent.createChooser(emailIntent, "Feedback senden..."));
 	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// nichts tun!
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// nichts tun!
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// nichts tun!
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// nichts tun!
+	}
+
+	/* Request updates at startup */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		locationManager.requestLocationUpdates(provider, 400, 1, this);
+	}
+
+	/* Remove the locationlistener updates when Activity is paused */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		locationManager.removeUpdates(this);
+	}
+
 }
