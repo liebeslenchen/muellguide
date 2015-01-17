@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import mawi.muellguidems.adapter.AdapterSingleItem;
 import mawi.muellguidems.adapter.CustomHauptmenueAdapter;
+import mawi.muellguidems.util.AirplaneModeChangedBroadcastReceiver;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import mawi.muellguidems.util.SettingUtils;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
+	private final AirplaneModeChangedBroadcastReceiver airplaneModeBroadcastReceiver = new AirplaneModeChangedBroadcastReceiver();
 
 	ListView lvMenu;
 	ArrayList<AdapterSingleItem> data;
@@ -49,9 +53,22 @@ public class MainActivity extends Activity {
 						if (selectedItemId.equals("muelltrennung")) {
 
 							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-								MuellGuideMsApplication.showToastIfNecessary(
-										getBaseContext(), netzwerkStatus);
-								return;
+								boolean flightModeOn = SettingUtils
+										.isAirplaneModeOn(getBaseContext());
+								if (flightModeOn) {
+									MuellGuideMsApplication
+											.showToastIfNecessary(
+													MainActivity.this,
+													netzwerkStatus.AIRPLANE_MODE);
+									return;
+								} else {
+
+									MuellGuideMsApplication
+											.showToastIfNecessary(
+													getBaseContext(),
+													netzwerkStatus);
+									return;
+								}
 							}
 
 							// Mülltrennung aufrufen:
@@ -62,9 +79,22 @@ public class MainActivity extends Activity {
 						} else if (selectedItemId.equals("entsorgung")) {
 
 							if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-								MuellGuideMsApplication.showToastIfNecessary(
-										getBaseContext(), netzwerkStatus);
-								return;
+								boolean flightModeOn = SettingUtils
+										.isAirplaneModeOn(getBaseContext());
+								if (flightModeOn) {
+									MuellGuideMsApplication
+											.showToastIfNecessary(
+													MainActivity.this,
+													netzwerkStatus.AIRPLANE_MODE);
+									return;
+								} else {
+
+									MuellGuideMsApplication
+											.showToastIfNecessary(
+													getBaseContext(),
+													netzwerkStatus);
+									return;
+								}
 							}
 
 							// Entsorgung-Activity aufrufen:
@@ -103,7 +133,17 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction("android.intent.action.AIRPLANE_MODE");
 
+		registerReceiver(airplaneModeBroadcastReceiver, intentFilter);
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterAllBroadcastReceiver();
 	}
 
 	public void setList() {
@@ -123,6 +163,13 @@ public class MainActivity extends Activity {
 					.show();
 		}
 
+	}
+
+	private void unregisterAllBroadcastReceiver() {
+
+		if (airplaneModeBroadcastReceiver != null) {
+			unregisterReceiver(airplaneModeBroadcastReceiver);
+		}
 	}
 
 }

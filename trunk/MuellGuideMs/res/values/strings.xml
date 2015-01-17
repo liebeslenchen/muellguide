@@ -78,4 +78,6 @@
 	<string name="alert_Flugmodus">Ihr Gerät befindet sich im Flugmodus. Möchten Sie zu den Einstellungen wechseln?</string>
 	<string name="alert_Netzwerk">Keine Netzwerkverbindung vorhanden</string>
 	<string name="alert_NetzwerkLangsam">Achtung, Ihre Netzwerkverbindung ist sehr langsam. Das Laden kann jetzt länger dauern.</string>
+	<string name="alert_StandortNichtBestimmbar">Ihr Standort konnte nicht bestimmt werden. Möchten Sie dies ändern?</string>
+	<string name="alert_FlugmodusChange">Ändern</string>
 </resources>

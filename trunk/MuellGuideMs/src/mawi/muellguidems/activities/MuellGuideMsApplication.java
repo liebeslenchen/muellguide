@@ -103,7 +103,7 @@ public class MuellGuideMsApplication extends Application {
 							// User bricht denn Dialog ab
 						}
 					});
-			builder.setPositiveButton("Flugmodus",
+			builder.setPositiveButton(R.string.alert_FlugmodusChange,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							// Einstellungen aufrufen

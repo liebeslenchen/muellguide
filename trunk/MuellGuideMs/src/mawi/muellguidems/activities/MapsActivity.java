@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,6 +53,12 @@ public class MapsActivity extends Activity {
 
 			// Liest aktuelle Position mit Hilfe der MapUtils aus
 			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
+
+			if (zoomLocation == null) {
+				buildLocationSettingsAlert(R.string.alert_StandortNichtBestimmbar);
+			} else {
+				Log.v("GPS", "Current location: " + zoomLocation.toString());
+			}
 
 			if (allMarkers.size() == 1) {
 				// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
@@ -105,13 +112,11 @@ public class MapsActivity extends Activity {
 		if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 				&& !locationManager
 						.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			buildLocationSettingsAlert();
-			// TODO check ob er auf einem echten Geerät in diese Abfrage rein
-			// läuft
-		} else if (!locationManager
-				.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
-					Toast.LENGTH_LONG).show();
+			buildLocationSettingsAlert(R.string.gps_keineDiensteAktiviert);
+			// } else if (!locationManager
+			// .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			// Toast.makeText(getBaseContext(), R.string.gps_gpsEinschalten,
+			// Toast.LENGTH_LONG).show();
 		} else if (!locationManager
 				.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			Toast.makeText(getBaseContext(),
@@ -123,10 +128,10 @@ public class MapsActivity extends Activity {
 	/**
 	 * Erzeugt ein Popup, wenn keine Einstellungen aktiviert sind
 	 */
-	private void buildLocationSettingsAlert() {
+	private void buildLocationSettingsAlert(int gpsKeinediensteaktiviert) {
 		// AlertDialog für Feedback
 		AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-		builder.setMessage(R.string.gps_keineDiensteAktiviert);
+		builder.setMessage(gpsKeinediensteaktiviert);
 		// Hinzufügen der Buttons
 		builder.setNegativeButton(R.string.zurueck,
 				new DialogInterface.OnClickListener() {

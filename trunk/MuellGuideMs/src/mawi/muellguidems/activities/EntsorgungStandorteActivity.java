@@ -175,9 +175,9 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
 		if (entsorgungsArtId != null) {
-			Toast.makeText(EntsorgungStandorteActivity.this,
-					"Nur Standorte mit genauen Ortsangaben werden angezeigt",
-					Toast.LENGTH_LONG).show();
+			// Toast.makeText(EntsorgungStandorteActivity.this,
+			// "Nur Standorte mit genauen Ortsangaben werden angezeigt",
+			// Toast.LENGTH_LONG).show();
 			Intent mapsIntent = new Intent(this, MapsActivity.class);
 			mapsIntent.putExtra("entsorgungsartId", entsorgungsArtId);
 			startActivity(mapsIntent);
