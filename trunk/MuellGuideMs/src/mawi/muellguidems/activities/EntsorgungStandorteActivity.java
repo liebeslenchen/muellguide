@@ -175,12 +175,20 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
 
+		NetworkCondition netzwerkStatus = MuellGuideMsApplication
+				.getNetzwerkStatus();
+
 		boolean flightModeOn = SettingUtils
 				.isAirplaneModeOn(EntsorgungStandorteActivity.this);
 		if (flightModeOn) {
 			MuellGuideMsApplication.showToastIfNecessary(
 					EntsorgungStandorteActivity.this,
 					NetworkCondition.AIRPLANE_MODE);
+			return;
+
+		} else if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+			MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
+					netzwerkStatus);
 			return;
 		} else {
 			if (entsorgungsArtId != null) {
