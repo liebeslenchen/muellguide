@@ -14,7 +14,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,12 +52,6 @@ public class MapsActivity extends Activity {
 
 			// Liest aktuelle Position mit Hilfe der MapUtils aus
 			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
-
-			if (zoomLocation == null) {
-				buildLocationSettingsAlert(R.string.alert_StandortNichtBestimmbar);
-			} else {
-				Log.v("GPS", "Current location: " + zoomLocation.toString());
-			}
 
 			if (allMarkers.size() == 1) {
 				// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
