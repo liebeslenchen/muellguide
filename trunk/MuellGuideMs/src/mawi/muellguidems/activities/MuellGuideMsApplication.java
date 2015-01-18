@@ -93,7 +93,6 @@ public class MuellGuideMsApplication extends Application {
 
 		switch (type) {
 		case AIRPLANE_MODE:
-
 			AlertDialog.Builder builder = new AlertDialog.Builder(context);
 			builder.setMessage(R.string.alert_Flugmodus);
 			// Hinzufügen der Buttons
@@ -107,11 +106,15 @@ public class MuellGuideMsApplication extends Application {
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							// Einstellungen aufrufen
-							Intent flightModeIntent = new Intent(
-									android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
-							flightModeIntent
-									.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							getContext().startActivity(flightModeIntent);
+							try {
+								Intent flightModeIntent = new Intent(
+										android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+								flightModeIntent
+										.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								getContext().startActivity(flightModeIntent);
+							} catch (Exception e) {
+								return;
+							}
 						}
 					});
 			// Dialog anzeigen
