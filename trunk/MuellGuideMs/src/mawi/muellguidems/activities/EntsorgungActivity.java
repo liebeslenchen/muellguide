@@ -7,6 +7,7 @@ import mawi.muellguidems.adapter.CustomEntsorgungsartenAdapter;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import mawi.muellguidems.util.SettingUtils;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -68,7 +69,11 @@ public class EntsorgungActivity extends BaseActivity {
 			}
 		});
 
-		new AsyncParseLoader().execute();
+		// Re-Loading nur ausführen, wenn eine Verbindung zum Netzwerk besteht!
+		if (SettingUtils.isConnectedToNetwork(EntsorgungActivity.this)
+				&& !SettingUtils.isAirplaneModeOn(EntsorgungActivity.this)) {
+			new AsyncParseLoader().execute();
+		}
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.MapUtils;
 import mawi.muellguidems.util.NetworkIdentifier;
 import mawi.muellguidems.util.NetworkIdentifier.NetworkCondition;
+import mawi.muellguidems.util.SettingUtils;
 import mawi.muellguidems.util.StringEnum;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -52,7 +53,12 @@ public class StandortDetailsActivity extends BaseActivity {
 		getActionBar().setIcon(R.drawable.entsorgung_white);
 
 		String standortId = getIntent().getStringExtra("id");
-		new AsyncParseLoader().execute(standortId);
+
+		// Re-Loading nur ausführen, wenn eine Verbindung zum Netzwerk besteht!
+		if (SettingUtils.isConnectedToNetwork(StandortDetailsActivity.this)
+				&& !SettingUtils.isAirplaneModeOn(StandortDetailsActivity.this)) {
+			new AsyncParseLoader().execute(standortId);
+		}
 	}
 
 	private class AsyncParseLoader extends AsyncTask<String, Integer, Standort> {
@@ -160,18 +166,18 @@ public class StandortDetailsActivity extends BaseActivity {
 	public void onClickBtnStandortAufKarteAnzeigen(View v) {
 		// Klick-Effekt anzeigen wenn Button gedrückt wird
 		v.startAnimation(MuellGuideMsApplication.BUTTON_CLICK_ANIMATION);
+		// Netzwerk prüfen
+		NetworkCondition netzwerkStatus = MuellGuideMsApplication
+				.getNetzwerkStatus();
+		if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
+			MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
+					netzwerkStatus);
+			return;
+		}
 
 		// Falls kein genauer Standort vorhanden ist Hinweis anzeigen und
 		// Karte nicht öffnen
 		if (standort != null && standort.getGpsStandort() != null) {
-			// Netzwerk prüfen
-			NetworkCondition netzwerkStatus = MuellGuideMsApplication
-					.getNetzwerkStatus();
-			if (netzwerkStatus == NetworkIdentifier.NetworkCondition.NO_CONNECTION) {
-				MuellGuideMsApplication.showToastIfNecessary(getBaseContext(),
-						netzwerkStatus);
-				return;
-			}
 
 			int display_mode = getResources().getConfiguration().orientation;
 			// is Tablet and ladscape?

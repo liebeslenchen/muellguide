@@ -111,7 +111,12 @@ public class EntsorgungStandorteActivity extends BaseActivity {
 		setTitle(entsorgungsart.getBezeichnung() + " Standorte");
 		getActionBar().setIcon(R.drawable.entsorgung_white);
 
-		new AsyncParseLoader().execute();
+		// Re-Loading nur ausführen, wenn eine Verbindung zum Netzwerk besteht!
+		if (SettingUtils.isConnectedToNetwork(EntsorgungStandorteActivity.this)
+				&& !SettingUtils
+						.isAirplaneModeOn(EntsorgungStandorteActivity.this)) {
+			new AsyncParseLoader().execute();
+		}
 	}
 
 	private class AsyncParseLoader extends
