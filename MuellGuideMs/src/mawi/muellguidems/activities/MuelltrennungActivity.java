@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mawi.muellguidems.adapter.AdapterGroupItem;
 import mawi.muellguidems.adapter.CustomMuelltrennungExpandableAdapter;
 import mawi.muellguidems.util.DAO;
+import mawi.muellguidems.util.SettingUtils;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,8 +55,11 @@ public class MuelltrennungActivity extends BaseActivity {
 				return;
 			}
 		});
-
-		new AsyncParseLoader().execute();
+		// Re-Loading nur ausführen, wenn eine Verbindung zum Netzwerk besteht!
+		if (SettingUtils.isConnectedToNetwork(MuelltrennungActivity.this)
+				&& !SettingUtils.isAirplaneModeOn(MuelltrennungActivity.this)) {
+			new AsyncParseLoader().execute();
+		}
 	}
 
 	@Override

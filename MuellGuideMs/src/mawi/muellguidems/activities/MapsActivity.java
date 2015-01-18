@@ -7,6 +7,7 @@ import mawi.muellguidems.parseobjects.Standort;
 import mawi.muellguidems.util.DAO;
 import mawi.muellguidems.util.EntsorgungsartUtil;
 import mawi.muellguidems.util.MapUtils;
+import mawi.muellguidems.util.SettingUtils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -35,64 +36,72 @@ public class MapsActivity extends Activity {
 		String entsorgungsartId = myIntent.getStringExtra("entsorgungsartId");
 		String id = myIntent.getStringExtra("objectId");
 
-		try {
-			// Loading map
-			initializeMap();
-
-			ArrayList<MarkerOptions> allMarkers = MapUtils.getAllMakers(
-					entsorgungsartId, id);
-
-			for (MarkerOptions markerOptions : allMarkers) {
-				googleMap.addMarker(markerOptions);
-			}
-
-			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-			checkForServices(locationManager);
-
-			// Liest aktuelle Position mit Hilfe der MapUtils aus
-			LatLng zoomLocation = MapUtils.getCurrentLocation(locationManager);
-
-			if (allMarkers.size() == 1) {
-				// Wenn nur eine Position zurückgegeben wird, soll auch nur auf
-				// diese Position gezoomt werden (z.B. bei Recyclinghöfen)
-				zoomLocation = allMarkers.get(0).getPosition();
-			} else if (zoomLocation == null) {
-				// Münster Zentrum als Zoom, falls die aktuelle Position nicht
-				// bekannt ist
-				zoomLocation = new LatLng(51.961749, 7.625591);
-			}
-
-			CameraPosition cameraPosition = new CameraPosition.Builder()
-					.target(zoomLocation).zoom(12).build();
-
-			googleMap.animateCamera(CameraUpdateFactory
-					.newCameraPosition(cameraPosition));
-
-			googleMap.setMyLocationEnabled(true);
-			googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Titeltext und Icon setzten, je nach Entsorgungsart oder Standort
-		getActionBar().setIcon(R.drawable.entsorgung_white);
-		if (entsorgungsartId != null) {
-			Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
-					.get(entsorgungsartId);
-			setTitle(entsorgungsart.getBezeichnung() + " Standorte");
-		} else if (id != null) {
+		// Re-Loading nur ausführen, wenn eine Verbindung zum Netzwerk besteht!
+		if (SettingUtils.isConnectedToNetwork(MapsActivity.this)
+				&& !SettingUtils.isAirplaneModeOn(MapsActivity.this)) {
 			try {
-				Standort standort = DAO.getStandortById(id);
-				setTitle(standort.getBezeichnung());
+				// Loading map
+				initializeMap();
+
+				ArrayList<MarkerOptions> allMarkers = MapUtils.getAllMakers(
+						entsorgungsartId, id);
+
+				for (MarkerOptions markerOptions : allMarkers) {
+					googleMap.addMarker(markerOptions);
+				}
+
+				LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+				checkForServices(locationManager);
+
+				// Liest aktuelle Position mit Hilfe der MapUtils aus
+				LatLng zoomLocation = MapUtils
+						.getCurrentLocation(locationManager);
+
+				if (allMarkers.size() == 1) {
+					// Wenn nur eine Position zurückgegeben wird, soll auch nur
+					// auf
+					// diese Position gezoomt werden (z.B. bei Recyclinghöfen)
+					zoomLocation = allMarkers.get(0).getPosition();
+				} else if (zoomLocation == null) {
+					// Münster Zentrum als Zoom, falls die aktuelle Position
+					// nicht
+					// bekannt ist
+					zoomLocation = new LatLng(51.961749, 7.625591);
+				}
+
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(zoomLocation).zoom(12).build();
+
+				googleMap.animateCamera(CameraUpdateFactory
+						.newCameraPosition(cameraPosition));
+
+				googleMap.setMyLocationEnabled(true);
+				googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+
 			} catch (Exception e) {
 				e.printStackTrace();
-				Toast.makeText(getBaseContext(),
-						getString(R.string.fehler_beim_laden),
-						Toast.LENGTH_LONG).show();
+			}
+
+			// Titeltext und Icon setzten, je nach Entsorgungsart oder Standort
+			getActionBar().setIcon(R.drawable.entsorgung_white);
+			if (entsorgungsartId != null) {
+				Entsorgungsart entsorgungsart = EntsorgungsartUtil.ENTSORGUNGSART_HASH_MAP
+						.get(entsorgungsartId);
+				setTitle(entsorgungsart.getBezeichnung() + " Standorte");
+			} else if (id != null) {
+				try {
+					Standort standort = DAO.getStandortById(id);
+					setTitle(standort.getBezeichnung());
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(getBaseContext(),
+							getString(R.string.fehler_beim_laden),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		}
+
 	}
 
 	/**
