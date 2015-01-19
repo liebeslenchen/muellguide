@@ -9,33 +9,35 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dip" >
-    
-     <ImageView 
+
+    <ImageView
         android:id="@+id/ivEntsorgungStandortItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
-       
-     <!-- Item -->
+        android:layout_centerVertical="true" />
+
+    <!-- Item -->
+
     <TextView
         android:id="@+id/tvEntsorgungStandort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#040404"
-        android:typeface="sans"
-         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerVertical="true"
         android:paddingLeft="60sp"
-        android:layout_centerVertical="true"/>
- 
-  
-     <!-- Pfeil -->
-     <ImageView 
+        android:paddingRight="48dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#040404"
+        android:typeface="sans" />
+
+    <!-- Pfeil -->
+
+    <ImageView
         android:id="@+id/ivNaviPfeilInEntsorgungStandorteActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/pfeil_rechts"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
-    
+        android:layout_centerVertical="true"
+        android:src="@drawable/pfeil_rechts" />
+
 </RelativeLayout>
